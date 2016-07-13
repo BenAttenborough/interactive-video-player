@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAAA,KAAM,CACJ,KAAK,CAAE,IAAI",
+"sources": ["sass/components/_video.scss"],
 "names": [],
 "file": "style.css"
 }
