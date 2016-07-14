@@ -1,2 +1,2 @@
-video{width:100%}#video-controllers{background-color:#222}
+video{width:100%}#video-controllers,#video-controllers button,#video-controllers img{background-color:#222}#video-controllers{padding:10px;margin:0;border-radius:0 0 10px 10px}#video-controllers button{border-width:0}
 /*# sourceMappingURL=style.css.map */
