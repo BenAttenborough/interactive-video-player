@@ -7,19 +7,21 @@ console.log("video.js is working");
 if (!!document.createElement('video').canPlayType) {
     console.log("HTML5 video supported");
 
-    var videoContainer = $( "#video-container" );
-    var videoSource = $( "#video-source" );
-    var playButton = $( "button#play" );
+    var videoContainer = document.getElementById( "video-container" );
+    var videoSource = document.getElementById( "video-source" );
+    var playButton = document.getElementById( "play" );
 
     //Bug - the page is already loaded so controls will still display
     videoSource.controls = false;
 
-    console.log(videoSource.controls);
-
-    playButton.on( "click", function( event ) {
+    playButton.addEventListener('click', function(event) {
         console.log("Play button pressed");
+        if (videoSource.paused || videoSource.ended) videoSource.play();
+        else videoSource.pause();
     });
-    videoSource.on( "click", function( event ) {
+    videoSource.addEventListener('click', function(event) {
         console.log("Video Source clicked");
+        if (videoSource.paused || videoSource.ended) videoSource.play();
+        else videoSource.pause();
     });
 }
