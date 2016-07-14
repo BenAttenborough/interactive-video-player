@@ -12,21 +12,33 @@ if (!!document.createElement('video').canPlayType) {
     var playButton = document.getElementById( "play" );
     var muteButton = document.getElementById( "mute" );
 
-    //Bug - the page is already loaded so controls will still display
+    //Hide default controls so we can replace with our own
     videoSource.controls = false;
 
+    var playPauseVideo = function() {
+        if (videoSource.paused || videoSource.ended) {
+            videoSource.play();
+            playButton.innerHTML='<img src="assets/icons/pause-icon.png">';
+        }
+        else {
+            videoSource.pause();
+            playButton.innerHTML='<img src="assets/icons/play-icon.png">';
+        }
+    }
+
+    var muteUnmuteVideo = function() {
+        videoSource.muted = !videoSource.muted;
+        if ( videoSource.muted ) muteButton.innerHTML='<img src="assets/icons/volume-off-icon.png">';
+        else muteButton.innerHTML='<img src="assets/icons/volume-on-icon.png">';
+    }
+
     playButton.addEventListener('click', function(event) {
-        console.log("Play button pressed");
-        if (videoSource.paused || videoSource.ended) videoSource.play();
-        else videoSource.pause();
+        playPauseVideo();
     });
     videoSource.addEventListener('click', function(event) {
-        console.log("Video Source clicked");
-        if (videoSource.paused || videoSource.ended) videoSource.play();
-        else videoSource.pause();
+        playPauseVideo();
     });
     muteButton.addEventListener('click', function(event) {
-        console.log("Mute button pressed");
-        videoSource.muted = !videoSource.muted;
+        muteUnmuteVideo();
     });
 }
