@@ -10,6 +10,7 @@ if (!!document.createElement('video').canPlayType) {
     var videoContainer = document.getElementById( "video-container" );
     var videoSource = document.getElementById( "video-source" );
     var playButton = document.getElementById( "play" );
+    var muteButton = document.getElementById( "mute" );
 
     //Bug - the page is already loaded so controls will still display
     videoSource.controls = false;
@@ -23,5 +24,9 @@ if (!!document.createElement('video').canPlayType) {
         console.log("Video Source clicked");
         if (videoSource.paused || videoSource.ended) videoSource.play();
         else videoSource.pause();
+    });
+    muteButton.addEventListener('click', function(event) {
+        console.log("Mute button pressed");
+        videoSource.muted = !videoSource.muted;
     });
 }
