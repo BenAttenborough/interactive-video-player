@@ -2,6 +2,18 @@
  * Created by ben on 14/07/2016.
  */
 
+//Start converting this into OOP project
+var VideoPlayer = function () {
+    this.videoContainer = document.getElementById( 'video-container' ),
+    this.videoSource = document.getElementById( 'video-source' ),
+    this.playButton = document.getElementById( 'play' ),
+    this.muteButton = document.getElementById( 'mute'),
+    this.fullscreenButton = document.getElementById( 'fullscreen' ),
+};
+
+var videoPlayer = new VideoPlayer();
+
+
 console.log("video.js is working");
 
 if (!!document.createElement('video').canPlayType) {
