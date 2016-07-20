@@ -44,10 +44,14 @@ VideoPlayer.prototype.muteUnmute = function() {
     this.source.muted = !this.source.muted;
 };
 
+VideoPlayer.prototype.init = function() {
+    this.removeDefaultControls();
+    this.setupButtons();
+}
+
 var videoPlayer = new VideoPlayer();
 
-videoPlayer.removeDefaultControls();
-videoPlayer.setupButtons();
+videoPlayer.init();
 
 //
 //console.log("video.js is working");
