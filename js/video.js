@@ -70,10 +70,18 @@ VideoPlayer.prototype.addTimers = function () {
     this.videoController.appendChild(node);
 }
 
+VideoPlayer.prototype.getCurrentVideoTime = function () {
+    var self = this;
+    this.source.addEventListener('timeupdate', function() {
+      console.log(self.source.played.end(0));
+    })
+}
+
 VideoPlayer.prototype.init = function () {
     this.removeDefaultControls();
     this.setupButtons();
     this.addTimers();
+    this.getCurrentVideoTime();
 };
 
 videoPlayerList = [];
