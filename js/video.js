@@ -3,12 +3,15 @@
  */
 
 //Start converting this into OOP project
-var VideoPlayer = function () {
-    this.container = document.getElementById( 'video-container' ),
-    this.source = document.getElementById( 'video-source' ),
-    this.playButton = document.getElementById( 'play' ),
-    this.muteButton = document.getElementById( 'mute'),
-    this.fullscreenButton = document.getElementById( 'fullscreen' )
+var VideoPlayer = function (playerNumber) {
+    var videoElements = document.getElementsByClassName('source');
+    this.source = videoElements[playerNumber];
+    //this.source = this.source[playerNumber];
+    //this.container = document.getElementById( 'video-container' ),
+    //this.source = document.getElementById( 'video-source' ),
+    //this.playButton = document.getElementById( 'play' ),
+    //this.muteButton = document.getElementById( 'mute'),
+    //this.fullscreenButton = document.getElementById( 'fullscreen' )
 };
 
 VideoPlayer.prototype.welcomeMsg = function() {
@@ -54,14 +57,18 @@ VideoPlayer.prototype.init = function() {
     this.setupButtons();
 };
 
-var videoPlayer = new VideoPlayer();
+//var videoPlayer = new VideoPlayer();
+//
+//videoPlayer.init();
 
-videoPlayer.init();
+videoPlayerList = [];
 
 videoWindows = document.getElementsByClassName("videoWindow");
-//for ( i=1; i < videoWindows.length; i++ ) {
-//
-//}
+for ( i=0; i < videoWindows.length; i++ ) {
+    console.log(i);
+    var videoPlayer = new VideoPlayer(i);
+    videoPlayerList.push(videoPlayer);
+}
 
 //
 //console.log("video.js is working");
