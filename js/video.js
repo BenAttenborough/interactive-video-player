@@ -67,11 +67,14 @@ VideoPlayer.prototype.init = function() {
 videoPlayerList = [];
 
 videoWindows = document.getElementsByClassName("videoWindow");
-for ( i=0; i < videoWindows.length; i++ ) {
-    console.log(i);
-    var videoPlayer = new VideoPlayer(i);
-    videoPlayerList.push(videoPlayer);
-}
-for ( i=0; i < videoWindows.length; i++ ) {
-    videoPlayerList[i].init();
+
+if (videoWindows.length > 0) {
+    for ( i=0; i < videoWindows.length; i++ ) {
+        console.log(i);
+        var videoPlayer = new VideoPlayer(i);
+        videoPlayerList.push(videoPlayer);
+    }
+    for ( i=0; i < videoWindows.length; i++ ) {
+        videoPlayerList[i].init();
+    }
 }
