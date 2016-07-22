@@ -42,16 +42,26 @@ VideoPlayer.prototype.playPauseVideo = function() {
 
 VideoPlayer.prototype.muteUnmute = function() {
     this.source.muted = !this.source.muted;
+    if ( this.source.muted ) {
+        this.muteButton.innerHTML='<img src="assets/icons/volume-off-icon.png">';
+    } else {
+        this.muteButton.innerHTML = '<img src="assets/icons/volume-on-icon.png">';
+    }
 };
 
 VideoPlayer.prototype.init = function() {
     this.removeDefaultControls();
     this.setupButtons();
-}
+};
 
 var videoPlayer = new VideoPlayer();
 
 videoPlayer.init();
+
+videoWindows = document.getElementsByClassName("videoWindow");
+//for ( i=1; i < videoWindows.length; i++ ) {
+//
+//}
 
 //
 //console.log("video.js is working");
