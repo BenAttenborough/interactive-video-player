@@ -4,8 +4,15 @@
 
 //Start converting this into OOP project
 var VideoPlayer = function (playerNumber) {
-    var videoElements = document.getElementsByClassName('source');
-    this.source = videoElements[playerNumber];
+    var videoSourceElements = document.getElementsByClassName('source');
+    var videoPlayButtonElements = document.getElementsByClassName('play');
+    var videoMuteButtonElements = document.getElementsByClassName('mute');
+    var videoFullscreenButtonElements = document.getElementsByClassName('fullscreen');
+
+    this.source = videoSourceElements[playerNumber];
+    this.playButton = videoPlayButtonElements[playerNumber];
+    this.muteButton = videoMuteButtonElements[playerNumber];
+    this.fullscreenButton = videoFullscreenButtonElements[playerNumber];
     //this.source = this.source[playerNumber];
     //this.container = document.getElementById( 'video-container' ),
     //this.source = document.getElementById( 'video-source' ),
@@ -68,6 +75,9 @@ for ( i=0; i < videoWindows.length; i++ ) {
     console.log(i);
     var videoPlayer = new VideoPlayer(i);
     videoPlayerList.push(videoPlayer);
+}
+for ( i=0; i < videoWindows.length; i++ ) {
+    videoPlayerList[i].init();
 }
 
 //
