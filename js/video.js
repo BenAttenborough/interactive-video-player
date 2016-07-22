@@ -41,6 +41,13 @@ VideoPlayer.prototype.setupButtons = function() {
 
 VideoPlayer.prototype.playPauseVideo = function() {
     if (this.source.paused || this.source.ended) {
+
+        // First pause all videos
+        for ( i=0; i < videoWindows.length; i++ ) {
+            videoPlayerList[i].source.pause();
+            videoPlayerList[i].playButton.innerHTML = '<img src="assets/icons/play-icon.png">';;
+        }
+
         this.source.play();
         this.playButton.innerHTML = '<img src="assets/icons/pause-icon.png">';
     }
