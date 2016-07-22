@@ -4,41 +4,44 @@
 
 //Start converting this into OOP project
 var VideoPlayer = function (playerNumber) {
+    var videoControllerElements = document.getElementsByClassName('video-controllers');
     var videoSourceElements = document.getElementsByClassName('source');
     var videoPlayButtonElements = document.getElementsByClassName('play');
     var videoMuteButtonElements = document.getElementsByClassName('mute');
     var videoFullscreenButtonElements = document.getElementsByClassName('fullscreen');
+    this.videoController = videoControllerElements[playerNumber];
     this.source = videoSourceElements[playerNumber];
     this.playButton = videoPlayButtonElements[playerNumber];
     this.muteButton = videoMuteButtonElements[playerNumber];
     this.fullscreenButton = videoFullscreenButtonElements[playerNumber];
 };
 
-VideoPlayer.prototype.welcomeMsg = function() {
+VideoPlayer.prototype.welcomeMsg = function () {
     console.log("Video player object initialised");
 };
 
-VideoPlayer.prototype.removeDefaultControls = function() {
+VideoPlayer.prototype.removeDefaultControls = function () {
     this.source.controls = false;
 };
 
-VideoPlayer.prototype.setupButtons = function() {
+VideoPlayer.prototype.setupButtons = function () {
     var self = this;
-    this.playButton.addEventListener('click', function(event) {
+    this.playButton.addEventListener('click', function (event) {
         self.playPauseVideo();
     })
-    this.muteButton.addEventListener('click', function(event) {
+    this.muteButton.addEventListener('click', function (event) {
         self.muteUnmute();
     })
 };
 
-VideoPlayer.prototype.playPauseVideo = function() {
+VideoPlayer.prototype.playPauseVideo = function () {
     if (this.source.paused || this.source.ended) {
 
         // First pause all videos
-        for ( i=0; i < videoWindows.length; i++ ) {
+        for (i = 0; i < videoWindows.length; i++) {
             videoPlayerList[i].source.pause();
-            videoPlayerList[i].playButton.innerHTML = '<img src="assets/icons/play-icon.png">';;
+            videoPlayerList[i].playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
+            ;
         }
 
         this.source.play();
@@ -50,18 +53,27 @@ VideoPlayer.prototype.playPauseVideo = function() {
     }
 };
 
-VideoPlayer.prototype.muteUnmute = function() {
+VideoPlayer.prototype.muteUnmute = function () {
     this.source.muted = !this.source.muted;
-    if ( this.source.muted ) {
-        this.muteButton.innerHTML='<img src="assets/icons/volume-off-icon.png">';
+    if (this.source.muted) {
+        this.muteButton.innerHTML = '<img src="assets/icons/volume-off-icon.png">';
     } else {
         this.muteButton.innerHTML = '<img src="assets/icons/volume-on-icon.png">';
     }
 };
 
-VideoPlayer.prototype.init = function() {
+VideoPlayer.prototype.addTimers = function () {
+    var endTime = this.source.seekable.end(0)
+    var node = document.createElement("p");
+    var textnode = document.createTextNode(endTime);
+    node.appendChild(textnode);
+    this.videoController.appendChild(node);
+}
+
+VideoPlayer.prototype.init = function () {
     this.removeDefaultControls();
     this.setupButtons();
+    this.addTimers();
 };
 
 videoPlayerList = [];
@@ -69,12 +81,12 @@ videoPlayerList = [];
 videoWindows = document.getElementsByClassName("videoWindow");
 
 if (videoWindows.length > 0) {
-    for ( i=0; i < videoWindows.length; i++ ) {
+    for (i = 0; i < videoWindows.length; i++) {
         console.log(i);
         var videoPlayer = new VideoPlayer(i);
         videoPlayerList.push(videoPlayer);
     }
-    for ( i=0; i < videoWindows.length; i++ ) {
+    for (i = 0; i < videoWindows.length; i++) {
         videoPlayerList[i].init();
     }
 }
