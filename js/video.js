@@ -119,6 +119,67 @@ if (videoWindows.length > 0) {
     for (i = 0; i < videoWindows.length; i++) {
         var videoPlayer = new VideoPlayer(videoInterfaceElements[i], videoSourceElements[i], videoButtons[i], videoPlayButtonElements[i], videoMuteButtonElements[i], videoFullscreenButtonElements[i]);
         videoPlayerList.push(videoPlayer);
-        videoPlayerList[i].init();
+        //videoPlayerList[i].init();
     }
 }
+
+// Experimental player
+
+var VideoPlayer2 = function (videoContainer, source) {
+    this.videoContainer = videoContainer
+    this.source = source;
+};
+
+VideoPlayer2.prototype.constructInterface = function () {
+    var interfaceNode = document.createElement("div");
+    interfaceNode.className = "video__interface";
+
+    var textnode = document.createTextNode("Some text");
+    var progNode = document.createElement("div");
+    progNode.className = "progContainer";
+
+    var progBarNode  = document.createElement("div");
+    progBarNode.className = "progContainer__bar";
+
+    var buttonsNode = document.createElement("div");
+    buttonsNode.className = "buttons";
+
+    var playNode = document.createElement("div");
+    playNode.className = "buttons__play";
+
+    var muteNode = document.createElement("div");
+    muteNode.className = "buttons__mute";
+
+    var fullscreenNode = document.createElement("div");
+    fullscreenNode.className = "buttons__fullscreen";
+
+    //var playIconNode = document.createTextNode('<img src="assets/icons/play-icon.png">');
+    var playIconNode = document.createElement("img");
+    playIconNode.setAttribute('src', 'assets/icons/play-icon.png');
+
+    interfaceNode.appendChild(textnode);
+    interfaceNode.appendChild(progNode);
+        progNode.appendChild(progBarNode);
+    interfaceNode.appendChild(buttonsNode);
+        buttonsNode.appendChild(playNode);
+            playNode.appendChild(playIconNode);
+        buttonsNode.appendChild(muteNode);
+        buttonsNode.appendChild(fullscreenNode);
+
+    this.videoContainer.appendChild(interfaceNode);
+};
+
+var videoSource = document.getElementsByClassName('video__source');
+
+videoPlayerList2 = [];
+
+videoContainer = document.getElementsByClassName("video");
+
+if (videoContainer.length > 0) {
+    for (i = 0; i < videoContainer.length; i++) {
+        var videoPlayer2 = new VideoPlayer2(videoContainer[i], videoSource[i]);
+        videoPlayerList2.push(videoPlayer2);
+        videoPlayerList2[i].constructInterface();
+    }
+}
+
