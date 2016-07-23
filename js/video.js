@@ -77,8 +77,12 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     starttimeElement = starttimeElement[this.playerNumber];
     var self = this;
     this.source.addEventListener('timeupdate', function() {
-        //console.log(self.playerNumber);
-        starttimeElement[0].innerHTML = self.source.played.end(self.playerNumber);
+        for (var i = 0; i < self.videoController.childNodes.length; i++) {
+            if (self.videoController.childNodes[i].className == "starttime") {
+                self.videoController.childNodes[i].innerHTML = self.source.played.end(0) + " /";
+                break;
+            }
+        }
     })
 }
 
