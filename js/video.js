@@ -126,8 +126,12 @@ if (videoWindows.length > 0) {
 // Experimental player
 
 var VideoPlayer2 = function (videoContainer, source) {
-    this.videoContainer = videoContainer
+    this.videoContainer = videoContainer;
     this.source = source;
+};
+
+VideoPlayer2.prototype.removeDefaultControls = function () {
+    this.source.controls = false;
 };
 
 VideoPlayer2.prototype.constructInterface = function () {
@@ -164,25 +168,70 @@ VideoPlayer2.prototype.constructInterface = function () {
     interfaceNode.appendChild(buttonsNode);
         buttonsNode.appendChild(playNode);
             playNode.appendChild(playIconNode);
-            playNode.appendChild(muteIconNode);
-            playNode.appendChild(fullscreenIconNode);
         buttonsNode.appendChild(muteNode);
+            muteNode.appendChild(muteIconNode);
         buttonsNode.appendChild(fullscreenNode);
+            fullscreenNode.appendChild(fullscreenIconNode);
 
     this.videoContainer.appendChild(interfaceNode);
 };
 
-var videoSource = document.getElementsByClassName('video__source');
+function buildInterfaces() {
+    var videoSource = document.getElementsByClassName('video__source');
 
-videoPlayerList2 = [];
+    videoContainer = document.getElementsByClassName("video");
 
-videoContainer = document.getElementsByClassName("video");
+    videoConstructionList = [];
 
-if (videoContainer.length > 0) {
-    for (i = 0; i < videoContainer.length; i++) {
-        var videoPlayer2 = new VideoPlayer2(videoContainer[i], videoSource[i]);
-        videoPlayerList2.push(videoPlayer2);
-        videoPlayerList2[i].constructInterface();
+
+    if (videoContainer.length > 0) {
+        for (i = 0; i < videoContainer.length; i++) {
+            var videoPlayer2 = new VideoPlayer2(videoContainer[i], videoSource[i]);
+            videoConstructionList.push(videoPlayer2);
+            videoConstructionList[i].removeDefaultControls();
+            videoConstructionList[i].constructInterface();
+        }
     }
 }
+
+var VideoPlayerInterface = function (videoContainer, source, videoInterface, progContainer, progContainer__bar, buttons, buttons__play, buttons__mute, buttons__fullscreen ) {
+    this.videoContainer = videoContainer;
+    this.source = source;
+};
+
+function addVideoFunctionality() {
+
+    var videoElements = {
+        "videoContainerElements" : document.getElementsByClassName("video"),
+        "videoSourceElements" : document.getElementsByClassName('video__source')
+    }
+    console.log(videoElements);
+
+    var videoContainerElements = document.getElementsByClassName("video");
+    var videoSourceElements = document.getElementsByClassName('video__source');
+    var videoInterfaceElements = document.getElementsByClassName('video__interface');
+    var videoProgContainerElements = document.getElementsByClassName('progContainer');
+    var videoProgContainer__barElements = document.getElementsByClassName('progContainer__bar');
+    var videoButtonsElements = document.getElementsByClassName('buttons');
+    var videoPlayElements = document.getElementsByClassName('buttons__play');
+    var videoMuteElements = document.getElementsByClassName('buttons__mute');
+    var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
+
+    videoPlayers = [];
+
+    if (videoContainer.length > 0) {
+        for (i = 0; i < videoContainer.length; i++) {
+            //var videoPlayerInterface = new VideoPlayerInterface();
+            //var videoPlayer2 = new VideoPlayer2(videoContainer[i], videoSource[i]);
+            //videoConstructionList.push(videoPlayer2);
+            //videoConstructionList[i].removeDefaultControls();
+            //videoConstructionList[i].constructInterface();
+        }
+    }
+
+}
+
+buildInterfaces();
+addVideoFunctionality();
+
 

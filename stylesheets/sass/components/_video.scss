@@ -52,10 +52,6 @@ video {
   background-color: #ff9900;
 }
 
-.buttons {
-  height:50px;
-}
-
 .play img,
 .mute img,
 .fullscreen img {
@@ -65,7 +61,42 @@ video {
 
 
 
-.video__interface {
-  background-color: black;
 
+.video {
+  position: relative;
+  background-color: black;
+}
+
+.video__interface {
+  margin: 0;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5);
+  //background-color: red;
+  padding: 10px;
+}
+
+.progContainer {
+  width: 100%;
+  height: 5px;
+  margin-bottom: 20px;
+  background-color: black;
+}
+
+.progContainer__bar {
+  width: 50%;
+  height: 100%;
+  background-color: #ff9900;
+}
+
+.buttons {
+  height:30px;
+}
+
+.buttons__play,
+.buttons__mute,
+.buttons__fullscreen {
+  display: inline;
+  margin: 10px;
 }
