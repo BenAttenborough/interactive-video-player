@@ -134,7 +134,6 @@ VideoPlayer2.prototype.constructInterface = function () {
     var interfaceNode = document.createElement("div");
     interfaceNode.className = "video__interface";
 
-    var textnode = document.createTextNode("Some text");
     var progNode = document.createElement("div");
     progNode.className = "progContainer";
 
@@ -153,16 +152,20 @@ VideoPlayer2.prototype.constructInterface = function () {
     var fullscreenNode = document.createElement("div");
     fullscreenNode.className = "buttons__fullscreen";
 
-    //var playIconNode = document.createTextNode('<img src="assets/icons/play-icon.png">');
     var playIconNode = document.createElement("img");
     playIconNode.setAttribute('src', 'assets/icons/play-icon.png');
+    var muteIconNode = document.createElement("img");
+    muteIconNode.setAttribute('src', 'assets/icons/volume-on-icon.png');
+    var fullscreenIconNode = document.createElement("img");
+    fullscreenIconNode.setAttribute('src', 'assets/icons/fullscreen-icon.png');
 
-    interfaceNode.appendChild(textnode);
     interfaceNode.appendChild(progNode);
         progNode.appendChild(progBarNode);
     interfaceNode.appendChild(buttonsNode);
         buttonsNode.appendChild(playNode);
             playNode.appendChild(playIconNode);
+            playNode.appendChild(muteIconNode);
+            playNode.appendChild(fullscreenIconNode);
         buttonsNode.appendChild(muteNode);
         buttonsNode.appendChild(fullscreenNode);
 
