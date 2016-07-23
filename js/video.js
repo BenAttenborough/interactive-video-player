@@ -60,15 +60,15 @@ VideoPlayer.prototype.muteUnmute = function () {
 
 VideoPlayer.prototype.niceTime = function (time) {
     var roundedTime = Math.round(time);
-    var hours = parseInt( roundedTime / 3600 ) % 24;
-    var minutes = parseInt( roundedTime / 60 ) % 60;
+    var hours = parseInt(roundedTime / 3600) % 24;
+    var minutes = parseInt(roundedTime / 60) % 60;
     var seconds = roundedTime % 60;
-    var niceTime = (hours === 0 ? "" : ( (hours < 10 ? "0" + hours : hours) + ":") )  + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    var niceTime = (hours === 0 ? "" : ( (hours < 10 ? "0" + hours : hours) + ":") ) + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
     return niceTime;
 };
 
 VideoPlayer.prototype.addTimers = function () {
-    var endTime = this.niceTime( this.source.seekable.end(0) );
+    var endTime = this.niceTime(this.source.seekable.end(0));
     var node = document.createElement("p");
     var textnode = document.createTextNode(endTime);
     node.appendChild(textnode);
@@ -80,21 +80,21 @@ VideoPlayer.prototype.addTimers = function () {
     currentTimeText = document.createTextNode("00:00/");
     currentTimeNode.appendChild(currentTimeText);
     this.buttons.appendChild(currentTimeNode);
-}
+};
 
 VideoPlayer.prototype.getCurrentVideoTime = function () {
     var starttimeElement = document.getElementsByClassName("starttime");
     starttimeElement = starttimeElement[this.playerNumber];
     var self = this;
-    this.source.addEventListener('timeupdate', function() {
+    this.source.addEventListener('timeupdate', function () {
         for (var i = 0; i < self.videoController.childNodes.length; i++) {
             if (self.buttons.childNodes[i].className == "starttime") {
-                self.buttons.childNodes[i].innerHTML = self.niceTime( self.source.played.end(0) ) + "/";
+                self.buttons.childNodes[i].innerHTML = self.niceTime(self.source.played.end(0)) + "/";
                 break;
             }
         }
     })
-}
+};
 
 VideoPlayer.prototype.init = function () {
     this.removeDefaultControls();
