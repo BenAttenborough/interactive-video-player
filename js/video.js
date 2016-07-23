@@ -194,18 +194,63 @@ function buildInterfaces() {
     }
 }
 
-var VideoPlayerInterface = function (videoContainer, source, videoInterface, progContainer, progContainer__bar, buttons, buttons__play, buttons__mute, buttons__fullscreen ) {
-    this.videoContainer = videoContainer;
-    this.source = source;
+var VideoPlayerInterface = function ( videoElements ) {
+    this.container = videoElements.container;
+    this.source = videoElements.source;
+    this.interface = videoElements.interface;
+    this.progContainer = videoElements.progContainer;
+    this.progBar = videoElements.progBar;
+    this.buttons = videoElements.buttons;
+    this.playButton = videoElements.playButton;
+    this.muteButton = videoElements.muteButton;
+    this.fullscreenButton = videoElements.fullscreenButton;
+};
+
+VideoPlayerInterface.prototype.playPauseVideo = function () {
+    if (this.source.paused || this.source.ended) {
+
+        // First pause all videos
+        for (i = 0; i < videoPlayers.length; i++) {
+            //console.log("Pausing all players");
+            //console.log("Number of vidoe windows: " + videoWindows.length)
+            //console.log(videoPlayers[i]);
+            videoPlayers[i].source.pause();
+            videoPlayers[i].playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
+        }
+
+        this.source.play();
+        this.playButton.innerHTML = '<img src="assets/icons/pause-icon.png">';
+    }
+    else {
+        this.source.pause();
+        this.playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
+    }
+};
+
+VideoPlayerInterface.prototype.muteUnmute = function () {
+    this.source.muted = !this.source.muted;
+    if (this.source.muted) {
+        this.muteButton.innerHTML = '<img src="assets/icons/volume-off-icon.png">';
+    } else {
+        this.muteButton.innerHTML = '<img src="assets/icons/volume-on-icon.png">';
+    }
+};
+
+VideoPlayerInterface.prototype.init = function () {
+    console.log("Video interface object initialised");
+    var self = this;
+    this.playButton.addEventListener('click', function (event) {
+        self.playPauseVideo();
+    });
+    this.muteButton.addEventListener('click', function (event) {
+        self.muteUnmute();
+    });
 };
 
 function addVideoFunctionality() {
 
-    var videoElements = {
-        "videoContainerElements" : document.getElementsByClassName("video"),
-        "videoSourceElements" : document.getElementsByClassName('video__source')
-    }
-    console.log(videoElements);
+
+    //Need data structure to contain all of below for each element
 
     var videoContainerElements = document.getElementsByClassName("video");
     var videoSourceElements = document.getElementsByClassName('video__source');
@@ -221,7 +266,25 @@ function addVideoFunctionality() {
 
     if (videoContainer.length > 0) {
         for (i = 0; i < videoContainer.length; i++) {
-            //var videoPlayerInterface = new VideoPlayerInterface();
+
+            var videoElements = {
+                "container" : videoContainerElements[i],
+                "source" : videoSourceElements[i],
+                "interface" : videoInterfaceElements[i],
+                "progContainer" : videoProgContainerElements[i],
+                "progBar" : videoProgContainer__barElements[i],
+                "buttons" : videoButtonsElements[i],
+                "playButton" : videoPlayElements[i],
+                "muteButton" : videoMuteElements[i],
+                "fullscreenButton" : videoFullscreenElements[i]
+            }
+            console.log(videoElements);
+
+
+            var videoPlayerInterface = new VideoPlayerInterface( videoElements );
+            videoPlayers.push(videoPlayerInterface);
+
+            videoPlayerInterface.init();
             //var videoPlayer2 = new VideoPlayer2(videoContainer[i], videoSource[i]);
             //videoConstructionList.push(videoPlayer2);
             //videoConstructionList[i].removeDefaultControls();
