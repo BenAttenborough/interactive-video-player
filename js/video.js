@@ -9,6 +9,7 @@ var VideoPlayer = function (playerNumber) {
     var videoPlayButtonElements = document.getElementsByClassName('play');
     var videoMuteButtonElements = document.getElementsByClassName('mute');
     var videoFullscreenButtonElements = document.getElementsByClassName('fullscreen');
+    this.playerNumber = playerNumber;
     this.videoController = videoControllerElements[playerNumber];
     this.source = videoSourceElements[playerNumber];
     this.playButton = videoPlayButtonElements[playerNumber];
@@ -63,17 +64,27 @@ VideoPlayer.prototype.muteUnmute = function () {
 };
 
 VideoPlayer.prototype.addTimers = function () {
-    var endTime = this.source.seekable.end(0)
+    var endTime = this.source.seekable.end(0);
     var node = document.createElement("p");
     var textnode = document.createTextNode(endTime);
     node.appendChild(textnode);
     this.videoController.appendChild(node);
+
+    var currentTime = this.getCurrentVideoTime();
+    currentTimeNode = document.createElement("p");
+    currentTimeNode.setAttribute("class", "starttime");
+    currentTimeText = document.createTextNode("00:00:00");
+    currentTimeNode.appendChild(currentTimeText);
+    this.videoController.appendChild(currentTimeNode);
 }
 
 VideoPlayer.prototype.getCurrentVideoTime = function () {
+    var starttimeElement = document.getElementsByClassName("starttime");
+    starttimeElement = starttimeElement[this.playerNumber];
     var self = this;
     this.source.addEventListener('timeupdate', function() {
-      console.log(self.source.played.end(0));
+        //console.log(self.playerNumber);
+        starttimeElement[0].innerHTML = self.source.played.end(self.playerNumber);
     })
 }
 
@@ -84,17 +95,33 @@ VideoPlayer.prototype.init = function () {
     this.getCurrentVideoTime();
 };
 
+var videoControllerElements = document.getElementsByClassName('video-controllers');
+var videoSourceElements = document.getElementsByClassName('source');
+var videoPlayButtonElements = document.getElementsByClassName('play');
+var videoMuteButtonElements = document.getElementsByClassName('mute');
+var videoFullscreenButtonElements = document.getElementsByClassName('fullscreen');
+
+//var videoElements = [];
+
 videoPlayerList = [];
 
 videoWindows = document.getElementsByClassName("videoWindow");
 
+//build array of video objects
 if (videoWindows.length > 0) {
     for (i = 0; i < videoWindows.length; i++) {
-        console.log(i);
-        var videoPlayer = new VideoPlayer(i);
-        videoPlayerList.push(videoPlayer);
-    }
-    for (i = 0; i < videoWindows.length; i++) {
-        videoPlayerList[i].init();
+        videoElements = [videoControllerElements[i], videoSourceElements[i], videoPlayButtonElements[i], videoMuteButtonElements[i], videoFullscreenButtonElements[i]]
+        console.log(videoElements);
     }
 }
+
+//if (videoWindows.length > 0) {
+//    for (i = 0; i < videoWindows.length; i++) {
+//        console.log(i);
+//        var videoPlayer = new VideoPlayer(i);
+//        videoPlayerList.push(videoPlayer);
+//    }
+//    for (i = 0; i < videoWindows.length; i++) {
+//        videoPlayerList[i].init();
+//    }
+//}
