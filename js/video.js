@@ -3,9 +3,10 @@
  */
 
 //Start converting this into OOP project
-var VideoPlayer = function (videoInterface, source, playButton, muteButton, fullscreenButton) {
+var VideoPlayer = function (videoInterface, source, buttons, playButton, muteButton, fullscreenButton) {
     this.videoController = videoInterface;
     this.source = source;
+    this.buttons = buttons;
     this.playButton = playButton;
     this.muteButton = muteButton;
     this.fullscreenButton = fullscreenButton;
@@ -71,14 +72,14 @@ VideoPlayer.prototype.addTimers = function () {
     var node = document.createElement("p");
     var textnode = document.createTextNode(endTime);
     node.appendChild(textnode);
-    this.videoController.appendChild(node);
+    this.buttons.appendChild(node);
 
     var currentTime = this.getCurrentVideoTime();
     currentTimeNode = document.createElement("p");
     currentTimeNode.setAttribute("class", "starttime");
     currentTimeText = document.createTextNode("00:00/");
     currentTimeNode.appendChild(currentTimeText);
-    this.videoController.appendChild(currentTimeNode);
+    this.buttons.appendChild(currentTimeNode);
 }
 
 VideoPlayer.prototype.getCurrentVideoTime = function () {
@@ -87,8 +88,8 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     var self = this;
     this.source.addEventListener('timeupdate', function() {
         for (var i = 0; i < self.videoController.childNodes.length; i++) {
-            if (self.videoController.childNodes[i].className == "starttime") {
-                self.videoController.childNodes[i].innerHTML = self.niceTime( self.source.played.end(0) ) + "/";
+            if (self.buttons.childNodes[i].className == "starttime") {
+                self.buttons.childNodes[i].innerHTML = self.niceTime( self.source.played.end(0) ) + "/";
                 break;
             }
         }
@@ -105,6 +106,7 @@ VideoPlayer.prototype.init = function () {
 //build array of video objects
 var videoInterfaceElements = document.getElementsByClassName('video-controllers');
 var videoSourceElements = document.getElementsByClassName('source');
+var videoButtons = document.getElementsByClassName('buttons');
 var videoPlayButtonElements = document.getElementsByClassName('play');
 var videoMuteButtonElements = document.getElementsByClassName('mute');
 var videoFullscreenButtonElements = document.getElementsByClassName('fullscreen');
@@ -115,7 +117,7 @@ videoWindows = document.getElementsByClassName("videoWindow");
 
 if (videoWindows.length > 0) {
     for (i = 0; i < videoWindows.length; i++) {
-        var videoPlayer = new VideoPlayer(videoInterfaceElements[i], videoSourceElements[i], videoPlayButtonElements[i], videoMuteButtonElements[i], videoFullscreenButtonElements[i]);
+        var videoPlayer = new VideoPlayer(videoInterfaceElements[i], videoSourceElements[i], videoButtons[i], videoPlayButtonElements[i], videoMuteButtonElements[i], videoFullscreenButtonElements[i]);
         videoPlayerList.push(videoPlayer);
         videoPlayerList[i].init();
     }
