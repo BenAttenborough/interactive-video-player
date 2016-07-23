@@ -57,8 +57,17 @@ VideoPlayer.prototype.muteUnmute = function () {
     }
 };
 
+VideoPlayer.prototype.niceTime = function (time) {
+    var roundedTime = Math.round(time);
+    var hours = parseInt( roundedTime / 3600 ) % 24;
+    var minutes = parseInt( roundedTime / 60 ) % 60;
+    var seconds = roundedTime % 60;
+    var niceTime = (hours === 0 ? "" : ( (hours < 10 ? "0" + hours : hours) + ":") )  + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    return niceTime;
+};
+
 VideoPlayer.prototype.addTimers = function () {
-    var endTime = this.source.seekable.end(0);
+    var endTime = this.niceTime( this.source.seekable.end(0) );
     var node = document.createElement("p");
     var textnode = document.createTextNode(endTime);
     node.appendChild(textnode);
@@ -67,7 +76,7 @@ VideoPlayer.prototype.addTimers = function () {
     var currentTime = this.getCurrentVideoTime();
     currentTimeNode = document.createElement("p");
     currentTimeNode.setAttribute("class", "starttime");
-    currentTimeText = document.createTextNode("00:00:00");
+    currentTimeText = document.createTextNode("00:00/");
     currentTimeNode.appendChild(currentTimeText);
     this.videoController.appendChild(currentTimeNode);
 }
@@ -79,7 +88,7 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     this.source.addEventListener('timeupdate', function() {
         for (var i = 0; i < self.videoController.childNodes.length; i++) {
             if (self.videoController.childNodes[i].className == "starttime") {
-                self.videoController.childNodes[i].innerHTML = self.source.played.end(0) + " /";
+                self.videoController.childNodes[i].innerHTML = self.niceTime( self.source.played.end(0) ) + "/";
                 break;
             }
         }
