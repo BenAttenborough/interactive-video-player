@@ -3,18 +3,12 @@
  */
 
 //Start converting this into OOP project
-var VideoPlayer = function (playerNumber) {
-    var videoControllerElements = document.getElementsByClassName('video-controllers');
-    var videoSourceElements = document.getElementsByClassName('source');
-    var videoPlayButtonElements = document.getElementsByClassName('play');
-    var videoMuteButtonElements = document.getElementsByClassName('mute');
-    var videoFullscreenButtonElements = document.getElementsByClassName('fullscreen');
-    this.playerNumber = playerNumber;
-    this.videoController = videoControllerElements[playerNumber];
-    this.source = videoSourceElements[playerNumber];
-    this.playButton = videoPlayButtonElements[playerNumber];
-    this.muteButton = videoMuteButtonElements[playerNumber];
-    this.fullscreenButton = videoFullscreenButtonElements[playerNumber];
+var VideoPlayer = function (videoInterface, source, playButton, muteButton, fullscreenButton) {
+    this.videoController = videoInterface;
+    this.source = source;
+    this.playButton = playButton;
+    this.muteButton = muteButton;
+    this.fullscreenButton = fullscreenButton;
 };
 
 VideoPlayer.prototype.welcomeMsg = function () {
@@ -95,33 +89,21 @@ VideoPlayer.prototype.init = function () {
     this.getCurrentVideoTime();
 };
 
-var videoControllerElements = document.getElementsByClassName('video-controllers');
+//build array of video objects
+var videoInterfaceElements = document.getElementsByClassName('video-controllers');
 var videoSourceElements = document.getElementsByClassName('source');
 var videoPlayButtonElements = document.getElementsByClassName('play');
 var videoMuteButtonElements = document.getElementsByClassName('mute');
 var videoFullscreenButtonElements = document.getElementsByClassName('fullscreen');
 
-//var videoElements = [];
-
 videoPlayerList = [];
 
 videoWindows = document.getElementsByClassName("videoWindow");
 
-//build array of video objects
 if (videoWindows.length > 0) {
     for (i = 0; i < videoWindows.length; i++) {
-        videoElements = [videoControllerElements[i], videoSourceElements[i], videoPlayButtonElements[i], videoMuteButtonElements[i], videoFullscreenButtonElements[i]]
-        console.log(videoElements);
+        var videoPlayer = new VideoPlayer(videoInterfaceElements[i], videoSourceElements[i], videoPlayButtonElements[i], videoMuteButtonElements[i], videoFullscreenButtonElements[i]);
+        videoPlayerList.push(videoPlayer);
+        videoPlayerList[i].init();
     }
 }
-
-//if (videoWindows.length > 0) {
-//    for (i = 0; i < videoWindows.length; i++) {
-//        console.log(i);
-//        var videoPlayer = new VideoPlayer(i);
-//        videoPlayerList.push(videoPlayer);
-//    }
-//    for (i = 0; i < videoWindows.length; i++) {
-//        videoPlayerList[i].init();
-//    }
-//}
