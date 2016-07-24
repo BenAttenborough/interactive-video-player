@@ -2,130 +2,130 @@
  * Created by ben on 14/07/2016.
  */
 
-//Start converting this into OOP project
-var VideoPlayer = function (videoInterface, source, buttons, playButton, muteButton, fullscreenButton) {
-    this.videoController = videoInterface;
-    this.source = source;
-    this.buttons = buttons;
-    this.playButton = playButton;
-    this.muteButton = muteButton;
-    this.fullscreenButton = fullscreenButton;
-};
-
-VideoPlayer.prototype.welcomeMsg = function () {
-    console.log("Video player object initialised");
-};
-
-VideoPlayer.prototype.removeDefaultControls = function () {
-    this.source.controls = false;
-};
-
-VideoPlayer.prototype.setupButtons = function () {
-    var self = this;
-    this.playButton.addEventListener('click', function (event) {
-        self.playPauseVideo();
-    })
-    this.muteButton.addEventListener('click', function (event) {
-        self.muteUnmute();
-    })
-};
-
-VideoPlayer.prototype.playPauseVideo = function () {
-    if (this.source.paused || this.source.ended) {
-
-        // First pause all videos
-        for (i = 0; i < videoWindows.length; i++) {
-            videoPlayerList[i].source.pause();
-            videoPlayerList[i].playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
-            ;
-        }
-
-        this.source.play();
-        this.playButton.innerHTML = '<img src="assets/icons/pause-icon.png">';
-    }
-    else {
-        this.source.pause();
-        this.playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
-    }
-};
-
-VideoPlayer.prototype.muteUnmute = function () {
-    this.source.muted = !this.source.muted;
-    if (this.source.muted) {
-        this.muteButton.innerHTML = '<img src="assets/icons/volume-off-icon.png">';
-    } else {
-        this.muteButton.innerHTML = '<img src="assets/icons/volume-on-icon.png">';
-    }
-};
-
-VideoPlayer.prototype.niceTime = function (time) {
-    var roundedTime = Math.round(time);
-    var hours = parseInt(roundedTime / 3600) % 24;
-    var minutes = parseInt(roundedTime / 60) % 60;
-    var seconds = roundedTime % 60;
-    var niceTime = (hours === 0 ? "" : ( (hours < 10 ? "0" + hours : hours) + ":") ) + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-    return niceTime;
-};
-
-VideoPlayer.prototype.addTimers = function () {
-    var endTime = this.niceTime(this.source.seekable.end(0));
-    var node = document.createElement("p");
-    var textnode = document.createTextNode(endTime);
-    node.appendChild(textnode);
-    this.buttons.appendChild(node);
-
-    var currentTime = this.getCurrentVideoTime();
-    currentTimeNode = document.createElement("p");
-    currentTimeNode.setAttribute("class", "starttime");
-    currentTimeText = document.createTextNode("00:00/");
-    currentTimeNode.appendChild(currentTimeText);
-    this.buttons.appendChild(currentTimeNode);
-};
-
-VideoPlayer.prototype.getCurrentVideoTime = function () {
-    var starttimeElement = document.getElementsByClassName("starttime");
-    starttimeElement = starttimeElement[this.playerNumber];
-    var self = this;
-    this.source.addEventListener('timeupdate', function () {
-        for (var i = 0; i < self.videoController.childNodes.length; i++) {
-            if (self.buttons.childNodes[i].className == "starttime") {
-                self.buttons.childNodes[i].innerHTML = self.niceTime(self.source.played.end(0)) + "/";
-                break;
-            }
-        }
-    })
-};
-
-VideoPlayer.prototype.init = function () {
-    this.removeDefaultControls();
-    this.setupButtons();
-    this.addTimers();
-    this.getCurrentVideoTime();
-};
-
-//build array of video objects
-var videoInterfaceElements = document.getElementsByClassName('video-controllers');
-var videoSourceElements = document.getElementsByClassName('source');
-var videoButtons = document.getElementsByClassName('buttons');
-var videoPlayButtonElements = document.getElementsByClassName('play');
-var videoMuteButtonElements = document.getElementsByClassName('mute');
-var videoFullscreenButtonElements = document.getElementsByClassName('fullscreen');
-
-videoPlayerList = [];
-
-videoWindows = document.getElementsByClassName("videoWindow");
-
-if (videoWindows.length > 0) {
-    for (i = 0; i < videoWindows.length; i++) {
-        var videoPlayer = new VideoPlayer(videoInterfaceElements[i], videoSourceElements[i], videoButtons[i], videoPlayButtonElements[i], videoMuteButtonElements[i], videoFullscreenButtonElements[i]);
-        videoPlayerList.push(videoPlayer);
-        //videoPlayerList[i].init();
-    }
-}
+////Start converting this into OOP project
+//var VideoPlayer = function (videoInterface, source, buttons, playButton, muteButton, fullscreenButton) {
+//    this.videoController = videoInterface;
+//    this.source = source;
+//    this.buttons = buttons;
+//    this.playButton = playButton;
+//    this.muteButton = muteButton;
+//    this.fullscreenButton = fullscreenButton;
+//};
+//
+//VideoPlayer.prototype.welcomeMsg = function () {
+//    console.log("Video player object initialised");
+//};
+//
+//VideoPlayer.prototype.removeDefaultControls = function () {
+//    this.source.controls = false;
+//};
+//
+//VideoPlayer.prototype.setupButtons = function () {
+//    var self = this;
+//    this.playButton.addEventListener('click', function (event) {
+//        self.playPauseVideo();
+//    })
+//    this.muteButton.addEventListener('click', function (event) {
+//        self.muteUnmute();
+//    })
+//};
+//
+//VideoPlayer.prototype.playPauseVideo = function () {
+//    if (this.source.paused || this.source.ended) {
+//
+//        // First pause all videos
+//        for (i = 0; i < videoWindows.length; i++) {
+//            videoPlayerList[i].source.pause();
+//            videoPlayerList[i].playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
+//            ;
+//        }
+//
+//        this.source.play();
+//        this.playButton.innerHTML = '<img src="assets/icons/pause-icon.png">';
+//    }
+//    else {
+//        this.source.pause();
+//        this.playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
+//    }
+//};
+//
+//VideoPlayer.prototype.muteUnmute = function () {
+//    this.source.muted = !this.source.muted;
+//    if (this.source.muted) {
+//        this.muteButton.innerHTML = '<img src="assets/icons/volume-off-icon.png">';
+//    } else {
+//        this.muteButton.innerHTML = '<img src="assets/icons/volume-on-icon.png">';
+//    }
+//};
+//
+//VideoPlayer.prototype.niceTime = function (time) {
+//    var roundedTime = Math.round(time);
+//    var hours = parseInt(roundedTime / 3600) % 24;
+//    var minutes = parseInt(roundedTime / 60) % 60;
+//    var seconds = roundedTime % 60;
+//    var niceTime = (hours === 0 ? "" : ( (hours < 10 ? "0" + hours : hours) + ":") ) + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+//    return niceTime;
+//};
+//
+//VideoPlayer.prototype.addTimers = function () {
+//    var endTime = this.niceTime(this.source.seekable.end(0));
+//    var node = document.createElement("p");
+//    var textnode = document.createTextNode(endTime);
+//    node.appendChild(textnode);
+//    this.buttons.appendChild(node);
+//
+//    var currentTime = this.getCurrentVideoTime();
+//    currentTimeNode = document.createElement("p");
+//    currentTimeNode.setAttribute("class", "starttime");
+//    currentTimeText = document.createTextNode("00:00/");
+//    currentTimeNode.appendChild(currentTimeText);
+//    this.buttons.appendChild(currentTimeNode);
+//};
+//
+//VideoPlayer.prototype.getCurrentVideoTime = function () {
+//    var starttimeElement = document.getElementsByClassName("starttime");
+//    starttimeElement = starttimeElement[this.playerNumber];
+//    var self = this;
+//    this.source.addEventListener('timeupdate', function () {
+//        for (var i = 0; i < self.videoController.childNodes.length; i++) {
+//            if (self.buttons.childNodes[i].className == "starttime") {
+//                self.buttons.childNodes[i].innerHTML = self.niceTime(self.source.played.end(0)) + "/";
+//                break;
+//            }
+//        }
+//    })
+//};
+//
+//VideoPlayer.prototype.init = function () {
+//    this.removeDefaultControls();
+//    this.setupButtons();
+//    this.addTimers();
+//    this.getCurrentVideoTime();
+//};
+//
+////build array of video objects
+//var videoInterfaceElements = document.getElementsByClassName('video-controllers');
+//var videoSourceElements = document.getElementsByClassName('source');
+//var videoButtons = document.getElementsByClassName('buttons');
+//var videoPlayButtonElements = document.getElementsByClassName('play');
+//var videoMuteButtonElements = document.getElementsByClassName('mute');
+//var videoFullscreenButtonElements = document.getElementsByClassName('fullscreen');
+//
+//videoPlayerList = [];
+//
+//videoWindows = document.getElementsByClassName("videoWindow");
+//
+//if (videoWindows.length > 0) {
+//    for (i = 0; i < videoWindows.length; i++) {
+//        var videoPlayer = new VideoPlayer(videoInterfaceElements[i], videoSourceElements[i], videoButtons[i], videoPlayButtonElements[i], videoMuteButtonElements[i], videoFullscreenButtonElements[i]);
+//        videoPlayerList.push(videoPlayer);
+//        //videoPlayerList[i].init();
+//    }
+//}
 
 // Experimental player
 
-var VideoPlayer2 = function (videoContainer, source, playerNumber) {
+var VideoPlayer = function (videoContainer, source, playerNumber) {
     this.videoContainer = videoContainer;
     this.source = source;
     this.playerNumber = playerNumber;
@@ -139,11 +139,11 @@ var VideoPlayer2 = function (videoContainer, source, playerNumber) {
     this.fullscreenButton = null;
 };
 
-VideoPlayer2.prototype.removeDefaultControls = function () {
+VideoPlayer.prototype.removeDefaultControls = function () {
     this.source.controls = false;
 };
 
-VideoPlayer2.prototype.constructInterface = function () {
+VideoPlayer.prototype.constructInterface = function () {
     var interfaceNode = document.createElement("div");
     interfaceNode.className = "video__interface";
 
@@ -185,7 +185,7 @@ VideoPlayer2.prototype.constructInterface = function () {
     this.videoContainer.appendChild(interfaceNode);
 };
 
-VideoPlayer2.prototype.setMemberVariables = function () {
+VideoPlayer.prototype.setMemberVariables = function () {
     var videoInterfaceElements = document.getElementsByClassName('video__interface');
     var videoProgContainerElements = document.getElementsByClassName('progContainer');
     var videoProgContainer__barElements = document.getElementsByClassName('progContainer__bar');
@@ -213,13 +213,13 @@ function buildInterfaces() {
 
     if (videoContainer.length > 0) {
         for (i = 0; i < videoContainer.length; i++) {
-            var videoPlayer2 = new VideoPlayer2(videoContainer[i], videoSource[i], i);
-            videoConstructionList.push(videoPlayer2);
+            var videoPlayer = new VideoPlayer(videoContainer[i], videoSource[i], i);
+            videoConstructionList.push(videoPlayer);
             videoConstructionList[i].removeDefaultControls();
             videoConstructionList[i].constructInterface();
             videoConstructionList[i].setMemberVariables();
             console.log("Interface " + i);
-            console.log(videoPlayer2);
+            console.log(videoPlayer);
         }
     }
 }
@@ -312,7 +312,7 @@ function addVideoFunctionality() {
             videoPlayers.push(videoPlayerInterface);
 
             videoPlayerInterface.init();
-            //var videoPlayer2 = new VideoPlayer2(videoContainer[i], videoSource[i]);
+            //var videoPlayer2 = new VideoPlayer(videoContainer[i], videoSource[i]);
             //videoConstructionList.push(videoPlayer2);
             //videoConstructionList[i].removeDefaultControls();
             //videoConstructionList[i].constructInterface();
@@ -322,6 +322,4 @@ function addVideoFunctionality() {
 }
 
 buildInterfaces();
-addVideoFunctionality();
-
-
+//addVideoFunctionality();
