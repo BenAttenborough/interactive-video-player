@@ -203,21 +203,60 @@ VideoPlayer.prototype.setMemberVariables = function () {
     this.fullscreenButton = videoFullscreenElements[this.playerNumber];
 };
 
+VideoPlayer.prototype.playPauseVideo = function () {
+    if (this.source.paused || this.source.ended) {
+
+        // First pause all videos
+        for (i = 0; i < videoPlayerList.length; i++) {
+            videoPlayerList[i].source.pause();
+            videoPlayerList[i].playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
+        }
+
+        this.source.play();
+        this.playButton.innerHTML = '<img src="assets/icons/pause-icon.png">';
+    }
+    else {
+        this.source.pause();
+        this.playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
+    }
+};
+
+VideoPlayer.prototype.muteUnmute = function () {
+    this.source.muted = !this.source.muted;
+    if (this.source.muted) {
+        this.muteButton.innerHTML = '<img src="assets/icons/volume-off-icon.png">';
+    } else {
+        this.muteButton.innerHTML = '<img src="assets/icons/volume-on-icon.png">';
+    }
+};
+
+VideoPlayer.prototype.init = function () {
+    console.log("Video interface object initialised");
+    var self = this;
+    this.playButton.addEventListener('click', function (event) {
+        self.playPauseVideo();
+    });
+    this.muteButton.addEventListener('click', function (event) {
+        self.muteUnmute();
+    });
+};
+
 function buildInterfaces() {
     var videoSource = document.getElementsByClassName('video__source');
 
     videoContainer = document.getElementsByClassName("video");
 
-    videoConstructionList = [];
+    videoPlayerList = [];
 
 
     if (videoContainer.length > 0) {
         for (i = 0; i < videoContainer.length; i++) {
             var videoPlayer = new VideoPlayer(videoContainer[i], videoSource[i], i);
-            videoConstructionList.push(videoPlayer);
-            videoConstructionList[i].removeDefaultControls();
-            videoConstructionList[i].constructInterface();
-            videoConstructionList[i].setMemberVariables();
+            videoPlayerList.push(videoPlayer);
+            videoPlayerList[i].removeDefaultControls();
+            videoPlayerList[i].constructInterface();
+            videoPlayerList[i].setMemberVariables();
+            videoPlayerList[i].init();
             console.log("Interface " + i);
             console.log(videoPlayer);
         }
@@ -313,9 +352,9 @@ function addVideoFunctionality() {
 
             videoPlayerInterface.init();
             //var videoPlayer2 = new VideoPlayer(videoContainer[i], videoSource[i]);
-            //videoConstructionList.push(videoPlayer2);
-            //videoConstructionList[i].removeDefaultControls();
-            //videoConstructionList[i].constructInterface();
+            //videoPlayerList.push(videoPlayer2);
+            //videoPlayerList[i].removeDefaultControls();
+            //videoPlayerList[i].constructInterface();
         }
     }
 
