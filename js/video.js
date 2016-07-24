@@ -147,9 +147,14 @@ VideoPlayer.prototype.addTimers = function () {
 
 VideoPlayer.prototype.getCurrentVideoTime = function () {
     var self = this;
+    endTime = this.source.seekable.end(0);
     this.source.addEventListener('timeupdate', function () {
+
+        //currentTime = self.niceTime(self.source.played.end(0));
         self.currentTime.textContent = self.niceTime(self.source.played.end(0)) + "/";
-        console.log("Time");
+        percentComplete = (self.source.played.end(0) / endTime) * 100 + "%";
+        console.log( percentComplete + " complete");
+        self.progBar.setAttribute("style","width: " + percentComplete);
     })
 };
 
