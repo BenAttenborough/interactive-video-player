@@ -160,6 +160,19 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     })
 };
 
+VideoPlayer.prototype.skipToLocation = function () {
+    var self = this;
+    this.progContainer.addEventListener('click', function(event){
+        //var position = (event.pageX  - this.offsetLeft) / this.offsetWidth;
+        var position = (event.pageX  - this.offsetLeft) / this.offsetWidth;
+        console.log(position);
+        self.source.currentTime = position * self.videoDurration;
+
+        //this.source.currentTime = pos * this.source.duration;
+    });
+
+};
+
 VideoPlayer.prototype.init = function () {
     this.removeDefaultControls();
     this.constructInterface();
@@ -167,6 +180,7 @@ VideoPlayer.prototype.init = function () {
     this.setupButtons();
     this.addTimers();
     this.getCurrentVideoTime();
+    this.skipToLocation();
 };
 
 function createVideoPlayers() {
