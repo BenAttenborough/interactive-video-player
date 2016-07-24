@@ -125,9 +125,18 @@ if (videoWindows.length > 0) {
 
 // Experimental player
 
-var VideoPlayer2 = function (videoContainer, source) {
+var VideoPlayer2 = function (videoContainer, source, playerNumber) {
     this.videoContainer = videoContainer;
     this.source = source;
+    this.playerNumber = playerNumber;
+
+    this.interface = null;
+    this.progContainer = null;
+    this.progBar = null;
+    this.buttons = null;
+    this.playButton = null;
+    this.muteButton = null;
+    this.fullscreenButton = null;
 };
 
 VideoPlayer2.prototype.removeDefaultControls = function () {
@@ -176,6 +185,24 @@ VideoPlayer2.prototype.constructInterface = function () {
     this.videoContainer.appendChild(interfaceNode);
 };
 
+VideoPlayer2.prototype.setMemberVariables = function () {
+    var videoInterfaceElements = document.getElementsByClassName('video__interface');
+    var videoProgContainerElements = document.getElementsByClassName('progContainer');
+    var videoProgContainer__barElements = document.getElementsByClassName('progContainer__bar');
+    var videoButtonsElements = document.getElementsByClassName('buttons');
+    var videoPlayElements = document.getElementsByClassName('buttons__play');
+    var videoMuteElements = document.getElementsByClassName('buttons__mute');
+    var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
+
+    this.interface = videoInterfaceElements[this.playerNumber];
+    this.progContainer = videoProgContainerElements[this.playerNumber];
+    this.progBar = videoProgContainer__barElements[this.playerNumber];
+    this.buttons = videoButtonsElements[this.playerNumber];
+    this.playButton = videoPlayElements[this.playerNumber];
+    this.muteButton = videoMuteElements[this.playerNumber];
+    this.fullscreenButton = videoFullscreenElements[this.playerNumber];
+};
+
 function buildInterfaces() {
     var videoSource = document.getElementsByClassName('video__source');
 
@@ -186,10 +213,13 @@ function buildInterfaces() {
 
     if (videoContainer.length > 0) {
         for (i = 0; i < videoContainer.length; i++) {
-            var videoPlayer2 = new VideoPlayer2(videoContainer[i], videoSource[i]);
+            var videoPlayer2 = new VideoPlayer2(videoContainer[i], videoSource[i], i);
             videoConstructionList.push(videoPlayer2);
             videoConstructionList[i].removeDefaultControls();
             videoConstructionList[i].constructInterface();
+            videoConstructionList[i].setMemberVariables();
+            console.log("Interface " + i);
+            console.log(videoPlayer2);
         }
     }
 }
@@ -211,9 +241,6 @@ VideoPlayerInterface.prototype.playPauseVideo = function () {
 
         // First pause all videos
         for (i = 0; i < videoPlayers.length; i++) {
-            //console.log("Pausing all players");
-            //console.log("Number of vidoe windows: " + videoWindows.length)
-            //console.log(videoPlayers[i]);
             videoPlayers[i].source.pause();
             videoPlayers[i].playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
         }
