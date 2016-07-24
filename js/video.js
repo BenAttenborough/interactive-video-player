@@ -6,6 +6,8 @@ var VideoPlayer = function (videoContainer, source, playerNumber) {
     this.videoContainer = videoContainer;
     this.source = source;
     this.playerNumber = playerNumber;
+    this.videoDurration = this.source.seekable.end(0);
+    this.videoCurrentTime = 0;
 
     this.interface = null;
     this.progContainer = null;
@@ -139,9 +141,10 @@ VideoPlayer.prototype.niceTime = function (time) {
 };
 
 VideoPlayer.prototype.addTimers = function () {
-    var endTime = this.niceTime(this.source.seekable.end(0));
+    var endTime = this.niceTime(this.videoDurration);
     this.endTime.textContent = endTime;
     var currentTime = "00:00/";
+    console.log(this.videoCurrentTime);
     this.currentTime.textContent = currentTime;
 };
 
@@ -149,10 +152,9 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     var self = this;
     endTime = this.source.seekable.end(0);
     this.source.addEventListener('timeupdate', function () {
-
-        //currentTime = self.niceTime(self.source.played.end(0));
-        self.currentTime.textContent = self.niceTime(self.source.played.end(0)) + "/";
-        percentComplete = (self.source.played.end(0) / endTime) * 100 + "%";
+        self.videoCurrentTime = Math.floor(self.source.played.end(0));
+        self.currentTime.textContent = self.niceTime(self.videoCurrentTime) + "/";
+        percentComplete = Math.floor ( ( self.videoCurrentTime / endTime ) * 100 ) + "%";
         console.log( percentComplete + " complete");
         self.progBar.setAttribute("style","width: " + percentComplete);
     })
