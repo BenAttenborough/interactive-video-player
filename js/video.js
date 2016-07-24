@@ -137,6 +137,8 @@ var VideoPlayer = function (videoContainer, source, playerNumber) {
     this.playButton = null;
     this.muteButton = null;
     this.fullscreenButton = null;
+    this.currentTime = null;
+    this.endTime = null;
 };
 
 VideoPlayer.prototype.removeDefaultControls = function () {
@@ -156,6 +158,9 @@ VideoPlayer.prototype.constructInterface = function () {
     var buttonsNode = document.createElement("div");
     buttonsNode.className = "buttons";
 
+    var timeNode = document.createElement("div");
+    timeNode.className = "buttons__timeContainer";
+
     var playNode = document.createElement("div");
     playNode.className = "buttons__play";
 
@@ -172,11 +177,14 @@ VideoPlayer.prototype.constructInterface = function () {
     var fullscreenIconNode = document.createElement("img");
     fullscreenIconNode.setAttribute('src', 'assets/icons/fullscreen-icon.png');
 
+    timeNode.innerHTML = "<span class='currentTime'></span><span class='endTime'></span>"
+
     interfaceNode.appendChild(progNode);
         progNode.appendChild(progBarNode);
     interfaceNode.appendChild(buttonsNode);
         buttonsNode.appendChild(playNode);
             playNode.appendChild(playIconNode);
+        buttonsNode.appendChild(timeNode);
         buttonsNode.appendChild(muteNode);
             muteNode.appendChild(muteIconNode);
         buttonsNode.appendChild(fullscreenNode);
@@ -193,6 +201,8 @@ VideoPlayer.prototype.setMemberVariables = function () {
     var videoPlayElements = document.getElementsByClassName('buttons__play');
     var videoMuteElements = document.getElementsByClassName('buttons__mute');
     var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
+    var videoCurrentTimeElements = document.getElementsByClassName('currentTime');
+    var videoEndTimeElements = document.getElementsByClassName('endTime');
 
     this.interface = videoInterfaceElements[this.playerNumber];
     this.progContainer = videoProgContainerElements[this.playerNumber];
@@ -201,6 +211,8 @@ VideoPlayer.prototype.setMemberVariables = function () {
     this.playButton = videoPlayElements[this.playerNumber];
     this.muteButton = videoMuteElements[this.playerNumber];
     this.fullscreenButton = videoFullscreenElements[this.playerNumber];
+    this.currentTime = videoCurrentTimeElements[this.playerNumber];
+    this.endTime = videoEndTimeElements[this.playerNumber];
 };
 
 VideoPlayer.prototype.playPauseVideo = function () {
@@ -251,40 +263,39 @@ VideoPlayer.prototype.niceTime = function (time) {
 
 VideoPlayer.prototype.addTimers = function () {
     var endTime = this.niceTime(this.source.seekable.end(0));
-    var node = document.createElement("p");
-    var textnode = document.createTextNode(endTime);
-    node.appendChild(textnode);
-    this.buttons.appendChild(node);
+    this.endTime.textContent = endTime;
+    var currentTime = "00:00/";
+    this.currentTime.textContent = currentTime;
 
-    var currentTime = this.getCurrentVideoTime();
-    currentTimeNode = document.createElement("p");
-    currentTimeNode.setAttribute("class", "starttime");
-    currentTimeText = document.createTextNode("00:00/");
-    currentTimeNode.appendChild(currentTimeText);
-    this.buttons.appendChild(currentTimeNode);
+    //var node = document.createElement("p");
+    //var textnode = document.createTextNode(endTime);
+    //node.appendChild(textnode);
+    //this.buttons.appendChild(node);
+
+    //var currentTime = this.getCurrentVideoTime();
+    //currentTimeNode = document.createElement("p");
+    //currentTimeNode.setAttribute("class", "starttime");
+    //currentTimeText = document.createTextNode("00:00/");
+    //currentTimeNode.appendChild(currentTimeText);
+    //this.buttons.appendChild(currentTimeNode);
 };
 
 VideoPlayer.prototype.getCurrentVideoTime = function () {
-    var starttimeElement = document.getElementsByClassName("starttime");
-    starttimeElement = starttimeElement[this.playerNumber];
     var self = this;
     this.source.addEventListener('timeupdate', function () {
-        for (var i = 0; i < self.videoController.childNodes.length; i++) {
-            if (self.buttons.childNodes[i].className == "starttime") {
-                self.buttons.childNodes[i].innerHTML = self.niceTime(self.source.played.end(0)) + "/";
-                break;
-            }
-        }
+        self.currentTime.textContent = self.niceTime(self.source.played.end(0)) + "/";
+        console.log("Time");
     })
 };
 
 VideoPlayer.prototype.init = function () {
-    console.log("Video interface object initialised");
+    //console.log("Video interface object initialised");
     this.removeDefaultControls();
     this.constructInterface();
     this.setMemberVariables();
     this.setupButtons();
     this.addTimers();
+    this.getCurrentVideoTime();
 };
 
 function createVideoPlayers() {
@@ -297,8 +308,8 @@ function createVideoPlayers() {
             var videoPlayer = new VideoPlayer(videoContainer[i], videoSource[i], i);
             videoPlayer.init();
             videoPlayerList.push(videoPlayer);
-            console.log("Interface " + i);
-            console.log(videoPlayer);
+            //console.log("Interface " + i);
+            //console.log(videoPlayer);
         }
     }
 }

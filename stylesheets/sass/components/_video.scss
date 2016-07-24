@@ -96,7 +96,14 @@ video {
 
 .buttons__play,
 .buttons__mute,
-.buttons__fullscreen {
+.buttons__fullscreen,
+.buttons__timeContainer{
   display: inline;
   margin: 10px;
+}
+
+.currentTime,
+.endTime {
+  color: #FFF;
+  font-weight: bold;
 }
