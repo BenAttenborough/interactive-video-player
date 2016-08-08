@@ -42,7 +42,7 @@ VideoPlayer.prototype.constructInterface = function () {
     progBarNode.className = "progContainer__bar";
 
     var buttonsNode = document.createElement("div");
-    buttonsNode.className = "buttons";
+    buttonsNode.className = "buttons clearfix";
 
     var timeNode = document.createElement("div");
     timeNode.className = "buttons__timeContainer";
