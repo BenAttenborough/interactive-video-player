@@ -63,6 +63,14 @@ video {
   background-color: black;
 }
 
+.video .video__interface .buttons {
+  display: none;
+}
+
+.video:hover .video__interface .buttons {
+  display: block;
+}
+
 .video__interface {
   margin: 0;
   position: absolute;

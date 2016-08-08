@@ -71,6 +71,9 @@ VideoPlayer.prototype.constructInterface = function () {
             fullscreenNode.appendChild(fullscreenIconNode);
 
     this.videoContainer.appendChild(interfaceNode);
+    //this.videoContainer.id = 'video-no-';
+    //console.log('Video container');
+    //console.log(this.videoContainer);
 };
 
 VideoPlayer.prototype.setMemberVariables = function () {
