@@ -25,6 +25,29 @@ VideoPlayer.prototype.removeDefaultControls = function () {
 };
 
 VideoPlayer.prototype.constructInterface = function () {
+
+    var interfaceHTML =
+        '<div class="video__interface"> \
+            <div class="progContainer"> \
+                <div class="progContainer__bar"></div> \
+            </div> \
+            <div class="buttons"> \
+                <div class="buttons__play"> \
+                    <img src="assets/icons/play-icon.png"> \
+                </div> \
+                <div class="buttons__timeContainer"> \
+                    <span class="currentTime"></span> \
+                    <span class="endTime"></span> \
+                </div> \
+                <div class="buttons__mute"> \
+                    <img src="assets/icons/volume-on-icon.png"> \
+                </div> \
+                <div class="buttons__fullscreen"> \
+                    <img src="assets/icons/fullscreen-icon.png"> \
+                </div> \
+            </div> \
+        </div>';
+
     var interfaceNode = document.createElement("div");
     interfaceNode.className = "video__interface";
 
@@ -70,6 +93,10 @@ VideoPlayer.prototype.constructInterface = function () {
             fullscreenNode.appendChild(fullscreenIconNode);
 
     this.videoContainer.appendChild(interfaceNode);
+
+
+
+    this.videoContainer.innerHTML = interfaceHTML;
 };
 
 VideoPlayer.prototype.setMemberVariables = function () {
