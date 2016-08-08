@@ -35,6 +35,9 @@ VideoPlayer.prototype.constructInterface = function () {
     var progBarInner  = document.createElement("div");
     progBarInner.className = "progContainer__inner";
 
+    var progBarInnerEmpty  = document.createElement("div");
+    progBarInnerEmpty.className = "progContainer__inner_empty";
+
     var progBarNode  = document.createElement("div");
     progBarNode.className = "progContainer__bar";
 
@@ -64,7 +67,8 @@ VideoPlayer.prototype.constructInterface = function () {
 
     interfaceNode.appendChild(progNode);
         progNode.appendChild(progBarInner);
-            progBarInner.appendChild(progBarNode);
+            progBarInner.appendChild(progBarInnerEmpty);
+                progBarInnerEmpty.appendChild(progBarNode);
     interfaceNode.appendChild(buttonsNode);
         buttonsNode.appendChild(playNode);
             playNode.appendChild(playIconNode);
