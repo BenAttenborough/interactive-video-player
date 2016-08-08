@@ -83,8 +83,12 @@ video {
 
 .progContainer {
   width: 100%;
-  height: 5px;
-  margin-bottom: 20px;
+  height: 25px;
+}
+
+.progContainer__inner {
+  height: 15px;
+  padding-top: 10px;
   background-color: black;
 }
 

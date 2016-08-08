@@ -32,6 +32,9 @@ VideoPlayer.prototype.constructInterface = function () {
     var progNode = document.createElement("div");
     progNode.className = "progContainer";
 
+    var progBarInner  = document.createElement("div");
+    progBarInner.className = "progContainer__inner";
+
     var progBarNode  = document.createElement("div");
     progBarNode.className = "progContainer__bar";
 
@@ -60,7 +63,8 @@ VideoPlayer.prototype.constructInterface = function () {
     timeNode.innerHTML = "<span class='currentTime'></span><span class='endTime'></span>"
 
     interfaceNode.appendChild(progNode);
-        progNode.appendChild(progBarNode);
+        progNode.appendChild(progBarInner);
+            progBarInner.appendChild(progBarNode);
     interfaceNode.appendChild(buttonsNode);
         buttonsNode.appendChild(playNode);
             playNode.appendChild(playIconNode);
