@@ -2,9 +2,10 @@
  * Created by ben on 14/07/2016.
  */
 
-var VideoPlayer = function (videoContainer, source, playerNumber) {
+var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.videoContainer = videoContainer;
     this.source = source;
+    this.captions  = captions;
     this.playerNumber = playerNumber;
     this.videoDurration = this.source.seekable.end(0);
     this.videoCurrentTime = 0;
@@ -194,16 +195,18 @@ VideoPlayer.prototype.init = function () {
     this.addTimers();
     this.getCurrentVideoTime();
     this.skipToLocation();
+    console.log(this.captions);
 };
 
 function createVideoPlayers() {
     var videoSource = document.getElementsByClassName('video__source');
-    var videoContainer = document.getElementsByClassName("video");
+    var videoContainer = document.getElementsByClassName('video');
+    var videoCaptions = document.getElementsByClassName('video-caption');
     videoPlayerList = [];
 
     if (videoContainer.length > 0) {
         for (i = 0; i < videoContainer.length; i++) {
-            var videoPlayer = new VideoPlayer(videoContainer[i], videoSource[i], i);
+            var videoPlayer = new VideoPlayer(videoContainer[i], videoSource[i], videoCaptions[i], i);
             videoPlayer.init();
             videoPlayerList.push(videoPlayer);
         }
