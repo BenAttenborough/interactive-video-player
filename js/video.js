@@ -166,10 +166,11 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     this.source.addEventListener('timeupdate', function () {
         self.videoCurrentTime = Math.floor(self.source.currentTime);
         console.log('self.videoCurrentTime = ' + self.videoCurrentTime);
+        //console.log('Buffered: ' + self.source.buffered);
 
         self.currentTime.textContent = self.niceTime(self.videoCurrentTime) + "/";
         percentComplete = Math.floor ( ( self.videoCurrentTime / endTime ) * 100 ) + "%";
-        console.log( percentComplete + " complete");
+        //console.log( percentComplete + " complete");
         self.progBar.setAttribute("style","width: " + percentComplete);
     })
 };
