@@ -164,7 +164,9 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     var self = this;
     endTime = this.source.seekable.end(0);
     this.source.addEventListener('timeupdate', function () {
-        self.videoCurrentTime = Math.floor(self.source.played.end(0));
+        self.videoCurrentTime = Math.floor(self.source.currentTime);
+        console.log('self.videoCurrentTime = ' + self.videoCurrentTime);
+
         self.currentTime.textContent = self.niceTime(self.videoCurrentTime) + "/";
         percentComplete = Math.floor ( ( self.videoCurrentTime / endTime ) * 100 ) + "%";
         console.log( percentComplete + " complete");
@@ -179,8 +181,6 @@ VideoPlayer.prototype.skipToLocation = function () {
         var position = (event.pageX  - this.offsetLeft) / this.offsetWidth;
         console.log(position);
         self.source.currentTime = position * self.videoDurration;
-
-        //this.source.currentTime = pos * this.source.duration;
     });
 
 };
