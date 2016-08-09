@@ -195,7 +195,8 @@ VideoPlayer.prototype.init = function () {
     this.addTimers();
     this.getCurrentVideoTime();
     this.skipToLocation();
-    console.log(this.captions);
+    console.log(this.captions.children.length);
+    // Use for loop to get all children in an array and get the data from each child
 };
 
 function createVideoPlayers() {
