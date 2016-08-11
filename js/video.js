@@ -5,7 +5,7 @@
 var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.videoContainer = videoContainer;
     this.source = source;
-    this.captions  = captions;
+    this.captions = captions.getElementsByTagName('p');
     this.playerNumber = playerNumber;
     this.videoDurration = this.source.seekable.end(0);
     this.videoCurrentTime = 0;
@@ -33,13 +33,13 @@ VideoPlayer.prototype.constructInterface = function () {
     var progNode = document.createElement("div");
     progNode.className = "progContainer";
 
-    var progBarInner  = document.createElement("div");
+    var progBarInner = document.createElement("div");
     progBarInner.className = "progContainer__inner";
 
-    var progBarInnerEmpty  = document.createElement("div");
+    var progBarInnerEmpty = document.createElement("div");
     progBarInnerEmpty.className = "progContainer__inner_empty";
 
-    var progBarNode  = document.createElement("div");
+    var progBarNode = document.createElement("div");
     progBarNode.className = "progContainer__bar";
 
     var buttonsNode = document.createElement("div");
@@ -67,17 +67,17 @@ VideoPlayer.prototype.constructInterface = function () {
     timeNode.innerHTML = "<span class='currentTime'></span><span class='endTime'></span>"
 
     interfaceNode.appendChild(progNode);
-        progNode.appendChild(progBarInner);
-            progBarInner.appendChild(progBarInnerEmpty);
-                progBarInnerEmpty.appendChild(progBarNode);
+    progNode.appendChild(progBarInner);
+    progBarInner.appendChild(progBarInnerEmpty);
+    progBarInnerEmpty.appendChild(progBarNode);
     interfaceNode.appendChild(buttonsNode);
-        buttonsNode.appendChild(playNode);
-            playNode.appendChild(playIconNode);
-        buttonsNode.appendChild(timeNode);
-        buttonsNode.appendChild(muteNode);
-            muteNode.appendChild(muteIconNode);
-        buttonsNode.appendChild(fullscreenNode);
-            fullscreenNode.appendChild(fullscreenIconNode);
+    buttonsNode.appendChild(playNode);
+    playNode.appendChild(playIconNode);
+    buttonsNode.appendChild(timeNode);
+    buttonsNode.appendChild(muteNode);
+    muteNode.appendChild(muteIconNode);
+    buttonsNode.appendChild(fullscreenNode);
+    fullscreenNode.appendChild(fullscreenIconNode);
 
     this.videoContainer.appendChild(interfaceNode);
     //this.videoContainer.id = 'video-no-';
@@ -157,7 +157,7 @@ VideoPlayer.prototype.addTimers = function () {
     var endTime = this.niceTime(this.videoDurration);
     this.endTime.textContent = endTime;
     var currentTime = "00:00/";
-    console.log(this.videoCurrentTime);
+    //console.log(this.videoCurrentTime);
     this.currentTime.textContent = currentTime;
 };
 
@@ -166,21 +166,21 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     endTime = this.source.seekable.end(0);
     this.source.addEventListener('timeupdate', function () {
         self.videoCurrentTime = Math.floor(self.source.currentTime);
-        console.log('self.videoCurrentTime = ' + self.videoCurrentTime);
+        console.log('self.videoCurrentTime = ' + self.source.currentTime);
         //console.log('Buffered: ' + self.source.buffered);
 
         self.currentTime.textContent = self.niceTime(self.videoCurrentTime) + "/";
-        percentComplete = Math.floor ( ( self.videoCurrentTime / endTime ) * 100 ) + "%";
+        percentComplete = Math.floor(( self.videoCurrentTime / endTime ) * 100) + "%";
         //console.log( percentComplete + " complete");
-        self.progBar.setAttribute("style","width: " + percentComplete);
+        self.progBar.setAttribute("style", "width: " + percentComplete);
     })
 };
 
 VideoPlayer.prototype.skipToLocation = function () {
     var self = this;
-    this.progContainer.addEventListener('click', function(event){
+    this.progContainer.addEventListener('click', function (event) {
         //var position = (event.pageX  - this.offsetLeft) / this.offsetWidth;
-        var position = (event.pageX  - this.offsetLeft) / this.offsetWidth;
+        var position = (event.pageX - this.offsetLeft) / this.offsetWidth;
         console.log(position);
         self.source.currentTime = position * self.videoDurration;
     });
@@ -195,8 +195,13 @@ VideoPlayer.prototype.init = function () {
     this.addTimers();
     this.getCurrentVideoTime();
     this.skipToLocation();
-    console.log(this.captions.children.length);
-    // Use for loop to get all children in an array and get the data from each child
+    console.log(this.captions.length);
+    console.log(this.captions);
+    //var videoCaptions = [];
+    //for (var i = 0; i < this.captions.length; i++) {
+    //    videoCaptions.push(this.captions[i]);
+    //}
+    //console.log(videoCaptions);
 };
 
 function createVideoPlayers() {
@@ -207,6 +212,9 @@ function createVideoPlayers() {
 
     if (videoContainer.length > 0) {
         for (i = 0; i < videoContainer.length; i++) {
+            //console.log("Item number: " + i);
+            //console.log("Captions length: " + videoCaptions.length);
+            //console.log(videoCaptions[i].getElementsByTagName('p'));
             var videoPlayer = new VideoPlayer(videoContainer[i], videoSource[i], videoCaptions[i], i);
             videoPlayer.init();
             videoPlayerList.push(videoPlayer);
