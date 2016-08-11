@@ -197,6 +197,8 @@ VideoPlayer.prototype.init = function () {
     this.skipToLocation();
     console.log(this.captions.length);
     console.log(this.captions);
+    //console.log(this.captions[0].dataset.timeStart);
+    convertTimeString(this.captions[0].dataset.timeEnd);
     //var videoCaptions = [];
     //for (var i = 0; i < this.captions.length; i++) {
     //    videoCaptions.push(this.captions[i]);
@@ -220,6 +222,17 @@ function createVideoPlayers() {
             videoPlayerList.push(videoPlayer);
         }
     }
+}
+
+function convertTimeString(time) {
+    var result;
+    var hours = parseInt(time.substr(0,2));
+    var minutes = parseInt(time.substr(3,2));
+    var seconds = parseInt(time.substr(6,2));
+    var milliseconds = parseInt(time.substr(9,3));
+    result = [hours, minutes, seconds, milliseconds];
+    result = (hours*3600) + (minutes*60) + seconds + (milliseconds*0.001);
+    console.log(result);
 }
 
 createVideoPlayers();
