@@ -169,6 +169,8 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
         console.log('self.videoCurrentTime = ' + self.source.currentTime);
 
         //Call a function to check which caption to highlight
+        self.highlightCaption(self.source.currentTime);
+
 
         //console.log('Buffered: ' + self.source.buffered);
 
@@ -177,6 +179,15 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
         //console.log( percentComplete + " complete");
         self.progBar.setAttribute("style", "width: " + percentComplete);
     })
+};
+
+VideoPlayer.prototype.highlightCaption = function (time) {
+    console.log("checking time " + time);
+    for (var i = 0; i < this.captions.length; i++) {
+        //compare time to captions data
+
+        }
+    }
 };
 
 VideoPlayer.prototype.skipToLocation = function () {
