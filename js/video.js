@@ -167,6 +167,9 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     this.source.addEventListener('timeupdate', function () {
         self.videoCurrentTime = Math.floor(self.source.currentTime);
         console.log('self.videoCurrentTime = ' + self.source.currentTime);
+
+        //Call a function to check which caption to highlight
+
         //console.log('Buffered: ' + self.source.buffered);
 
         self.currentTime.textContent = self.niceTime(self.videoCurrentTime) + "/";
@@ -230,7 +233,6 @@ function convertTimeString(time) {
     var minutes = parseInt(time.substr(3,2));
     var seconds = parseInt(time.substr(6,2));
     var milliseconds = parseInt(time.substr(9,3));
-    result = [hours, minutes, seconds, milliseconds];
     result = (hours*3600) + (minutes*60) + seconds + (milliseconds*0.001);
     console.log(result);
 }
