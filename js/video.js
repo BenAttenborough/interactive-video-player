@@ -206,7 +206,16 @@ VideoPlayer.prototype.skipToLocation = function () {
         console.log(position);
         self.source.currentTime = position * self.videoDurration;
     });
+};
 
+VideoPlayer.prototype.captionSkipBinding = function () {
+    for (i = 0; i < this.captions.length; i++) {
+        console.log(i);
+        var captionNo = i;
+        this.captions[i].addEventListener('click', function (event) {
+            console.log("Caption " + captionNo + " clicked");
+        });
+    }
 };
 
 VideoPlayer.prototype.init = function () {
@@ -217,6 +226,7 @@ VideoPlayer.prototype.init = function () {
     this.addTimers();
     this.getCurrentVideoTime();
     this.skipToLocation();
+    this.captionSkipBinding();
     console.log(this.captions.length);
     console.log(this.captions);
 };
