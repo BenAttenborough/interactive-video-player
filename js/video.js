@@ -166,7 +166,7 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
     endTime = this.source.seekable.end(0);
     this.source.addEventListener('timeupdate', function () {
         self.videoCurrentTime = Math.floor(self.source.currentTime);
-        console.log('self.videoCurrentTime = ' + self.source.currentTime);
+        //console.log('self.videoCurrentTime = ' + self.source.currentTime);
 
         //Call a function to check which caption to highlight
         self.highlightCaption(self.source.currentTime);
@@ -183,9 +183,15 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
 
 VideoPlayer.prototype.highlightCaption = function (time) {
     console.log("checking time " + time);
+    console.log("Start time " + convertTimeString(this.captions[0].dataset.timeStart));
+    //var self = this;
     for (var i = 0; i < this.captions.length; i++) {
         //compare time to captions data
-
+        var startTime = convertTimeString(this.captions[i].dataset.timeStart);
+        var endTime = convertTimeString(this.captions[i].dataset.timeEnd);
+        if (time >= startTime && time <= endTime ) {
+            console.log("Entry " + i + " should be highlighted");
+            this.captions[i].className = "caption-highlighted";
         }
     }
 };
@@ -211,13 +217,6 @@ VideoPlayer.prototype.init = function () {
     this.skipToLocation();
     console.log(this.captions.length);
     console.log(this.captions);
-    //console.log(this.captions[0].dataset.timeStart);
-    convertTimeString(this.captions[0].dataset.timeEnd);
-    //var videoCaptions = [];
-    //for (var i = 0; i < this.captions.length; i++) {
-    //    videoCaptions.push(this.captions[i]);
-    //}
-    //console.log(videoCaptions);
 };
 
 function createVideoPlayers() {
@@ -240,12 +239,12 @@ function createVideoPlayers() {
 
 function convertTimeString(time) {
     var result;
-    var hours = parseInt(time.substr(0,2));
-    var minutes = parseInt(time.substr(3,2));
-    var seconds = parseInt(time.substr(6,2));
-    var milliseconds = parseInt(time.substr(9,3));
-    result = (hours*3600) + (minutes*60) + seconds + (milliseconds*0.001);
-    console.log(result);
+    var hours = parseInt(time.substr(0, 2));
+    var minutes = parseInt(time.substr(3, 2));
+    var seconds = parseInt(time.substr(6, 2));
+    var milliseconds = parseInt(time.substr(9, 3));
+    result = (hours * 3600) + (minutes * 60) + seconds + (milliseconds * 0.001);
+    return result;
 }
 
 createVideoPlayers();
