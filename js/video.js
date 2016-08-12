@@ -192,6 +192,8 @@ VideoPlayer.prototype.highlightCaption = function (time) {
         if (time >= startTime && time <= endTime ) {
             console.log("Entry " + i + " should be highlighted");
             this.captions[i].className = "caption-highlighted";
+        } else {
+            this.captions[i].className = "";
         }
     }
 };
