@@ -209,11 +209,14 @@ VideoPlayer.prototype.skipToLocation = function () {
 };
 
 VideoPlayer.prototype.captionSkipBinding = function () {
-    for (i = 0; i < this.captions.length; i++) {
+    var self= this;
+    for (var i = 0; i < this.captions.length; i++) {
         console.log(i);
-        var captionNo = i;
+        //Something wrong here i = i on last loop for some reason
         this.captions[i].addEventListener('click', function (event) {
-            console.log("Caption " + captionNo + " clicked");
+            console.log("Caption " + i + " clicked");
+            console.log("Start time = " + this.dataset.timeStart);
+            self.source.currentTime = convertTimeString(this.dataset.timeStart);
         });
     }
 };
