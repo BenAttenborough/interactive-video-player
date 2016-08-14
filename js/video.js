@@ -190,7 +190,7 @@ VideoPlayer.prototype.highlightCaption = function (time) {
         var startTime = convertTimeString(this.captions[i].dataset.timeStart);
         var endTime = convertTimeString(this.captions[i].dataset.timeEnd);
         if (time >= startTime && time <= endTime ) {
-            console.log("Entry " + i + " should be highlighted");
+            //console.log("Entry " + i + " should be highlighted");
             this.captions[i].className = "caption-highlighted";
         } else {
             this.captions[i].className = "";
@@ -203,7 +203,7 @@ VideoPlayer.prototype.skipToLocation = function () {
     this.progContainer.addEventListener('click', function (event) {
         //var position = (event.pageX  - this.offsetLeft) / this.offsetWidth;
         var position = (event.pageX - this.offsetLeft) / this.offsetWidth;
-        console.log(position);
+        //console.log(position);
         self.source.currentTime = position * self.videoDurration;
     });
 };
@@ -211,11 +211,11 @@ VideoPlayer.prototype.skipToLocation = function () {
 VideoPlayer.prototype.captionSkipBinding = function () {
     var self= this;
     for (var i = 0; i < this.captions.length; i++) {
-        console.log(i);
+        //console.log(i);
         //Something wrong here i = i on last loop for some reason
         this.captions[i].addEventListener('click', function (event) {
-            console.log("Caption " + i + " clicked");
-            console.log("Start time = " + this.dataset.timeStart);
+            //console.log("Caption " + i + " clicked");
+            //console.log("Start time = " + this.dataset.timeStart);
             self.source.currentTime = convertTimeString(this.dataset.timeStart);
         });
     }
@@ -230,8 +230,8 @@ VideoPlayer.prototype.init = function () {
     this.getCurrentVideoTime();
     this.skipToLocation();
     this.captionSkipBinding();
-    console.log(this.captions.length);
-    console.log(this.captions);
+    //console.log(this.captions.length);
+    //console.log(this.captions);
 };
 
 function createVideoPlayers() {
