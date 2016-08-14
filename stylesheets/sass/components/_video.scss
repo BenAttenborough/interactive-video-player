@@ -74,13 +74,8 @@ video {
 }
 
 .buttons {
-  height: 15px;
-  margin: 5px 0;
-  //background-color: blue;
-  @media screen and (min-width: $tablet) {
-    height: 30px;
-    margin-bottom: 10px;
-  }
+  height: 20px;
+  margin-bottom: 10px;
 }
 
 .buttons__play,
@@ -89,6 +84,16 @@ video {
 .buttons__timeContainer{
   display: inline;
   margin: 0 10px;
+}
+
+.buttons__timeContainer{
+  position: relative;
+  top: -5px;
+}
+
+.buttons__fullscreen,
+.buttons__mute {
+  float: right;
 }
 
 .buttons__play img,
