@@ -39,7 +39,7 @@ video {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,$interface-opacity);
   //background-color: red;
   padding: 0 10px;
 }
@@ -49,7 +49,7 @@ video {
   height: 20px;
   //background-color: red;
   @media screen and (min-width: $tablet) {
-    height: 45px;
+    height: 25px;
   }
 }
 
@@ -57,14 +57,14 @@ video {
   height: 11px;
   padding-top: 8px;
   @media screen and (min-width: $tablet) {
-    height: 25px;
-    padding-top: 20px;
+    height: 15px;
+    padding-top: 12px;
   }
 }
 
 .progContainer__inner_empty {
   height: 100%;
-  background-color: black;
+  background-color: rgba(255,255,255,0.1);
 }
 
 .progContainer__bar {
