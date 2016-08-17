@@ -57,12 +57,17 @@ VideoPlayer.prototype.constructInterface = function () {
     var fullscreenNode = document.createElement("div");
     fullscreenNode.className = "buttons__fullscreen";
 
+    var captionsNode = document.createElement("div");
+    captionsNode.className = "buttons__captions";
+
     var playIconNode = document.createElement("img");
     playIconNode.setAttribute('src', 'assets/icons/play-icon.png');
     var muteIconNode = document.createElement("img");
     muteIconNode.setAttribute('src', 'assets/icons/volume-on-icon.png');
     var fullscreenIconNode = document.createElement("img");
     fullscreenIconNode.setAttribute('src', 'assets/icons/fullscreen-icon.png');
+    var captionsIconNode = document.createElement("img");
+    captionsIconNode.setAttribute('src', 'assets/icons/volume-on-icon.png');
 
     timeNode.innerHTML = "<span class='currentTime'></span><span class='endTime'></span>"
 
@@ -78,6 +83,8 @@ VideoPlayer.prototype.constructInterface = function () {
     muteNode.appendChild(muteIconNode);
     buttonsNode.appendChild(fullscreenNode);
     fullscreenNode.appendChild(fullscreenIconNode);
+    buttonsNode.appendChild(captionsNode);
+    captionsNode.appendChild(captionsIconNode);
 
     this.videoContainer.appendChild(interfaceNode);
     //this.videoContainer.id = 'video-no-';
@@ -170,8 +177,6 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
 
         //Call a function to check which caption to highlight
         self.highlightCaption(self.source.currentTime);
-
-
         //console.log('Buffered: ' + self.source.buffered);
 
         self.currentTime.textContent = self.niceTime(self.videoCurrentTime) + "/";
@@ -182,18 +187,20 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
 };
 
 VideoPlayer.prototype.highlightCaption = function (time) {
-    console.log("checking time " + time);
-    console.log("Start time " + convertTimeString(this.captions[0].dataset.timeStart));
-    //var self = this;
-    for (var i = 0; i < this.captions.length; i++) {
-        //compare time to captions data
-        var startTime = convertTimeString(this.captions[i].dataset.timeStart);
-        var endTime = convertTimeString(this.captions[i].dataset.timeEnd);
-        if (time >= startTime && time <= endTime ) {
-            //console.log("Entry " + i + " should be highlighted");
-            this.captions[i].className = "caption-highlighted";
-        } else {
-            this.captions[i].className = "";
+    //console.log("checking time " + time);
+    //console.log(this.captions.length);
+    if (this.captions.length > 0) {
+        //console.log("Start time " + convertTimeString(this.captions[0].dataset.timeStart));
+        for (var i = 0; i < this.captions.length; i++) {
+            //compare time to captions data
+            var startTime = convertTimeString(this.captions[i].dataset.timeStart);
+            var endTime = convertTimeString(this.captions[i].dataset.timeEnd);
+            if (time >= startTime && time <= endTime ) {
+                //console.log("Entry " + i + " should be highlighted");
+                this.captions[i].className = "caption-highlighted";
+            } else {
+                this.captions[i].className = "";
+            }
         }
     }
 };
