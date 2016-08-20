@@ -84,7 +84,7 @@ VideoPlayer.prototype.constructInterface = function () {
     buttonsNode.appendChild(timeNode);
     buttonsNode.appendChild(muteNode);
     muteNode.appendChild(muteIconNode);
-    buttonsNode.appendChild(volumeNode);
+    muteNode.appendChild(volumeNode);
     buttonsNode.appendChild(fullscreenNode);
     fullscreenNode.appendChild(fullscreenIconNode);
     buttonsNode.appendChild(captionsNode);
