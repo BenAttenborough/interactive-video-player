@@ -95,6 +95,21 @@ video {
   float: right;
 }
 
+.buttons__mute {
+  position: relative;
+}
+
+.buttons__volume{
+  position: absolute;
+  height: 100px;
+  width: 20px;
+  background-color: red;
+  display: none;
+  &:hover {
+    display: block;
+  }
+}
+
 .buttons__play img,
 .buttons__mute img,
 .buttons__fullscreen img,
