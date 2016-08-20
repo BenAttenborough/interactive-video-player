@@ -54,6 +54,9 @@ VideoPlayer.prototype.constructInterface = function () {
     var muteNode = document.createElement("div");
     muteNode.className = "buttons__mute";
 
+    var volumeNode = document.createElement("div");
+    volumeNode.className = "buttons__volume";
+
     var fullscreenNode = document.createElement("div");
     fullscreenNode.className = "buttons__fullscreen";
 
@@ -81,6 +84,7 @@ VideoPlayer.prototype.constructInterface = function () {
     buttonsNode.appendChild(timeNode);
     buttonsNode.appendChild(muteNode);
     muteNode.appendChild(muteIconNode);
+    buttonsNode.appendChild(volumeNode);
     buttonsNode.appendChild(fullscreenNode);
     fullscreenNode.appendChild(fullscreenIconNode);
     buttonsNode.appendChild(captionsNode);
@@ -187,16 +191,12 @@ VideoPlayer.prototype.getCurrentVideoTime = function () {
 };
 
 VideoPlayer.prototype.highlightCaption = function (time) {
-    //console.log("checking time " + time);
-    //console.log(this.captions.length);
     if (this.captions.length > 0) {
-        //console.log("Start time " + convertTimeString(this.captions[0].dataset.timeStart));
         for (var i = 0; i < this.captions.length; i++) {
             //compare time to captions data
             var startTime = convertTimeString(this.captions[i].dataset.timeStart);
             var endTime = convertTimeString(this.captions[i].dataset.timeEnd);
             if (time >= startTime && time <= endTime ) {
-                //console.log("Entry " + i + " should be highlighted");
                 this.captions[i].className = "caption-highlighted";
             } else {
                 this.captions[i].className = "";
