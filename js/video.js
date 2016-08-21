@@ -259,8 +259,7 @@ VideoPlayer.prototype.init = function () {
     this.getCurrentVideoTime();
     this.skipToLocation();
     this.captionSkipBinding();
-    //console.log(this.captions.length);
-    //console.log(this.captions);
+    this.setVolume();
 };
 
 function createVideoPlayers() {
