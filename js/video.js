@@ -16,6 +16,7 @@ var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.buttons = null;
     this.playButton = null;
     this.muteButton = null;
+    this.muteButtonIcon = null;
     this.volumeContainer = null;
     this.fullscreenButton = null;
     this.currentTime = null;
@@ -64,6 +65,7 @@ VideoPlayer.prototype.constructInterface = function () {
     playIconNode.setAttribute('src', 'assets/icons/play-icon.png');
     var muteIconNode = document.createElement("img");
     muteIconNode.setAttribute('src', 'assets/icons/volume-on-icon.png');
+    muteIconNode.className = "buttons__mute_img";
     var fullscreenIconNode = document.createElement("img");
     fullscreenIconNode.setAttribute('src', 'assets/icons/fullscreen-icon.png');
     var captionsIconNode = document.createElement("img");
@@ -102,6 +104,7 @@ VideoPlayer.prototype.setMemberVariables = function () {
     var videoButtonsElements = document.getElementsByClassName('buttons');
     var videoPlayElements = document.getElementsByClassName('buttons__play');
     var videoMuteElements = document.getElementsByClassName('buttons__mute');
+    var videoMuteIcons = document.getElementsByClassName('buttons__mute_img');
     var videoVolumeElements = document.getElementsByClassName('volume__inner');
 
     var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
@@ -115,6 +118,7 @@ VideoPlayer.prototype.setMemberVariables = function () {
     this.buttons = videoButtonsElements[this.playerNumber];
     this.playButton = videoPlayElements[this.playerNumber];
     this.muteButton = videoMuteElements[this.playerNumber];
+    this.muteButtonIcon = videoMuteIcons[this.playerNumber];
     this.fullscreenButton = videoFullscreenElements[this.playerNumber];
     this.currentTime = videoCurrentTimeElements[this.playerNumber];
     this.endTime = videoEndTimeElements[this.playerNumber];
@@ -139,11 +143,16 @@ VideoPlayer.prototype.playPauseVideo = function () {
 };
 
 VideoPlayer.prototype.muteUnmute = function () {
+    var volOnImg = 'assets/icons/volume-on-icon.png';
+    var volOffImg = 'assets/icons/volume-off-icon.png';
     this.source.muted = !this.source.muted;
+    var self = this;
     if (this.source.muted) {
-        this.muteButton.innerHTML = '<img src="assets/icons/volume-off-icon.png">';
+        self.muteButtonIcon.src = volOffImg;
+        console.log('Volume off');
     } else {
-        this.muteButton.innerHTML = '<img src="assets/icons/volume-on-icon.png">';
+        self.muteButtonIcon.src = volOnImg;
+        console.log('Volume on');
     }
 };
 
