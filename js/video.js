@@ -16,6 +16,7 @@ var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.buttons = null;
     this.playButton = null;
     this.muteButton = null;
+    this.volumeContainer = null;
     this.fullscreenButton = null;
     this.currentTime = null;
     this.endTime = null;
@@ -29,49 +30,36 @@ VideoPlayer.prototype.constructInterface = function () {
 
     var interfaceNode = document.createElement("div");
     interfaceNode.className = "video__interface";
-
     var progNode = document.createElement("div");
     progNode.className = "progContainer";
-
     var progBarInner = document.createElement("div");
     progBarInner.className = "progContainer__inner";
-
     var progBarInnerEmpty = document.createElement("div");
     progBarInnerEmpty.className = "progContainer__inner_empty";
-
     var progBarNode = document.createElement("div");
     progBarNode.className = "progContainer__bar";
-
     var buttonsNode = document.createElement("div");
     buttonsNode.className = "buttons";
-
     var timeNode = document.createElement("div");
     timeNode.className = "buttons__timeContainer";
-
     var playNode = document.createElement("div");
     playNode.className = "buttons__play";
-
     var muteNode = document.createElement("div");
     muteNode.className = "buttons__mute";
-
     var volumeNode = document.createElement("div");
     volumeNode.className = "buttons__volume";
-
     var volumeInner = document.createElement("div");
     volumeInner.className = "volume__inner";
-
     var volumeInnerEmpty = document.createElement("div");
     volumeInnerEmpty.className = "volume__inner_empty";
-
     var volumeInnerBar = document.createElement("div");
     volumeInnerBar.className = "volume__inner_bar";
-
     var fullscreenNode = document.createElement("div");
     fullscreenNode.className = "buttons__fullscreen";
-
     var captionsNode = document.createElement("div");
     captionsNode.className = "buttons__captions";
 
+    //Add icons to buttons
     var playIconNode = document.createElement("img");
     playIconNode.setAttribute('src', 'assets/icons/play-icon.png');
     var muteIconNode = document.createElement("img");
@@ -105,9 +93,6 @@ VideoPlayer.prototype.constructInterface = function () {
     captionsNode.appendChild(captionsIconNode);
 
     this.videoContainer.appendChild(interfaceNode);
-    //this.videoContainer.id = 'video-no-';
-    //console.log('Video container');
-    //console.log(this.videoContainer);
 };
 
 VideoPlayer.prototype.setMemberVariables = function () {
@@ -117,12 +102,15 @@ VideoPlayer.prototype.setMemberVariables = function () {
     var videoButtonsElements = document.getElementsByClassName('buttons');
     var videoPlayElements = document.getElementsByClassName('buttons__play');
     var videoMuteElements = document.getElementsByClassName('buttons__mute');
+    var videoVolumeElements = document.getElementsByClassName('volume__inner');
+
     var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
     var videoCurrentTimeElements = document.getElementsByClassName('currentTime');
     var videoEndTimeElements = document.getElementsByClassName('endTime');
 
     this.interface = videoInterfaceElements[this.playerNumber];
     this.progContainer = videoProgContainerElements[this.playerNumber];
+    this.volumeContainer = videoVolumeElements[this.playerNumber];
     this.progBar = videoProgContainer__barElements[this.playerNumber];
     this.buttons = videoButtonsElements[this.playerNumber];
     this.playButton = videoPlayElements[this.playerNumber];
@@ -157,6 +145,18 @@ VideoPlayer.prototype.muteUnmute = function () {
     } else {
         this.muteButton.innerHTML = '<img src="assets/icons/volume-on-icon.png">';
     }
+};
+
+VideoPlayer.prototype.setVolume = function () {
+    //var videoDiv = this.videoContainer;
+    //var self = this;
+    //this.progContainer.addEventListener('click', function (event) {
+    //    var position = (event.pageX - (this.offsetLeft + videoDiv.offsetLeft)) / this.offsetWidth;
+    //    self.source.currentTime = position * self.videoDurration;
+    //});
+    this.volumeContainer.addEventListener('click', function (event) {
+        console.log('Volume container clicked');
+    })
 };
 
 VideoPlayer.prototype.setupButtons = function () {
