@@ -104,10 +104,13 @@ video {
   height: 100px;
   width: 20px;
   background-color: red;
-  display: none;
-  &:hover {
-    display: block;
-  }
+  top: -120px;
+}
+
+.volume__inner{
+  height: 90%;
+  background-color: blue;
+  margin: 5px;
 }
 
 .buttons__play img,

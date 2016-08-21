@@ -57,6 +57,15 @@ VideoPlayer.prototype.constructInterface = function () {
     var volumeNode = document.createElement("div");
     volumeNode.className = "buttons__volume";
 
+    var volumeInner = document.createElement("div");
+    volumeInner.className = "volume__inner";
+
+    var volumeInnerEmpty = document.createElement("div");
+    volumeInnerEmpty.className = "volume__inner_empty";
+
+    var volumeInnerBar = document.createElement("div");
+    volumeInnerBar.className = "volume__inner_bar";
+
     var fullscreenNode = document.createElement("div");
     fullscreenNode.className = "buttons__fullscreen";
 
@@ -84,6 +93,11 @@ VideoPlayer.prototype.constructInterface = function () {
     buttonsNode.appendChild(timeNode);
     buttonsNode.appendChild(muteNode);
     muteNode.appendChild(volumeNode);
+
+    volumeNode.appendChild(volumeInner);
+    volumeInner.appendChild(volumeInnerEmpty);
+    volumeInnerEmpty.appendChild(volumeInnerBar);
+
     muteNode.appendChild(muteIconNode);
     buttonsNode.appendChild(fullscreenNode);
     fullscreenNode.appendChild(fullscreenIconNode);
