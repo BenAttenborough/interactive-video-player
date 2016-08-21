@@ -206,11 +206,10 @@ VideoPlayer.prototype.highlightCaption = function (time) {
 };
 
 VideoPlayer.prototype.skipToLocation = function () {
+    var videoDiv = this.videoContainer;
     var self = this;
     this.progContainer.addEventListener('click', function (event) {
-        //var position = (event.pageX  - this.offsetLeft) / this.offsetWidth;
-        var position = (event.pageX - this.offsetLeft) / this.offsetWidth;
-        //console.log(position);
+        var position = (event.pageX - (this.offsetLeft + videoDiv.offsetLeft)) / this.offsetWidth;
         self.source.currentTime = position * self.videoDurration;
     });
 };
