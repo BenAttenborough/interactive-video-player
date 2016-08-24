@@ -105,12 +105,13 @@ video {
   width: 20px;
   background-color: red;
   top: -120px;
+  padding: 5px;
 }
 
 .volume__inner{
-  height: 90%;
+  height: 100%;
   background-color: blue;
-  margin: 5px;
+  //margin: 5px;
 }
 
 .buttons__play img,

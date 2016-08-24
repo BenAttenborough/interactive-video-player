@@ -168,21 +168,23 @@ VideoPlayer.prototype.setVolume = function () {
     //});
     var videoDiv = this.videoContainer;
     var videoInterface = this.interface;
+    var volumeBar = this.volumeBar;
     this.volumeBar.addEventListener('click', function (event) {
         console.log('Volume container clicked');
-        var volContainerOffset = (event.pageY - (this.offsetTop + videoInterface.offsetTop + videoDiv.offsetTop)) + 95;
+        var volContainerOffset = (event.pageY - ( videoInterface.offsetTop + videoDiv.offsetTop) ) + volumeBar.offsetHeight;
         var position = volContainerOffset / this.offsetHeight;
         position = 1 - position;
         //var position = (event.pageY - (videoInterface.offsetTop)) / this.offsetHeight;
         //var position = (event.pageY) / this.offsetHeight;
         //
+        console.log('volume bar: ' + volumeBar.offsetHeight);
         //console.log('event.pageY ' + event.pageY);
         //console.log('this.offsetTop ' + this.offsetTop);
         //console.log('videoInterface.offsetTop ' + videoInterface.offsetTop);
         //console.log('videoDiv.offsetTop ' + videoDiv.offsetTop);
         //console.log('this.offsetHeight ' + this.offsetHeight);
         //
-        //console.log(volContainerOffset + '/' +  this.offsetHeight);
+        console.log(volContainerOffset + '/' +  this.offsetHeight);
 
         console.log('position ' + position);
     })
