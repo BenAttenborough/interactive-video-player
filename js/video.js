@@ -208,9 +208,9 @@ VideoPlayer.prototype.setupButtons = function () {
     this.playButton.addEventListener('click', function (event) {
         self.playPauseVideo();
     });
-    //this.muteButton.addEventListener('click', function (event) {
-    //    self.muteUnmute();
-    //});
+    this.muteButtonIcon.addEventListener('click', function (event) {
+        self.muteUnmute();
+    });
 };
 
 VideoPlayer.prototype.niceTime = function (time) {
