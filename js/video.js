@@ -199,6 +199,7 @@ VideoPlayer.prototype.setVolume = function () {
         console.log('position ' + position);
         console.log('visualPosition ' + visualPosition);
         self.volumeLevel.setAttribute('style', 'height: ' + visualPosition + '%');
+        self.source.volume = position;
     })
 };
 
@@ -207,9 +208,9 @@ VideoPlayer.prototype.setupButtons = function () {
     this.playButton.addEventListener('click', function (event) {
         self.playPauseVideo();
     });
-    this.muteButton.addEventListener('click', function (event) {
-        self.muteUnmute();
-    });
+    //this.muteButton.addEventListener('click', function (event) {
+    //    self.muteUnmute();
+    //});
 };
 
 VideoPlayer.prototype.niceTime = function (time) {
