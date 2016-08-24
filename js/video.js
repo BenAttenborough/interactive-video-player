@@ -173,7 +173,7 @@ VideoPlayer.prototype.setVolume = function () {
     ////console.log( percentComplete + " complete");
     //self.progBar.setAttribute("style", "width: " + percentComplete);
 
-
+    var self = this;
 
     //this.volumeLevel.setAttribute('style', 'height: 100%');
     this.volumeBar.addEventListener('click', function (event) {
@@ -181,6 +181,8 @@ VideoPlayer.prototype.setVolume = function () {
         var volContainerOffset = (event.pageY - ( videoInterface.offsetTop + videoDiv.offsetTop) ) + volumeBar.offsetHeight;
         var position = volContainerOffset / this.offsetHeight;
         position = 1 - position;
+        var visualPosition = Math.floor(position * 100);
+        visualPosition = 100 - visualPosition;
         //var position = (event.pageY - (videoInterface.offsetTop)) / this.offsetHeight;
         //var position = (event.pageY) / this.offsetHeight;
         //
@@ -192,9 +194,11 @@ VideoPlayer.prototype.setVolume = function () {
         //console.log('this.offsetHeight ' + this.offsetHeight);
         //
         console.log(volContainerOffset + '/' +  this.offsetHeight);
-        console.log(position * 100);
+        console.log(Math.floor(position * 100) );
 
         console.log('position ' + position);
+        console.log('visualPosition ' + visualPosition);
+        self.volumeLevel.setAttribute('style', 'height: ' + visualPosition + '%');
     })
 };
 

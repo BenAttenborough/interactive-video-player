@@ -110,12 +110,12 @@ video {
 
 .volume__inner{
   height: 100%;
-  background-color: blue;
+  background-color: $progress-bar;
 }
 
 .volume__inner_empty {
-  background-color: $progress-bar;
-  height: 100%;
+  background-color: blue;
+  height: 0%;
 }
 
 .buttons__play img,
