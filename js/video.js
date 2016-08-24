@@ -19,6 +19,7 @@ var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.muteButtonIcon = null;
     this.volumeContainer = null;
     this.volumeBar = null;
+    this.volumeLevel = null;
     this.fullscreenButton = null;
     this.currentTime = null;
     this.endTime = null;
@@ -108,6 +109,7 @@ VideoPlayer.prototype.setMemberVariables = function () {
     var videoMuteIcons = document.getElementsByClassName('buttons__mute_img');
     var videoVolumeContainers = document.getElementsByClassName('buttons__volume');
     var videoVolumeBars = document.getElementsByClassName('volume__inner');
+    var videoVolumeLevels = document.getElementsByClassName('volume__inner_empty');
 
     var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
     var videoCurrentTimeElements = document.getElementsByClassName('currentTime');
@@ -117,6 +119,7 @@ VideoPlayer.prototype.setMemberVariables = function () {
     this.progContainer = videoProgContainerElements[this.playerNumber];
     this.volumeContainer = videoVolumeContainers[this.playerNumber];
     this.volumeBar = videoVolumeBars[this.playerNumber];
+    this.volumeLevel = videoVolumeLevels[this.playerNumber];
     this.progBar = videoProgContainer__barElements[this.playerNumber];
     this.buttons = videoButtonsElements[this.playerNumber];
     this.playButton = videoPlayElements[this.playerNumber];
@@ -160,15 +163,19 @@ VideoPlayer.prototype.muteUnmute = function () {
 };
 
 VideoPlayer.prototype.setVolume = function () {
-    //var videoDiv = this.videoContainer;
-    //var self = this;
-    //this.progContainer.addEventListener('click', function (event) {
-    //    var position = (event.pageX - (this.offsetLeft + videoDiv.offsetLeft)) / this.offsetWidth;
-    //    self.source.currentTime = position * self.videoDurration;
-    //});
     var videoDiv = this.videoContainer;
     var videoInterface = this.interface;
     var volumeBar = this.volumeBar;
+
+
+
+    //percentComplete = Math.floor(( self.videoCurrentTime / endTime ) * 100) + "%";
+    ////console.log( percentComplete + " complete");
+    //self.progBar.setAttribute("style", "width: " + percentComplete);
+
+
+
+    //this.volumeLevel.setAttribute('style', 'height: 100%');
     this.volumeBar.addEventListener('click', function (event) {
         console.log('Volume container clicked');
         var volContainerOffset = (event.pageY - ( videoInterface.offsetTop + videoDiv.offsetTop) ) + volumeBar.offsetHeight;
@@ -185,6 +192,7 @@ VideoPlayer.prototype.setVolume = function () {
         //console.log('this.offsetHeight ' + this.offsetHeight);
         //
         console.log(volContainerOffset + '/' +  this.offsetHeight);
+        console.log(position * 100);
 
         console.log('position ' + position);
     })
