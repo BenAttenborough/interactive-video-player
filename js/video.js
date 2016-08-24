@@ -211,6 +211,22 @@ VideoPlayer.prototype.setupButtons = function () {
     this.muteButtonIcon.addEventListener('click', function (event) {
         self.muteUnmute();
     });
+    this.muteButton.addEventListener('mouseenter', function (event) {
+        self.showVolume();
+    });
+    this.muteButton.addEventListener('mouseleave', function (event) {
+        self.hideVolume();
+    });
+};
+
+VideoPlayer.prototype.showVolume = function () {
+    console.log('show vol');
+    this.volumeContainer.style.display = 'block';
+};
+
+VideoPlayer.prototype.hideVolume = function () {
+    console.log('hide vol');
+    this.volumeContainer.style.display = 'none';
 };
 
 VideoPlayer.prototype.niceTime = function (time) {
