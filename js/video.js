@@ -18,6 +18,7 @@ var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.muteButton = null;
     this.muteButtonIcon = null;
     this.volumeContainer = null;
+    this.volumeBar = null;
     this.fullscreenButton = null;
     this.currentTime = null;
     this.endTime = null;
@@ -105,7 +106,8 @@ VideoPlayer.prototype.setMemberVariables = function () {
     var videoPlayElements = document.getElementsByClassName('buttons__play');
     var videoMuteElements = document.getElementsByClassName('buttons__mute');
     var videoMuteIcons = document.getElementsByClassName('buttons__mute_img');
-    var videoVolumeElements = document.getElementsByClassName('volume__inner');
+    var videoVolumeContainers = document.getElementsByClassName('buttons__volume');
+    var videoVolumeBars = document.getElementsByClassName('volume__inner');
 
     var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
     var videoCurrentTimeElements = document.getElementsByClassName('currentTime');
@@ -113,7 +115,8 @@ VideoPlayer.prototype.setMemberVariables = function () {
 
     this.interface = videoInterfaceElements[this.playerNumber];
     this.progContainer = videoProgContainerElements[this.playerNumber];
-    this.volumeContainer = videoVolumeElements[this.playerNumber];
+    this.volumeContainer = videoVolumeContainers[this.playerNumber];
+    this.volumeBar = videoVolumeBars[this.playerNumber];
     this.progBar = videoProgContainer__barElements[this.playerNumber];
     this.buttons = videoButtonsElements[this.playerNumber];
     this.playButton = videoPlayElements[this.playerNumber];
@@ -163,8 +166,25 @@ VideoPlayer.prototype.setVolume = function () {
     //    var position = (event.pageX - (this.offsetLeft + videoDiv.offsetLeft)) / this.offsetWidth;
     //    self.source.currentTime = position * self.videoDurration;
     //});
-    this.volumeContainer.addEventListener('click', function (event) {
+    var videoDiv = this.videoContainer;
+    var videoInterface = this.interface;
+    this.volumeBar.addEventListener('click', function (event) {
         console.log('Volume container clicked');
+        var volContainerOffset = (event.pageY - (this.offsetTop + videoInterface.offsetTop + videoDiv.offsetTop)) + 95;
+        var position = volContainerOffset / this.offsetHeight;
+        position = 1 - position;
+        //var position = (event.pageY - (videoInterface.offsetTop)) / this.offsetHeight;
+        //var position = (event.pageY) / this.offsetHeight;
+        //
+        //console.log('event.pageY ' + event.pageY);
+        //console.log('this.offsetTop ' + this.offsetTop);
+        //console.log('videoInterface.offsetTop ' + videoInterface.offsetTop);
+        //console.log('videoDiv.offsetTop ' + videoDiv.offsetTop);
+        //console.log('this.offsetHeight ' + this.offsetHeight);
+        //
+        //console.log(volContainerOffset + '/' +  this.offsetHeight);
+
+        console.log('position ' + position);
     })
 };
 
@@ -232,8 +252,16 @@ VideoPlayer.prototype.skipToLocation = function () {
     var videoDiv = this.videoContainer;
     var self = this;
     this.progContainer.addEventListener('click', function (event) {
-        var position = (event.pageX - (this.offsetLeft + videoDiv.offsetLeft)) / this.offsetWidth;
+        var progContainerOffset = event.pageX - (this.offsetLeft + videoDiv.offsetLeft);
+        var position = progContainerOffset / this.offsetWidth;
         self.source.currentTime = position * self.videoDurration;
+        console.log('event.pageX ' + event.pageX);
+        console.log('this.offsetLeft ' + this.offsetLeft);
+        console.log('event.videoDiv.offsetLeft ' + videoDiv.offsetLeft);
+        console.log('progContainerOffset ' + progContainerOffset);
+        console.log('Divided by ');
+        console.log('this.offsetWidth ' + this.offsetWidth);
+        console.log('position ' + position);
     });
 };
 
