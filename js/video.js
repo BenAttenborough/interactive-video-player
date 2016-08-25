@@ -68,6 +68,8 @@ VideoPlayer.prototype.constructInterface = function () {
     fullscreenNode.className = "buttons__fullscreen";
     var captionsNode = document.createElement("div");
     captionsNode.className = "buttons__captions";
+    var captionsNodeSelectBox = document.createElement("div");
+    captionsNodeSelectBox.className = "buttons__captions_select";
 
     //Add icons to buttons
     var playIconNode = document.createElement("img");
@@ -103,7 +105,9 @@ VideoPlayer.prototype.constructInterface = function () {
     buttonsNode.appendChild(fullscreenNode);
     fullscreenNode.appendChild(fullscreenIconNode);
     buttonsNode.appendChild(captionsNode);
+    captionsNode.appendChild(captionsNodeSelectBox);
     captionsNode.appendChild(captionsIconNode);
+
 
     this.videoContainer.appendChild(interfaceNode);
 };
