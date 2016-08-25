@@ -86,11 +86,13 @@ VideoPlayer.prototype.constructInterface = function () {
     buttonsNode.appendChild(muteNode);
     muteNode.appendChild(volumeNode);
 
+
     volumeNode.appendChild(volumeInner);
     volumeInner.appendChild(volumeInnerEmpty);
     volumeInnerEmpty.appendChild(volumeInnerBar);
 
     muteNode.appendChild(muteIconNode);
+
     buttonsNode.appendChild(fullscreenNode);
     fullscreenNode.appendChild(fullscreenIconNode);
     buttonsNode.appendChild(captionsNode);
@@ -226,6 +228,7 @@ VideoPlayer.prototype.showVolume = function () {
 
 VideoPlayer.prototype.hideVolume = function () {
     console.log('hide vol');
+    //if (this.volumeContainer.mouseIsOver) {}
     this.volumeContainer.style.display = 'none';
 };
 

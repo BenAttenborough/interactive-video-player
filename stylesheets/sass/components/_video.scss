@@ -38,9 +38,14 @@ video {
   position: absolute;
   bottom: 0;
   width: 100%;
+
   background-color: rgba(0,0,0,$interface-opacity);
   //background-color: red;
   padding: 0 10px;
+}
+
+.video:hover .video__interface {
+  height: 60px;
 }
 
 .progContainer {
@@ -69,7 +74,7 @@ video {
 .progContainer__bar {
   width: 0;
   height: 100%;
-  background-color: rgba(0,0,0,$interface-opacity);
+  background-color: $progress-bar;
 }
 
 .buttons {
@@ -97,6 +102,9 @@ video {
 
 .buttons__mute {
   position: relative;
+  height: 150px;
+  width: 20px;
+  top: -120px;
 }
 
 .buttons__volume{
@@ -104,12 +112,18 @@ video {
   height: 100px;
   width: 20px;
   background-color: rgba(50,50,50,0.5);
-  top: -120px;
+
   padding: 5px;
   -webkit-border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
   border-radius: 5px 5px 0 0;
   display: none;
+}
+
+.buttons__mute img {
+  height: 20px;
+  position: absolute;
+  top: 120px;
 }
 
 .volume__inner{
@@ -123,7 +137,6 @@ video {
 }
 
 .buttons__play img,
-.buttons__mute img,
 .buttons__fullscreen img,
 .buttons__timeContainer img {
   height: 100%;
