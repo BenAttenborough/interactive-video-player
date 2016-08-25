@@ -15,6 +15,7 @@ var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.progBar = null;
     this.buttons = null;
     this.playButton = null;
+    this.captionButton = null;
     this.muteButton = null;
     this.muteButtonIcon = null;
     this.volumeContainer = null;
@@ -27,6 +28,12 @@ var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
 
 VideoPlayer.prototype.removeDefaultControls = function () {
     this.source.controls = false;
+};
+
+VideoPlayer.prototype.hideCaptions = function () {
+    for (var i = 0; i < this.source.textTracks.length; i++) {
+        this.source.textTracks[i].mode = 'hidden';
+    }
 };
 
 VideoPlayer.prototype.constructInterface = function () {
@@ -71,7 +78,7 @@ VideoPlayer.prototype.constructInterface = function () {
     var fullscreenIconNode = document.createElement("img");
     fullscreenIconNode.setAttribute('src', 'assets/icons/fullscreen-icon.png');
     var captionsIconNode = document.createElement("img");
-    captionsIconNode.setAttribute('src', 'assets/icons/volume-on-icon.png');
+    captionsIconNode.setAttribute('src', 'assets/icons/closed_caption.png');
 
     timeNode.innerHTML = "<span class='currentTime'></span><span class='endTime'></span>"
 
@@ -113,6 +120,8 @@ VideoPlayer.prototype.setMemberVariables = function () {
     var videoVolumeBars = document.getElementsByClassName('volume__inner');
     var videoVolumeLevels = document.getElementsByClassName('volume__inner_empty');
 
+    var videoCaptionButtons = document.getElementsByClassName('buttons__captions');
+
     var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
     var videoCurrentTimeElements = document.getElementsByClassName('currentTime');
     var videoEndTimeElements = document.getElementsByClassName('endTime');
@@ -130,6 +139,7 @@ VideoPlayer.prototype.setMemberVariables = function () {
     this.fullscreenButton = videoFullscreenElements[this.playerNumber];
     this.currentTime = videoCurrentTimeElements[this.playerNumber];
     this.endTime = videoEndTimeElements[this.playerNumber];
+    this.captionButton = videoCaptionButtons[this.playerNumber];
 };
 
 VideoPlayer.prototype.playPauseVideo = function () {
@@ -218,6 +228,18 @@ VideoPlayer.prototype.setupButtons = function () {
     });
     this.muteButton.addEventListener('mouseleave', function (event) {
         self.hideVolume();
+    });
+    this.captionButton.addEventListener('click' ,function (event) {
+       console.log('caption button pressed');
+
+        // NEED TO TOGGLE
+        for (var i = 0; i < self.source.textTracks.length; i++) {
+            if (self.source.textTracks[i].mode == 'hidden') {
+                self.source.textTracks[i].mode = 'showing';
+            } else {
+                self.source.textTracks[i].mode = 'hidden';
+            }
+        }
     });
 };
 
@@ -314,6 +336,7 @@ VideoPlayer.prototype.captionSkipBinding = function () {
 
 VideoPlayer.prototype.init = function () {
     this.removeDefaultControls();
+    this.hideCaptions();
     this.constructInterface();
     this.setMemberVariables();
     this.setupButtons();
