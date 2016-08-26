@@ -12,6 +12,7 @@ var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.interface = null;
     this.progContainer = null;
     this.progBar = null;
+    this.buffBar = null;
     this.buttons = null;
     this.playButton = null;
     this.speedButton = null;
@@ -144,6 +145,7 @@ VideoPlayer.prototype.constructInterface = function () {
 VideoPlayer.prototype.setMemberVariables = function () {
     var videoInterfaceElements = document.getElementsByClassName('video__interface');
     var videoProgContainerElements = document.getElementsByClassName('progContainer');
+    var videoBufferBars = document.getElementsByClassName('progContainer__buffered_bar');
     var videoProgContainer__barElements = document.getElementsByClassName('progContainer__progress_bar');
     var videoButtonsElements = document.getElementsByClassName('buttons');
     var videoPlayElements = document.getElementsByClassName('buttons__play');
@@ -164,6 +166,7 @@ VideoPlayer.prototype.setMemberVariables = function () {
     this.volumeBar = videoVolumeBars[this.playerNumber];
     this.volumeLevel = videoVolumeLevels[this.playerNumber];
     this.progBar = videoProgContainer__barElements[this.playerNumber];
+    this.buffBar = videoBufferBars[this.playerNumber];
     this.buttons = videoButtonsElements[this.playerNumber];
     this.playButton = videoPlayElements[this.playerNumber];
     this.muteButton = videoMuteElements[this.playerNumber];
@@ -364,12 +367,14 @@ VideoPlayer.prototype.resetVideo = function () {
 };
 
 VideoPlayer.prototype.getBuffered = function () {
-    console.log("Get buffered func active");
-    console.log(this.source.buffered.length);
-    for (var i = 0; i < this.source.buffered.length; i++) {
-        console.log("Buffered start = " + this.source.buffered.start(i));
-        console.log("Buffered end = " + this.source.buffered.end(i));
-    }
+    var endTime = this.source.seekable.end(0);
+    var buffered = this.source.buffered;
+    var bufferedEnd = buffered.end(buffered.length - 1);
+    var percentComplete = Math.round(( bufferedEnd / endTime ) * 100) + "%";
+    console.log("bufferedEnd = " + bufferedEnd);
+    console.log("% complete = " + percentComplete);
+    this.buffBar.setAttribute("style", "width: " + percentComplete);
+
 };
 
 VideoPlayer.prototype.highlightCaption = function (time) {
