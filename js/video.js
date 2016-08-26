@@ -14,6 +14,7 @@ var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.progBar = null;
     this.buttons = null;
     this.playButton = null;
+    this.speedButton = null;
     this.captionButton = null;
     this.muteButton = null;
     this.muteButtonIcon = null;
@@ -76,7 +77,7 @@ VideoPlayer.prototype.constructInterface = function () {
     captionsNode.className = "buttons__captions";
     var captionsNodeSelectBox = document.createElement("div");
     captionsNodeSelectBox.className = "buttons__captions_select";
-    
+
     //Add icons to buttons
     var muteIconNode = document.createElement("img");
     muteIconNode.setAttribute('src', 'assets/icons/volume-on-icon.png');
@@ -136,6 +137,8 @@ VideoPlayer.prototype.setMemberVariables = function () {
     var videoCurrentTimeElements = document.getElementsByClassName('currentTime');
     var videoEndTimeElements = document.getElementsByClassName('endTime');
 
+    var videoSpeedElements = document.getElementsByClassName('buttons__speed');
+
 
     this.interface = videoInterfaceElements[this.playerNumber];
     this.progContainer = videoProgContainerElements[this.playerNumber];
@@ -151,6 +154,10 @@ VideoPlayer.prototype.setMemberVariables = function () {
     this.currentTime = videoCurrentTimeElements[this.playerNumber];
     this.endTime = videoEndTimeElements[this.playerNumber];
     this.captionButton = videoCaptionButtons[this.playerNumber];
+
+    this.speedButton = videoSpeedElements[this.playerNumber];
+
+
 };
 
 VideoPlayer.prototype.playPauseVideo = function () {
@@ -240,10 +247,7 @@ VideoPlayer.prototype.setupButtons = function () {
     this.muteButton.addEventListener('mouseleave', function (event) {
         self.hideVolume();
     });
-    this.captionButton.addEventListener('click' ,function (event) {
-       console.log('caption button pressed');
-
-        // NEED TO TOGGLE
+    this.captionButton.addEventListener('click', function (event) {
         for (var i = 0; i < self.source.textTracks.length; i++) {
             if (self.source.textTracks[i].mode == 'hidden') {
                 self.source.textTracks[i].mode = 'showing';
@@ -251,6 +255,10 @@ VideoPlayer.prototype.setupButtons = function () {
                 self.source.textTracks[i].mode = 'hidden';
             }
         }
+    });
+    this.speedButton.addEventListener('click', function (event) {
+        console.log("Speed");
+        self.source.playbackRate = 0.5;
     });
 };
 

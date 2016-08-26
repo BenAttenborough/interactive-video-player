@@ -38,7 +38,10 @@ video {
   position: absolute;
   bottom: 0;
   width: 100%;
-
+  height: 60px;
+  @media screen and (min-width: $desktop) {
+    height: 25px;
+  }
   background-color: rgba(0,0,0,$interface-opacity);
   //background-color: red;
   padding: 0 10px;
