@@ -194,27 +194,18 @@ VideoPlayer.prototype.setVolume = function () {
     var self = this;
 
     this.volumeBar.addEventListener('click', function (event) {
-        console.log('Volume container clicked');
+
         var volContainerOffset = (event.pageY - ( videoInterface.offsetTop + videoDiv.offsetTop) ) + volumeBar.offsetHeight;
+
+        if (self.isFullScreen()) {
+            volContainerOffset += 16;
+        }
+
         var position = volContainerOffset / this.offsetHeight;
         position = 1 - position;
         var visualPosition = Math.floor(position * 100);
         visualPosition = 100 - visualPosition;
-        //var position = (event.pageY - (videoInterface.offsetTop)) / this.offsetHeight;
-        //var position = (event.pageY) / this.offsetHeight;
-        //
-        console.log('volume bar: ' + volumeBar.offsetHeight);
-        //console.log('event.pageY ' + event.pageY);
-        //console.log('this.offsetTop ' + this.offsetTop);
-        //console.log('videoInterface.offsetTop ' + videoInterface.offsetTop);
-        //console.log('videoDiv.offsetTop ' + videoDiv.offsetTop);
-        //console.log('this.offsetHeight ' + this.offsetHeight);
-        //
-        console.log(volContainerOffset + '/' +  this.offsetHeight);
-        console.log(Math.floor(position * 100) );
-
-        console.log('position ' + position);
-        console.log('visualPosition ' + visualPosition);
+        
         self.volumeLevel.setAttribute('style', 'height: ' + visualPosition + '%');
         self.source.volume = position;
     })
