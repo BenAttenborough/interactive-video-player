@@ -198,6 +198,7 @@ VideoPlayer.prototype.setVolume = function () {
         var volContainerOffset = (event.pageY - ( videoInterface.offsetTop + videoDiv.offsetTop) ) + volumeBar.offsetHeight;
 
         if (self.isFullScreen()) {
+            //Offet for weird margin on full screen
             volContainerOffset += 16;
         }
 
@@ -205,7 +206,7 @@ VideoPlayer.prototype.setVolume = function () {
         position = 1 - position;
         var visualPosition = Math.floor(position * 100);
         visualPosition = 100 - visualPosition;
-        
+
         self.volumeLevel.setAttribute('style', 'height: ' + visualPosition + '%');
         self.source.volume = position;
     })
@@ -324,10 +325,12 @@ VideoPlayer.prototype.updateVideoStatus = function () {
         //Update time display
         self.currentTime.textContent = self.niceTime(self.videoCurrentTime) + "/";
         percentComplete = Math.floor(( self.videoCurrentTime / endTime ) * 100) + "%";
-
-        console.log( self.source.ended);
         //Update progress bar
         self.progBar.setAttribute("style", "width: " + percentComplete);
+
+        //Show buffered status
+        self.getBuffered();
+
         //Check if video has ended and if so reset buttons
         if (self.source.ended) {
             self.resetVideo();
@@ -340,6 +343,14 @@ VideoPlayer.prototype.resetVideo = function () {
     this.playButton.innerHTML = '<img src="assets/icons/play-icon.png">';
 };
 
+VideoPlayer.prototype.getBuffered = function () {
+    console.log("Get buffered func active");
+    console.log(this.source.buffered.length);
+    for (var i = 0; i < this.source.buffered.length; i++) {
+        console.log("Buffered start = " + this.source.buffered.start(i));
+        console.log("Buffered end = " + this.source.buffered.end(i));
+    }
+};
 
 VideoPlayer.prototype.highlightCaption = function (time) {
     if (this.captions.length > 0) {
