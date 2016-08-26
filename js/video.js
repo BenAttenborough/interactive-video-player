@@ -369,7 +369,11 @@ VideoPlayer.prototype.skipToLocation = function () {
     var videoDiv = this.videoContainer;
     var self = this;
     this.progContainer.addEventListener('click', function (event) {
-        var progContainerOffset = event.pageX - (this.offsetLeft + videoDiv.offsetLeft);
+        if (self.isFullScreen()) {
+            var progContainerOffset = event.pageX - this.offsetLeft;
+        } else {
+            var progContainerOffset = event.pageX - (this.offsetLeft + videoDiv.offsetLeft);
+        }
         var position = progContainerOffset / this.offsetWidth;
         self.source.currentTime = position * self.videoDurration;
         console.log('event.pageX ' + event.pageX);
