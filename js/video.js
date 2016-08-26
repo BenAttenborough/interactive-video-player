@@ -55,8 +55,23 @@ VideoPlayer.prototype.constructInterface = function () {
     progBarInner.className = "progContainer__inner";
     var progBarInnerEmpty = document.createElement("div");
     progBarInnerEmpty.className = "progContainer__inner_empty";
+
+    var buffBarContainer = document.createElement("div");
+    buffBarContainer.className = "progContainer__buffered";
+    var buffBarNode = document.createElement("div");
+    buffBarNode.className = "progContainer__buffered_bar";
+
+    var progBarContainer = document.createElement("div");
+    progBarContainer.className = "progContainer__progress";
     var progBarNode = document.createElement("div");
-    progBarNode.className = "progContainer__bar";
+    progBarNode.className = "progContainer__progress_bar";
+
+
+    //var buffBarNode = document.createElement("div");
+    //buffBarNode.className = "progContainer__buffered";
+
+
+
     var buttonsNode = document.createElement("div");
     buttonsNode.className = "buttons";
     var timeNode = document.createElement("div");
@@ -94,7 +109,12 @@ VideoPlayer.prototype.constructInterface = function () {
     interfaceNode.appendChild(progNode);
     progNode.appendChild(progBarInner);
     progBarInner.appendChild(progBarInnerEmpty);
-    progBarInnerEmpty.appendChild(progBarNode);
+
+    progBarInnerEmpty.appendChild(buffBarContainer);
+    buffBarContainer.appendChild(buffBarNode);
+
+    progBarInnerEmpty.appendChild(progBarContainer);
+    progBarContainer.appendChild(progBarNode);
 
     //Buttons container
     interfaceNode.appendChild(buttonsNode);
@@ -124,7 +144,7 @@ VideoPlayer.prototype.constructInterface = function () {
 VideoPlayer.prototype.setMemberVariables = function () {
     var videoInterfaceElements = document.getElementsByClassName('video__interface');
     var videoProgContainerElements = document.getElementsByClassName('progContainer');
-    var videoProgContainer__barElements = document.getElementsByClassName('progContainer__bar');
+    var videoProgContainer__barElements = document.getElementsByClassName('progContainer__progress_bar');
     var videoButtonsElements = document.getElementsByClassName('buttons');
     var videoPlayElements = document.getElementsByClassName('buttons__play');
     var videoMuteElements = document.getElementsByClassName('buttons__mute');
