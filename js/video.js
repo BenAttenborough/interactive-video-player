@@ -196,16 +196,8 @@ VideoPlayer.prototype.setVolume = function () {
     var videoDiv = this.videoContainer;
     var videoInterface = this.interface;
     var volumeBar = this.volumeBar;
-
-
-
-    //percentComplete = Math.floor(( self.videoCurrentTime / endTime ) * 100) + "%";
-    ////console.log( percentComplete + " complete");
-    //self.progBar.setAttribute("style", "width: " + percentComplete);
-
     var self = this;
 
-    //this.volumeLevel.setAttribute('style', 'height: 100%');
     this.volumeBar.addEventListener('click', function (event) {
         console.log('Volume container clicked');
         var volContainerOffset = (event.pageY - ( videoInterface.offsetTop + videoDiv.offsetTop) ) + volumeBar.offsetHeight;
@@ -257,9 +249,18 @@ VideoPlayer.prototype.setupButtons = function () {
         }
     });
     this.speedButton.addEventListener('click', function (event) {
-        console.log("Speed");
-        self.source.playbackRate = 0.5;
+        self.controlSpeed();
     });
+};
+
+VideoPlayer.prototype.controlSpeed = function () {
+    if (this.source.playbackRate == 1) {
+        this.source.playbackRate = 0.5;
+        this.speedButton.innerHTML = '<img src="assets/icons/full_motion.png">';
+    } else {
+        this.source.playbackRate = 1;
+        this.speedButton.innerHTML = '<img src="assets/icons/slow_motion.png">';
+    }
 };
 
 VideoPlayer.prototype.showVolume = function () {
