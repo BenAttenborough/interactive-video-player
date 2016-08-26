@@ -101,27 +101,40 @@ video {
   float: right;
 }
 
-.buttons__mute {
+.buttons__mute,
+.buttons__captions {
   position: relative;
   height: 150px;
   width: 20px;
   top: -120px;
 }
 
-.buttons__volume{
+//Will need to move captions out to style differently
+.buttons__volume,
+.buttons__captions_select {
   position: absolute;
+  display: none;
+}
+
+.buttons__volume {
   height: 100px;
   width: 20px;
   background-color: rgba(50,50,50,0.5);
-
   padding: 5px;
   -webkit-border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
   border-radius: 5px 5px 0 0;
-  display: none;
 }
 
-.buttons__mute img {
+.buttons__captions_select {
+  height: 100px;
+  width: 50px;
+  background-color: red;
+  display: block;
+}
+
+.buttons__mute img,
+.buttons__captions img {
   height: 20px;
   position: absolute;
   top: 120px;
