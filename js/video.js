@@ -35,6 +35,16 @@ VideoPlayer.prototype.hideCaptions = function () {
     }
 };
 
+VideoPlayer.prototype.createButton = function (className, imgURL) {
+    var buttonNode = document.createElement("div");
+    className = "buttons__" + className;
+    buttonNode.className = className;
+    var iconNode = document.createElement("img");
+    iconNode.setAttribute("src", imgURL);
+    buttonNode.appendChild(iconNode);
+    return buttonNode;
+};
+
 VideoPlayer.prototype.constructInterface = function () {
     var interfaceNode = document.createElement("div");
     interfaceNode.className = "video__interface";
@@ -50,8 +60,6 @@ VideoPlayer.prototype.constructInterface = function () {
     buttonsNode.className = "buttons";
     var timeNode = document.createElement("div");
     timeNode.className = "buttons__timeContainer";
-    var playNode = document.createElement("div");
-    playNode.className = "buttons__play";
     var muteNode = document.createElement("div");
     muteNode.className = "buttons__mute";
     var volumeNode = document.createElement("div");
@@ -68,10 +76,8 @@ VideoPlayer.prototype.constructInterface = function () {
     captionsNode.className = "buttons__captions";
     var captionsNodeSelectBox = document.createElement("div");
     captionsNodeSelectBox.className = "buttons__captions_select";
-
+    
     //Add icons to buttons
-    var playIconNode = document.createElement("img");
-    playIconNode.setAttribute('src', 'assets/icons/play-icon.png');
     var muteIconNode = document.createElement("img");
     muteIconNode.setAttribute('src', 'assets/icons/volume-on-icon.png');
     muteIconNode.className = "buttons__mute_img";
@@ -79,6 +85,8 @@ VideoPlayer.prototype.constructInterface = function () {
     fullscreenIconNode.setAttribute('src', 'assets/icons/fullscreen-icon.png');
     var captionsIconNode = document.createElement("img");
     captionsIconNode.setAttribute('src', 'assets/icons/closed_caption.png');
+    var halfSpeedIconNode = document.createElement("img");
+    halfSpeedIconNode.setAttribute('src', 'assets/icons/slow_motion.png')
 
     timeNode.innerHTML = "<span class='currentTime'></span><span class='endTime'></span>"
 
@@ -86,9 +94,13 @@ VideoPlayer.prototype.constructInterface = function () {
     progNode.appendChild(progBarInner);
     progBarInner.appendChild(progBarInnerEmpty);
     progBarInnerEmpty.appendChild(progBarNode);
+
+    //Buttons container
     interfaceNode.appendChild(buttonsNode);
-    buttonsNode.appendChild(playNode);
-    playNode.appendChild(playIconNode);
+    var playButton = this.createButton("play", "assets/icons/play-icon.png");
+    buttonsNode.appendChild(playButton);
+
+
     buttonsNode.appendChild(timeNode);
     buttonsNode.appendChild(muteNode);
     muteNode.appendChild(volumeNode);
@@ -101,6 +113,10 @@ VideoPlayer.prototype.constructInterface = function () {
     buttonsNode.appendChild(captionsNode);
     captionsNode.appendChild(captionsNodeSelectBox);
     captionsNode.appendChild(captionsIconNode);
+    buttonsNode.appendChild(captionsNode);
+    var speedButton = this.createButton("speed", "assets/icons/slow_motion.png");
+    buttonsNode.appendChild(speedButton);
+
     this.videoContainer.appendChild(interfaceNode);
 };
 
@@ -119,6 +135,7 @@ VideoPlayer.prototype.setMemberVariables = function () {
     var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
     var videoCurrentTimeElements = document.getElementsByClassName('currentTime');
     var videoEndTimeElements = document.getElementsByClassName('endTime');
+
 
     this.interface = videoInterfaceElements[this.playerNumber];
     this.progContainer = videoProgContainerElements[this.playerNumber];

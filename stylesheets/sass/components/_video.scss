@@ -85,7 +85,8 @@ video {
 .buttons__play,
 .buttons__mute,
 .buttons__fullscreen,
-.buttons__timeContainer{
+.buttons__timeContainer,
+.buttons__speed{
   display: inline;
   margin: 0 10px;
 }
@@ -97,7 +98,8 @@ video {
 
 .buttons__fullscreen,
 .buttons__mute,
-.buttons__captions {
+.buttons__captions,
+.buttons__speed {
   float: right;
 }
 
@@ -152,7 +154,8 @@ video {
 
 .buttons__play img,
 .buttons__fullscreen img,
-.buttons__timeContainer img {
+.buttons__timeContainer img,
+.buttons__speed img {
   height: 100%;
 }
 
