@@ -269,20 +269,21 @@ VideoPlayer.prototype.setFullscreenData = function(state) {
 };
 
 VideoPlayer.prototype.goFullscreen = function () {
-    console.log("Full screen button pressed");
-
     if (this.isFullScreen()) {
         if (document.exitFullscreen) document.exitFullscreen();
         else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
         else if (document.webkitCancelFullScreen) document.webkitCancelFullScreen();
         else if (document.msExitFullscreen) document.msExitFullscreen();
+        this.videoContainer.style.backgroundColor = 'white';
         setFullscreenData(false);
     }
     else {
+
         if (this.videoContainer.requestFullscreen) this.videoContainer.requestFullscreen();
         else if (this.videoContainer.mozRequestFullScreen) this.videoContainer.mozRequestFullScreen();
         else if (this.videoContainer.webkitRequestFullScreen) this.videoContainer.webkitRequestFullScreen();
         else if (this.videoContainer.msRequestFullscreen) this.videoContainer.msRequestFullscreen();
+        this.videoContainer.style.backgroundColor = 'black';
         setFullscreenData(true);
     }
 

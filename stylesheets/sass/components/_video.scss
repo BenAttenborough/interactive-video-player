@@ -36,7 +36,7 @@ video {
 .video__interface {
   margin: 0;
   position: absolute;
-  bottom: 0;
+  bottom: 3px;
   width: 100%;
   height: 60px;
   @media screen and (min-width: $desktop) {
