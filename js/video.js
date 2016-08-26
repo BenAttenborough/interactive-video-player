@@ -260,9 +260,32 @@ VideoPlayer.prototype.setupButtons = function () {
 
 };
 
+VideoPlayer.prototype.isFullScreen = function() {
+    return !!(document.fullScreen || document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || document.fullscreenElement);
+};
+
+VideoPlayer.prototype.setFullscreenData = function(state) {
+    this.videoContainer.setAttribute('data-fullscreen', !!state);
+};
+
 VideoPlayer.prototype.goFullscreen = function () {
     console.log("Full screen button pressed");
-    
+
+    if (this.isFullScreen()) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+        else if (document.webkitCancelFullScreen) document.webkitCancelFullScreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+        setFullscreenData(false);
+    }
+    else {
+        if (this.videoContainer.requestFullscreen) this.videoContainer.requestFullscreen();
+        else if (this.videoContainer.mozRequestFullScreen) this.videoContainer.mozRequestFullScreen();
+        else if (this.videoContainer.webkitRequestFullScreen) this.videoContainer.webkitRequestFullScreen();
+        else if (this.videoContainer.msRequestFullscreen) this.videoContainer.msRequestFullscreen();
+        setFullscreenData(true);
+    }
+
 };
 
 VideoPlayer.prototype.controlSpeed = function () {
