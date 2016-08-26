@@ -112,7 +112,7 @@ VideoPlayer.prototype.constructInterface = function () {
     buttonsNode.appendChild(fullscreenNode);
     fullscreenNode.appendChild(fullscreenIconNode);
     buttonsNode.appendChild(captionsNode);
-    captionsNode.appendChild(captionsNodeSelectBox);
+    //captionsNode.appendChild(captionsNodeSelectBox);
     captionsNode.appendChild(captionsIconNode);
     buttonsNode.appendChild(captionsNode);
     var speedButton = this.createButton("speed", "assets/icons/slow_motion.png");
@@ -136,9 +136,7 @@ VideoPlayer.prototype.setMemberVariables = function () {
     var videoFullscreenElements = document.getElementsByClassName('buttons__fullscreen');
     var videoCurrentTimeElements = document.getElementsByClassName('currentTime');
     var videoEndTimeElements = document.getElementsByClassName('endTime');
-
     var videoSpeedElements = document.getElementsByClassName('buttons__speed');
-
 
     this.interface = videoInterfaceElements[this.playerNumber];
     this.progContainer = videoProgContainerElements[this.playerNumber];
@@ -154,10 +152,7 @@ VideoPlayer.prototype.setMemberVariables = function () {
     this.currentTime = videoCurrentTimeElements[this.playerNumber];
     this.endTime = videoEndTimeElements[this.playerNumber];
     this.captionButton = videoCaptionButtons[this.playerNumber];
-
     this.speedButton = videoSpeedElements[this.playerNumber];
-
-
 };
 
 VideoPlayer.prototype.playPauseVideo = function () {
@@ -251,6 +246,23 @@ VideoPlayer.prototype.setupButtons = function () {
     this.speedButton.addEventListener('click', function (event) {
         self.controlSpeed();
     });
+
+    // Check if full screen is supported by browser. If it isn't hide the full screen button
+    var fullScreenEnabled = !!(document.fullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled || document.webkitSupportsFullscreen || document.webkitFullscreenEnabled || document.createElement('video').webkitRequestFullScreen);
+    if (!fullScreenEnabled) {
+        self.fullscreenButton.style.display = 'none';
+    } else {
+        self.fullscreenButton.addEventListener('click', function (event) {
+            self.goFullscreen();
+        });
+    }
+
+
+};
+
+VideoPlayer.prototype.goFullscreen = function () {
+    console.log("Full screen button pressed");
+    
 };
 
 VideoPlayer.prototype.controlSpeed = function () {
@@ -264,13 +276,10 @@ VideoPlayer.prototype.controlSpeed = function () {
 };
 
 VideoPlayer.prototype.showVolume = function () {
-    console.log('show vol');
     this.volumeContainer.style.display = 'block';
 };
 
 VideoPlayer.prototype.hideVolume = function () {
-    console.log('hide vol');
-    //if (this.volumeContainer.mouseIsOver) {}
     this.volumeContainer.style.display = 'none';
 };
 
@@ -287,7 +296,6 @@ VideoPlayer.prototype.addTimers = function () {
     var endTime = this.niceTime(this.videoDurration);
     this.endTime.textContent = endTime;
     var currentTime = "00:00/";
-    //console.log(this.videoCurrentTime);
     this.currentTime.textContent = currentTime;
 };
 
