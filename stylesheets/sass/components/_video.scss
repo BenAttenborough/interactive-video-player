@@ -177,7 +177,17 @@ video {
   top: 120px;
 }
 
-.buttons__fullscreen img,
+.buttons__captions img {
+  height: 27px;
+  margin-top: -3px;
+  margin-left: -3px;
+}
+
+.buttons__fullscreen img {
+  height: 17px;
+  margin-top: 2px;
+}
+
 .buttons__speed img {
   height: 20px;
 }
