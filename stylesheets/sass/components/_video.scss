@@ -17,8 +17,10 @@ video {
   background-color: black;
 }
 
-.video {
+.video,
+.video-caption {
   position: relative;
+  margin: 1em 20px;
 }
 
 .video .video__interface .buttons {
