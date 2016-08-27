@@ -115,8 +115,14 @@ video {
 .buttons__mute,
 .buttons__fullscreen,
 .buttons__timeContainer,
-.buttons__speed{
+.buttons__speed,
+.buttons__captions {
   display: inline;
+  margin: 0 5px;
+}
+
+.buttons__play,
+.buttons__timeContainer {
   margin: 0 10px;
 }
 
@@ -171,6 +177,11 @@ video {
   top: 120px;
 }
 
+.buttons__fullscreen img,
+.buttons__speed img {
+  height: 20px;
+}
+
 .volume__inner{
   height: 100%;
   background-color: $progress-bar;
@@ -182,9 +193,7 @@ video {
 }
 
 .buttons__play img,
-.buttons__fullscreen img,
-.buttons__timeContainer img,
-.buttons__speed img {
+.buttons__timeContainer img {
   height: 100%;
 }
 
