@@ -7,7 +7,7 @@ var VideoPlayer = function (videoContainer, source, captions, playerNumber) {
     this.source = source;
     this.captions = captions.getElementsByTagName('p');
     this.playerNumber = playerNumber;
-    this.videoDurration = this.source.seekable.end(0);
+    this.videoDurration = source.seekable.end(0);
     this.videoCurrentTime = 0;
     this.interface = null;
     this.progContainer = null;
@@ -271,8 +271,6 @@ VideoPlayer.prototype.setupButtons = function () {
             self.goFullscreen();
         });
     }
-
-
 };
 
 VideoPlayer.prototype.isFullScreen = function() {
@@ -293,7 +291,6 @@ VideoPlayer.prototype.goFullscreen = function () {
         setFullscreenData(false);
     }
     else {
-
         if (this.videoContainer.requestFullscreen) this.videoContainer.requestFullscreen();
         else if (this.videoContainer.mozRequestFullScreen) this.videoContainer.mozRequestFullScreen();
         else if (this.videoContainer.webkitRequestFullScreen) this.videoContainer.webkitRequestFullScreen();
@@ -301,7 +298,6 @@ VideoPlayer.prototype.goFullscreen = function () {
         this.videoContainer.style.backgroundColor = 'black';
         setFullscreenData(true);
     }
-
 };
 
 VideoPlayer.prototype.controlSpeed = function () {
@@ -340,14 +336,13 @@ VideoPlayer.prototype.addTimers = function () {
 
 VideoPlayer.prototype.updateVideoStatus = function () {
     var self = this;
-    endTime = this.source.seekable.end(0);
     this.source.addEventListener('timeupdate', function () {
         self.videoCurrentTime = Math.floor(self.source.currentTime);
         //Call a function to check which caption to highlight
         self.highlightCaption(self.source.currentTime);
         //Update time display
         self.currentTime.textContent = self.niceTime(self.videoCurrentTime) + "/";
-        percentComplete = Math.floor(( self.videoCurrentTime / endTime ) * 100) + "%";
+        percentComplete = Math.round(( self.videoCurrentTime / self.videoDurration ) * 100) + "%";
         //Update progress bar
         self.progBar.setAttribute("style", "width: " + percentComplete);
 
@@ -371,8 +366,8 @@ VideoPlayer.prototype.getBuffered = function () {
     var buffered = this.source.buffered;
     var bufferedEnd = buffered.end(buffered.length - 1);
     var percentComplete = Math.round(( bufferedEnd / endTime ) * 100) + "%";
-    console.log("bufferedEnd = " + bufferedEnd);
-    console.log("% complete = " + percentComplete);
+    //console.log("bufferedEnd = " + bufferedEnd);
+    //console.log("% complete = " + percentComplete);
     this.buffBar.setAttribute("style", "width: " + percentComplete);
 
 };
@@ -406,10 +401,9 @@ VideoPlayer.prototype.skipToLocation = function () {
         console.log('event.pageX ' + event.pageX);
         console.log('this.offsetLeft ' + this.offsetLeft);
         console.log('event.videoDiv.offsetLeft ' + videoDiv.offsetLeft);
-        console.log('progContainerOffset ' + progContainerOffset);
-        console.log('Divided by ');
-        console.log('this.offsetWidth ' + this.offsetWidth);
+        console.log('progContainerOffset ' + progContainerOffset + 'Divided by ' + 'this.offsetWidth ' + this.offsetWidth);
         console.log('position ' + position);
+        console.log('Current time ' + (position * self.videoDurration) );
     });
 };
 
@@ -451,9 +445,14 @@ function createVideoPlayers() {
             //console.log("Captions length: " + videoCaptions.length);
             //console.log(videoCaptions[i].getElementsByTagName('p'));
             var videoPlayer = new VideoPlayer(videoContainer[i], videoSource[i], videoCaptions[i], i);
-            videoPlayer.init();
+            //videoPlayer.init();
             videoPlayerList.push(videoPlayer);
         }
+    }
+
+    for (i=0; i < videoPlayerList.length; i++) {
+        console.log ("Initialising video player " + i);
+        videoPlayerList[i].init();
     }
 }
 
