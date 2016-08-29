@@ -18,17 +18,11 @@ var Video = function () {
     this.init();
 };
 
-Video.prototype.buttonPlayAllocate = function () {
-    this.buttonPlay.addEventListener("click", this, false);
-    this.handleEvent = function(e) {
-        switch(e.type) {
-            case "click":
-                this.playPauseVideo();
-                break;
-            case "touchstart":
-                this.playPauseVideo();
-                break;
-        }
+Video.prototype.addListener = function (element, type, func) {
+    element.addEventListener(type, this, false);
+    this.func = func;
+    this.handleEvent = function(event) {
+        this.func();
     }
 };
 
@@ -40,14 +34,12 @@ Video.prototype.init = function () {
 };
 
 Video.prototype.setButtonEvents = function () {
-    this.buttonPlayAllocate();
-
-    //this.addListener(this.buttonPlay, "click", this.playPauseVideo);
+    this.addListener(this.buttonPlay, "click", this.playPauseVideo);
     //this.addListener(this.progressContainer, "click", this.skipToLocationListener);
 };
 
 Video.prototype.setTimingEvents = function () {
-    this.addListener(this.source, "timeupdate", this.updateVideoStatus);
+    //this.addListener(this.source, "timeupdate", this.updateVideoStatus);
 };
 
 Video.prototype.play = function () {
@@ -72,6 +64,7 @@ Video.prototype.updateVideoStatus = function () {
 
 Video.prototype.updateProgressBar = function () {
     var percentComplete = Math.round(( this.source.currentTime / this.source.duration ) * 100) + "%";
+    console.log(percentComplete);
     this.progressBar.setAttribute("style", "Width: " + percentComplete);
 };
 
@@ -86,10 +79,6 @@ Video.prototype.skipToLocationListener = function (event) {
     console.log("Skip");
     console.log(event);
     console.log(event.pageX - (this.offsetLeft + this.source.offsetLeft))
-};
-
-Video.prototype.addListener = function (element, type, func) {
-    element.addEventListener(type, func.bind(this));
 };
 
 RBA_Videoplayer.video = new Video();
