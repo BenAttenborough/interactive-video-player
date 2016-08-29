@@ -79,10 +79,10 @@ Video.prototype.updateBuffBar = function () {
 };
 
 Video.prototype.skipToLocationListener = function (event) {
-    //console.log("Skip");
-    console.log(event.offsetX);
-    console.log(this.progressContainer.offsetWidth);
-    //console.log(event.offsetX - (this.offsetLeft + this.source.offsetLeft))
+    var mouseLocation = event.offsetX;
+    var containerWidth = this.progressContainer.offsetWidth;
+    var position = mouseLocation / containerWidth;
+    this.source.currentTime = position * this.source.duration;
 };
 
 RBA_Videoplayer.video = new Video();
