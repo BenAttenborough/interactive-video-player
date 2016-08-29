@@ -20,38 +20,18 @@ var Video = function () {
     this.init();
 };
 
-Video.prototype.EventHandler = function (element, type, func) {
-    this.element = element;
-    this.type = type;
-    this.func = func;
-    this.init = function () {
-        console.log("Assign click function to: " + this.element);
-        element.addEventListener(type, this, false);
-    };
-    this.handleEvent = function (e) {
-        console.log("Event caught");
-        //this.func(e);
-        this.func(e);
-    }
-};
-
-Video.prototype.addTimingListener = function (element, type, func) {
+Video.prototype.addSelectListener = function (element, type, func) {
     element.addEventListener(type, func.bind(this));
 };
 
 Video.prototype.setButtonEvents = function () {
-
-    this.buttonPlayHandler = new this.EventHandler (this.buttonPlay, "click", this.playPauseVideo);
-    this.buttonPlayHandler.init();
-
-
-    //this.addSelectListener(this.progressContainer, "click", this.skipToLocationListener);
-    //this.addSelectListener(this.buttonPlay, "click", this.playPauseVideo);
+    this.addSelectListener(this.progressContainer, "click", this.skipToLocationListener);
+    this.addSelectListener(this.buttonPlay, "click", this.playPauseVideo);
 };
 
 Video.prototype.setTimingEvents = function () {
-    this.addTimingListener(this.source, "timeupdate", this.updateVideoStatus);
-    //this.addTimingListener(this.source, "durationchange", this.setClock);
+    this.addSelectListener(this.source, "timeupdate", this.updateVideoStatus);
+    this.addSelectListener(this.source, "durationchange", this.setDurration);
 };
 
 Video.prototype.play = function () {
@@ -59,8 +39,6 @@ Video.prototype.play = function () {
 };
 
 Video.prototype.playPauseVideo = function () {
-    console.log("Play pressed");
-    console.log(this);
     if (this.source.paused || this.source.ended) {
         this.source.play();
         this.buttonPlayIcon.src = "assets/icons/pause-icon.png";
@@ -74,6 +52,7 @@ Video.prototype.playPauseVideo = function () {
 Video.prototype.updateVideoStatus = function () {
     this.updateProgressBar();
     this.updateBuffBar();
+    this.updateTime();
 };
 
 Video.prototype.updateProgressBar = function () {
@@ -104,8 +83,9 @@ Video.prototype.niceTime = function (time) {
     return niceTime;
 };
 
-Video.prototype.setClock = function () {
-    //this.startTime.innerText = this.niceTime(this.source.currentTime);
+Video.prototype.setDurration = function () {
+    console.log("Setting clock");
+    this.startTime.innerText = this.niceTime(this.source.currentTime);
     this.endTime.innerText = this.niceTime(this.source.duration);
 };
 
@@ -114,6 +94,10 @@ Video.prototype.init = function () {
     this.source.controls = false;
     this.setButtonEvents();
     this.setTimingEvents();
+};
+
+Video.prototype.updateTime = function () {
+    this.startTime.innerText = this.niceTime(this.source.currentTime);
 };
 
 RBA_Videoplayer.video = new Video();
