@@ -16,6 +16,8 @@ var Video = function () {
     this.endTime = document.getElementById("time_end");
     this.buttonMute = document.getElementById("buttons_mute");
     this.buttonMuteIcon = document.getElementById("icon_mute");
+    this.buttonSpeed = document.getElementById("buttons_speed");
+    this.buttonSpeedIcon = document.getElementById("icon_speed");
 
 
 
@@ -30,6 +32,7 @@ Video.prototype.setButtonEvents = function () {
     this.addSelectListener(this.progressContainer, "click", this.skipToLocationListener);
     this.addSelectListener(this.buttonPlay, "click", this.playPauseVideo);
     this.addSelectListener(this.buttonMute, "click", this.muteVideo);
+    this.addSelectListener(this.buttonSpeed, "click", this.speedVideo);
 };
 
 Video.prototype.setTimingEvents = function () {
@@ -37,17 +40,36 @@ Video.prototype.setTimingEvents = function () {
     this.addSelectListener(this.source, "durationchange", this.setDurration);
 };
 
+Video.prototype.speedVideo = function () {
+    var fullMotionImg = 'assets/icons/full_motion.png';
+    var slowMotionImg = 'assets/icons/slow_motion.png';
+    this.source.muted = !this.source.muted;
+    //this.toggleButton(this.source.muted, this.buttonMuteIcon, fullMotionImg, slowMotionImg);
+    if (this.source.playbackRate == 1) {
+        this.source.playbackRate = 0.5;
+        this.buttonSpeedIcon.src = slowMotionImg;
+    } else {
+        this.source.playbackRate = 1;
+        this.buttonSpeedIcon.src = fullMotionImg;
+    }
+};
+
 Video.prototype.muteVideo = function () {
     var volOnImg = 'assets/icons/volume-on-icon.png';
     var volOffImg = 'assets/icons/volume-off-icon.png';
     this.source.muted = !this.source.muted;
-    var self = this;
-    if (this.source.muted) {
-        self.buttonMuteIcon.src = volOffImg;
-        console.log('Volume off');
+    this.toggleButton(this.source.muted, this.buttonMuteIcon, volOnImg, volOffImg);
+};
+
+Video.prototype.toggleButton = function (button, element, onIcon, offIcon) {
+    var onImg = onIcon;
+    var offImg = offIcon;
+    var button = button;
+    button = !button;
+    if (button) {
+        element.src = onImg;
     } else {
-        self.buttonMuteIcon.src = volOnImg;
-        console.log('Volume on');
+        element.src = offImg;
     }
 };
 
