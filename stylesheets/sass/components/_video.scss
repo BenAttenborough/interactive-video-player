@@ -31,6 +31,10 @@ video {
   width: 100%;
 }
 
+#progressBar_buff_container {
+  background-color: black;
+}
+
 #progressBar_prog_container {
   margin-top: -$progress-bar-height;
 }
@@ -41,12 +45,12 @@ video {
 }
 
 #progressBar_buff {
-  width: 50%;
-  background-color: yellow;
+  width: 0;
+  background-color: #444;
 }
 
 #progressBar_prog {
-  width: 25%;
+  width: 0;
   background-color: orange;
 }
 
