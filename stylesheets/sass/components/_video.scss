@@ -60,12 +60,24 @@ video {
   padding: 1em;
 }
 
-#buttons_play {
+.button,
+.clock {
+  height: 100%;
+  float: left;
+}
+
+.button {
+  width: 20px;
+}
+
+.button img {
   height: 100%;
 }
 
-#buttons_play img {
-  height: 100%;
+.clock {
+  color: #FFF;
+  font-weight: bold;
+  width: 200px;
 }
 
 
