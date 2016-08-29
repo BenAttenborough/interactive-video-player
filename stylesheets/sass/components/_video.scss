@@ -2,218 +2,240 @@
   box-sizing: border-box;
 }
 
+video {
+  width: 100%;
+}
+
+#rba_video {
+  position: relative;
+}
+
+#video_interface {
+  position: absolute;
+  height: 50px;
+  width: 100%;
+  margin-top: -53px;
+  background-color: $interface-color;
+  background-color: rgba($interface-color, $interface-opacity);
+}
+
+#controls_container {
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}
 //.clearfix::after {
 //  content: " ";
 //  display: table;
 //  clear: both;
 //}
 
-video {
-  width: 100%;
-}
-
-.videoWindow {
-  position: relative;
-  background-color: black;
-}
-
-.video,
-.video-caption {
-  position: relative;
-  margin: 1em 20px;
-}
-
-.video .video__interface .buttons {
-  @media screen and (min-width: $desktop) {
-    display: none;
-  }
-}
-
-.video:hover .video__interface .buttons {
-  @media screen and (min-width: $desktop) {
-    display: block;
-  }
-}
-
-.video__interface {
-  margin: 0;
-  position: absolute;
-  bottom: 3px;
-  width: 100%;
-  height: 60px;
-  @media screen and (min-width: $desktop) {
-    height: 25px;
-  }
-  background-color: rgba(0,0,0,$interface-opacity);
-  //background-color: red;
-  padding: 0 10px;
-}
-
-.video:hover .video__interface {
-  height: 60px;
-}
-
-.progContainer {
-  width: 100%;
-  height: 20px;
-  //background-color: red;
-  @media screen and (min-width: $tablet) {
-    height: 25px;
-  }
-}
-
-.progContainer__inner {
-  height: 11px;
-  padding-top: 8px;
-  @media screen and (min-width: $tablet) {
-    height: 15px;
-    padding-top: 12px;
-  }
-}
-
-.progContainer__inner_empty {
-  height: 100%;
-  background-color: $progress-empty;
-  position: relative;
-}
-
-.progContainer__buffered {
-  height: 100%;
-  width: 100%;
-  //background-color: red;
-  position: relative;
-}
-
-.progContainer__buffered_bar{
-  width: 0;
-  height: 100%;
-  background-color: lighten($progress-empty, 75%);
-  position: absolute;
-}
-
-.progContainer__progress {
-  height: 100%;
-  width: 100%;
-  //background-color: aquamarine;
-  position: relative;
-  margin-top: -3px;
-}
-
-.progContainer__progress_bar {
-  width: 0;
-  height: 100%;
-  background-color: $progress-bar;
-  position: absolute;
-}
-
-.buttons {
-  height: 20px;
-  margin-bottom: 15px;
-}
-
-.buttons__play,
-.buttons__mute,
-.buttons__fullscreen,
-.buttons__timeContainer,
-.buttons__speed,
-.buttons__captions {
-  display: inline;
-  margin: 0 5px;
-}
-
-.buttons__play,
-.buttons__timeContainer {
-  margin: 0 10px;
-}
-
-.buttons__timeContainer{
-  position: relative;
-  top: -5px;
-}
-
-.buttons__fullscreen,
-.buttons__mute,
-.buttons__captions,
-.buttons__speed {
-  float: right;
-}
-
-.buttons__mute,
-.buttons__captions {
-  position: relative;
-  height: 150px;
-  width: 20px;
-  top: -120px;
-}
-
-//Will need to move captions out to style differently
-.buttons__volume,
-.buttons__captions_select {
-  position: absolute;
-  display: none;
-}
-
-.buttons__volume {
-  height: 100px;
-  width: 20px;
-  background-color: rgba(50,50,50,0.5);
-  padding: 5px;
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  border-radius: 5px 5px 0 0;
-}
-
-.buttons__captions_select {
-  height: 100px;
-  width: 50px;
-  background-color: red;
-  display: block;
-}
-
-.buttons__mute img,
-.buttons__captions img {
-  height: 20px;
-  position: absolute;
-  top: 120px;
-}
-
-.buttons__captions img {
-  height: 27px;
-  margin-top: -3px;
-  margin-left: -3px;
-}
-
-.buttons__fullscreen img {
-  height: 17px;
-  margin-top: 2px;
-}
-
-.buttons__speed img {
-  height: 20px;
-}
-
-.volume__inner{
-  height: 100%;
-  background-color: $progress-bar;
-}
-
-.volume__inner_empty {
-  background-color: #333;
-  height: 0%;
-}
-
-.buttons__play img,
-.buttons__timeContainer img {
-  height: 100%;
-}
-
-.currentTime,
-.endTime {
-  color: #FFF;
-  font-weight: bold;
-}
-
-.caption-highlighted {
-  color: #ff9900;
-  font-weight: bold;
-}
+//video {
+//  width: 100%;
+//}
+//
+//.videoWindow {
+//  position: relative;
+//  background-color: black;
+//}
+//
+//.video,
+//.video-caption {
+//  position: relative;
+//  margin: 1em 20px;
+//}
+//
+//.video .video__interface .buttons {
+//  @media screen and (min-width: $desktop) {
+//    display: none;
+//  }
+//}
+//
+//.video:hover .video__interface .buttons {
+//  @media screen and (min-width: $desktop) {
+//    display: block;
+//  }
+//}
+//
+//.video__interface {
+//  margin: 0;
+//  position: absolute;
+//  bottom: 3px;
+//  width: 100%;
+//  height: 60px;
+//  @media screen and (min-width: $desktop) {
+//    height: 25px;
+//  }
+//  background-color: rgba(0,0,0,$interface-opacity);
+//  //background-color: red;
+//  padding: 0 10px;
+//}
+//
+//.video:hover .video__interface {
+//  height: 60px;
+//}
+//
+//.progContainer {
+//  width: 100%;
+//  height: 20px;
+//  //background-color: red;
+//  @media screen and (min-width: $tablet) {
+//    height: 25px;
+//  }
+//}
+//
+//.progContainer__inner {
+//  height: 11px;
+//  padding-top: 8px;
+//  @media screen and (min-width: $tablet) {
+//    height: 15px;
+//    padding-top: 12px;
+//  }
+//}
+//
+//.progContainer__inner_empty {
+//  height: 100%;
+//  background-color: $progress-empty;
+//  position: relative;
+//}
+//
+//.progContainer__buffered {
+//  height: 100%;
+//  width: 100%;
+//  //background-color: red;
+//  position: relative;
+//}
+//
+//.progContainer__buffered_bar{
+//  width: 0;
+//  height: 100%;
+//  background-color: lighten($progress-empty, 75%);
+//  position: absolute;
+//}
+//
+//.progContainer__progress {
+//  height: 100%;
+//  width: 100%;
+//  //background-color: aquamarine;
+//  position: relative;
+//  margin-top: -3px;
+//}
+//
+//.progContainer__progress_bar {
+//  width: 0;
+//  height: 100%;
+//  background-color: $progress-bar;
+//  position: absolute;
+//}
+//
+//.buttons {
+//  height: 20px;
+//  margin-bottom: 15px;
+//}
+//
+//.buttons__play,
+//.buttons__mute,
+//.buttons__fullscreen,
+//.buttons__timeContainer,
+//.buttons__speed,
+//.buttons__captions {
+//  display: inline;
+//  margin: 0 5px;
+//}
+//
+//.buttons__play,
+//.buttons__timeContainer {
+//  margin: 0 10px;
+//}
+//
+//.buttons__timeContainer{
+//  position: relative;
+//  top: -5px;
+//}
+//
+//.buttons__fullscreen,
+//.buttons__mute,
+//.buttons__captions,
+//.buttons__speed {
+//  float: right;
+//}
+//
+//.buttons__mute,
+//.buttons__captions {
+//  position: relative;
+//  height: 150px;
+//  width: 20px;
+//  top: -120px;
+//}
+//
+////Will need to move captions out to style differently
+//.buttons__volume,
+//.buttons__captions_select {
+//  position: absolute;
+//  display: none;
+//}
+//
+//.buttons__volume {
+//  height: 100px;
+//  width: 20px;
+//  background-color: rgba(50,50,50,0.5);
+//  padding: 5px;
+//  -webkit-border-radius: 5px 5px 0 0;
+//  -moz-border-radius: 5px 5px 0 0;
+//  border-radius: 5px 5px 0 0;
+//}
+//
+//.buttons__captions_select {
+//  height: 100px;
+//  width: 50px;
+//  background-color: red;
+//  display: block;
+//}
+//
+//.buttons__mute img,
+//.buttons__captions img {
+//  height: 20px;
+//  position: absolute;
+//  top: 120px;
+//}
+//
+//.buttons__captions img {
+//  height: 27px;
+//  margin-top: -3px;
+//  margin-left: -3px;
+//}
+//
+//.buttons__fullscreen img {
+//  height: 17px;
+//  margin-top: 2px;
+//}
+//
+//.buttons__speed img {
+//  height: 20px;
+//}
+//
+//.volume__inner{
+//  height: 100%;
+//  background-color: $progress-bar;
+//}
+//
+//.volume__inner_empty {
+//  background-color: #333;
+//  height: 0%;
+//}
+//
+//.buttons__play img,
+//.buttons__timeContainer img {
+//  height: 100%;
+//}
+//
+//.currentTime,
+//.endTime {
+//  color: #FFF;
+//  font-weight: bold;
+//}
+//
+//.caption-highlighted {
+//  color: #ff9900;
+//  font-weight: bold;
+//}
