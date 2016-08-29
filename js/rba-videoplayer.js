@@ -18,12 +18,16 @@ var Video = function () {
     this.init();
 };
 
-Video.prototype.addListener = function (element, type, func) {
+Video.prototype.addSelectListener = function (element, type, func) {
     element.addEventListener(type, this, false);
     this.func = func;
-    this.handleEvent = function(event) {
-        this.func();
+    this.handleEvent = function (e) {
+        this.func(e);
     }
+};
+
+Video.prototype.addTimingListener = function (element, type, func) {
+    element.addEventListener(type, func.bind(this));
 };
 
 Video.prototype.init = function () {
@@ -34,12 +38,12 @@ Video.prototype.init = function () {
 };
 
 Video.prototype.setButtonEvents = function () {
-    this.addListener(this.buttonPlay, "click", this.playPauseVideo);
-    //this.addListener(this.progressContainer, "click", this.skipToLocationListener);
+    this.addSelectListener(this.buttonPlay, "click", this.playPauseVideo);
+    this.addSelectListener(this.progressContainer, "click", this.skipToLocationListener);
 };
 
 Video.prototype.setTimingEvents = function () {
-    //this.addListener(this.source, "timeupdate", this.updateVideoStatus);
+    this.addTimingListener(this.source, "timeupdate", this.updateVideoStatus);
 };
 
 Video.prototype.play = function () {
@@ -64,7 +68,6 @@ Video.prototype.updateVideoStatus = function () {
 
 Video.prototype.updateProgressBar = function () {
     var percentComplete = Math.round(( this.source.currentTime / this.source.duration ) * 100) + "%";
-    console.log(percentComplete);
     this.progressBar.setAttribute("style", "Width: " + percentComplete);
 };
 
@@ -76,9 +79,10 @@ Video.prototype.updateBuffBar = function () {
 };
 
 Video.prototype.skipToLocationListener = function (event) {
-    console.log("Skip");
-    console.log(event);
-    console.log(event.pageX - (this.offsetLeft + this.source.offsetLeft))
+    //console.log("Skip");
+    console.log(event.offsetX);
+    console.log(this.progressContainer.offsetWidth);
+    //console.log(event.offsetX - (this.offsetLeft + this.source.offsetLeft))
 };
 
 RBA_Videoplayer.video = new Video();
