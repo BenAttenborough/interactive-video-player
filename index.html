@@ -28,10 +28,17 @@
                 <track label="Closed Captions" kind="captions" srclang="de" src="german.vtt" default>
             </video>
             <div id="video_interface">
-                <div id="progressBar_container"></div>
+                <div id="progressBar_container">
+                    <div id="progressBar_buff_container">
+                        <div id="progressBar_buff"></div>
+                    </div>
+                    <div id="progressBar_prog_container">
+                        <div id="progressBar_prog"></div>
+                    </div>
+                </div>
                 <div id="controls_container">
                     <div id="buttons_play">
-                        <img src="assets/icons/play-icon.png" alt="Play button">
+                        <img src="assets/icons/play-icon.png" alt="Play button" id="icon_play">
                     </div>
                 </div>
             </div>

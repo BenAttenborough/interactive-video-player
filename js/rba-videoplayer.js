@@ -8,6 +8,7 @@ var RBA_Videoplayer = RBA_Videoplayer || {};
 var Video = function () {
     this.source = document.getElementById("video_source");
     this.buttonPlay = document.getElementById("buttons_play");
+    this.buttonPlayIcon = document.getElementById("icon_play");
 
     this.init();
 };
@@ -27,8 +28,14 @@ Video.prototype.play = function () {
 };
 
 Video.prototype.playPauseVideo = function () {
-    this.play();
-};
+    if (this.source.paused || this.source.ended) {
+        this.source.play();
+        this.buttonPlayIcon.src = "assets/icons/pause-icon.png";
+    }
+    else {
+        this.source.pause();
+        this.buttonPlayIcon.src = "assets/icons/play-icon.png";
+    }};
 
 Video.prototype.addListener = function (element, type, func) {
     element.addEventListener(type, func.bind(this));
