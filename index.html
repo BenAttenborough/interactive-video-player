@@ -21,12 +21,16 @@
     <div id="content-container">
 
 
-        <div class="video">
-            <video class="video__source" controls>
+        <div id="rba_video">
+            <video id="video_source" controls>
                 <source src="assets/video/video.mp4" type="video/mp4">
                 <source src="assets/video/video.ogg" type="video/ogg">
                 <track label="Closed Captions" kind="captions" srclang="de" src="german.vtt" default>
             </video>
+            <div id="video_interface">
+                <div id="progressBar_container"></div>
+                <div id="controls_container"></div>
+            </div>
         </div>
 
 
@@ -62,42 +66,6 @@
             <p data-time-start="00:00:57,780" data-time-end="00:01:00,150">A few common residential modems are DSL
                 or</p>
         </div>
-
-
-        <div class="video">
-
-            <video class="video__source" controls>
-                <source src="http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4" type="video/mp4">
-            </video>
-
-        </div>
-
-        <div class="video-caption">
-            <!--<p>1</p>-->
-            <!--<p>00:00:00,240 &ndash;&gt; 00:00:04,130</p>-->
-            <!--<p data-time-start="00:00:00,240" data-time-end="00:00:04,130">Now that we've looked at the architecture of-->
-                <!--the internet, let's see how you might</p>-->
-            <!--<p>2</p>-->
-        </div>
-
-        <div class="video">
-
-            <video class="video__source" controls>
-                <source src="assets/video/video.mp4" type="video/mp4">
-                <source src="assets/video/video.ogg" type="video/ogg">
-                <!--<source src="http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4" type="video/mp4">-->
-
-            </video>
-
-        </div>
-
-        <div class="video-caption">
-            <!--<p>1</p>-->
-            <!--<p>00:00:00,240 &ndash;&gt; 00:00:04,130</p>-->
-            <!--<p data-time-start="00:00:00,240" data-time-end="00:00:04,130">Now that we've looked at the architecture of-->
-                <!--the internet, let's see how you might</p>-->
-            <!--<p>2</p>-->
-        </div>
     </div>
 </main>
 
@@ -108,7 +76,8 @@
 </footer>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<script type="text/javascript" src="js/video.js"></script>
+<script type="text/javascript" src="js/rba-videoplayer.js"></script>
+<!--<script type="text/javascript" src="js/video.js"></script>-->
 
 </body>
 
