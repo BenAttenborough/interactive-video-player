@@ -14,6 +14,8 @@ var Video = function () {
     this.buttonPlayIcon = document.getElementById("icon_play");
     this.startTime = document.getElementById("time_start");
     this.endTime = document.getElementById("time_end");
+    this.buttonMute = document.getElementById("buttons_mute");
+    this.buttonMuteIcon = document.getElementById("icon_mute");
 
 
 
@@ -27,11 +29,26 @@ Video.prototype.addSelectListener = function (element, type, func) {
 Video.prototype.setButtonEvents = function () {
     this.addSelectListener(this.progressContainer, "click", this.skipToLocationListener);
     this.addSelectListener(this.buttonPlay, "click", this.playPauseVideo);
+    this.addSelectListener(this.buttonMute, "click", this.muteVideo);
 };
 
 Video.prototype.setTimingEvents = function () {
     this.addSelectListener(this.source, "timeupdate", this.updateVideoStatus);
     this.addSelectListener(this.source, "durationchange", this.setDurration);
+};
+
+Video.prototype.muteVideo = function () {
+    var volOnImg = 'assets/icons/volume-on-icon.png';
+    var volOffImg = 'assets/icons/volume-off-icon.png';
+    this.source.muted = !this.source.muted;
+    var self = this;
+    if (this.source.muted) {
+        self.buttonMuteIcon.src = volOffImg;
+        console.log('Volume off');
+    } else {
+        self.buttonMuteIcon.src = volOnImg;
+        console.log('Volume on');
+    }
 };
 
 Video.prototype.play = function () {
