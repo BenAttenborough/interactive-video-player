@@ -6,95 +6,102 @@ video {
   width: 100%;
 }
 
-#rba_video {
+#rba_video
+#video_container {
   position: relative;
 }
 
+#rba_video
 #video_interface {
   position: absolute;
-  height: 40px;
+  height: auto;
   width: 100%;
+  margin-bottom: 5px;
   padding: 0 5px;
-  margin-top: -44px;
+  bottom: 4px;
   background-color: $interface-color;
   background-color: rgba($interface-color, $interface-opacity);
   @media screen and (min-width: $tablet) {
-    height: 50px;
-    margin-top: -54px;
+    //height: 50px;
+    margin-top: -4px;
   }
 }
 
+#rba_video
 #progressBar_container {
   height: 10px;
   width: 100%;
   padding: 10px 0 0;
 }
 
-#progressBar_buff_container,
-#progressBar_prog_container {
+#rba_video #progressBar_buff_container,
+#rba_video #progressBar_prog_container {
   height: $progress-bar-height;
   width: 100%;
 }
 
-#progressBar_buff_container {
+#rba_video #progressBar_buff_container {
   background-color: black;
 }
 
-#progressBar_prog_container {
+#rba_video #progressBar_prog_container {
   margin-top: -$progress-bar-height;
 }
 
-#progressBar_buff,
-#progressBar_prog {
+#rba_video #progressBar_buff,
+#rba_video #progressBar_prog {
   height: $progress-bar-height;
 }
 
-#progressBar_buff {
+#rba_video #progressBar_buff {
   width: 0;
   background-color: #444;
 }
 
-#progressBar_prog {
+#rba_video #progressBar_prog {
   width: 0;
   background-color: $progress-bar;
 }
 
-#controls_container {
+#rba_video #controls_container {
   width: 100%;
   height: 10px;
   margin: 0.5em 0;
   @media screen and (min-width: $tablet) {
-    margin: 10px 0;
+    margin: 10px 0 0;
     height: 20px;
+  }
+  @media screen and (min-width: $desktop) {
+    display: none;
   }
 }
 
-.button,
-.clock {
+#rba_video .button,
+#rba_video .clock {
   height: 100%;
   float: left;
 }
 
-.button {
+#rba_video .button {
   margin: 0 5px;
 }
 
-.button img {
+#rba_video .button img {
   height: 100%;
 }
 
-#buttons_play img {
+#rba_video #buttons_play img {
   width:10px;
   @media screen and (min-width: $tablet) {
     width: 17px;
   }
 }
 
-.btn_right {
+#rba_video .btn_right {
   float: right;
 }
 
-.clock {
+#rba_video .clock {
   color: #FFF;
   font-weight: bold;
   width: 100px;
@@ -107,30 +114,30 @@ video {
   }
 }
 
-#buttons_time {
+#rba_video #buttons_time {
   display: none;
   @media screen and (min-width: $sm-phone) {
     display: block;
   }
 }
 
-#buttons_fullscreen,
-#buttons_speed,
-#buttons_cc,
-#buttons_gain {
+#rba_video #buttons_fullscreen,
+#rba_video #buttons_speed,
+#rba_video #buttons_cc,
+#rba_video #buttons_gain {
   display: none;
   @media screen and (min-width: $med-phone) {
     display: block;
   }
 }
 
-#gain_container {
+#rba_video #gain_container {
   position: relative;
   height: 100%;
   float: right;
 }
 
-#gain_control{
+#rba_video #gain_control{
   position: absolute;
   height: 100px;
   width: 20px;
@@ -142,19 +149,19 @@ video {
   display: none;
 }
 
-#gain_control_bar {
+#rba_video #gain_control_bar {
   height: 100%;
   width: 100%;
   background-color: $progress-bar;
 }
 
-#gain_control_bar_inner {
+#rba_video #gain_control_bar_inner {
   width: 100%;
   height: 0;
   background-color: black;
 }
 
-.caption-highlighted {
+#rba_video .caption-highlighted {
   color: $progress-bar;
   font-weight: bold;
 }

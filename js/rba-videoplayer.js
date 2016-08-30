@@ -25,8 +25,6 @@ var Video = function () {
     this.buttonSpeedIcon = document.getElementById("icon_speed");
     var captionsContainer = document.getElementById("video_captions");
     this.captions = captionsContainer.getElementsByTagName("p");
-
-
     this.init();
 };
 
