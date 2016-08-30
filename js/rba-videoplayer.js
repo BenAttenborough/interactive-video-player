@@ -163,6 +163,18 @@ Video.prototype.updateVideoStatus = function () {
     this.updateBuffBar();
     this.updateTime();
     this.updateCaptions();
+    this.checkVideoEnd();
+};
+
+Video.prototype.checkVideoEnd = function () {
+    if (this.source.ended) {
+        //self.resetVideo();
+
+        //Set progbar length to 100%
+        this.progressBar.setAttribute("style", "Width: 100%");
+        //Toggle play button
+        this.buttonPlayIcon.src = "assets/icons/play-icon.png";
+    }
 };
 
 Video.prototype.updateProgressBar = function () {
