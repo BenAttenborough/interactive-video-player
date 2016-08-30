@@ -233,33 +233,12 @@ Video.prototype.bindCaptions = function () {
     }
 };
 
-Video.prototype.assignCCListener = function () {
-    this.ccTracks = document.getElementsByClassName("cc_track");
-
-    for (var i = 0; i < this.ccTracks.length; i++) {
-        this.ccTracks[i].addEventListener("click", function (event) {
-            for (var i = 0; i < self.ccTracks.length; i++) {
-                self.source.textTracks[i].mode = 'hidden';
-                self.ccTracks[i].setAttribute("style", "font-weight: 100");
-            }
-            self.source.textTracks[this.dataset.capNo].mode = "showing";
-            self.ccTracks[this.dataset.capNo].setAttribute("style", "font-weight: bold");
-        })
-    }
-};
-
 Video.prototype.checkCaptions = function () {
-    self = this;
     if (this.source.textTracks.length > 0) {
         this.buttonCC.style.display = "block";
-        this.buildCCBox();
-
-        //this.ccContainer.innerHTML += "<p data-no-cc='true' class='cc_track'>No caption</p>";
-        //for (var i = 0; i < this.source.textTracks.length; i++) {
-        //    this.ccContainer.innerHTML += "<p data-cap-no='" + i + "' class='cc_track'>" + this.source.textTracks[i].label + "</p>";
-        //    this.source.textTracks[i].mode = 'hidden';
-        //}
-        //this.assignCCListener();
+        for (var i = 0; i < this.source.textTracks.length; i++) {
+            this.source.textTracks[i].mode = 'hidden';
+        }
     }
 };
 

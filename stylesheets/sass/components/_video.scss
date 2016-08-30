@@ -162,20 +162,6 @@ video {
   display: none;
 }
 
-#rba_video #cc_control {
-  position: absolute;
-  height: 100px;
-  width: 100px;
-  background-color: $interface-color;
-  background-color: rgba($interface-color, $interface-opacity);
-  top: -120px;
-  left: -30px;
-  padding: 5px;
-  //display: none;
-  color: white;
-  font-size: 0.5em;
-}
-
 #rba_video #gain_control_bar {
   height: 100%;
   width: 100%;
