@@ -68,7 +68,6 @@ Video.prototype.showGainControl = function () {
 Video.prototype.speedVideo = function () {
     var fullMotionImg = 'assets/icons/full_motion.png';
     var slowMotionImg = 'assets/icons/slow_motion.png';
-    this.source.muted = !this.source.muted;
     if (this.source.playbackRate == 1) {
         this.source.playbackRate = 0.5;
         this.buttonSpeedIcon.src = slowMotionImg;
