@@ -233,15 +233,6 @@ Video.prototype.bindCaptions = function () {
     }
 };
 
-Video.prototype.buildCCBox = function () {
-    var captionNode = document.createElement("div");
-    captionNode.className = "caption_container";
-
-    for (var i = 0; i < this.source.textTracks.length; i++) {
-        
-    }
-};
-
 Video.prototype.assignCCListener = function () {
     this.ccTracks = document.getElementsByClassName("cc_track");
 
