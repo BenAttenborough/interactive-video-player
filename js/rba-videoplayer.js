@@ -243,10 +243,14 @@ Video.prototype.bindCaptions = function () {
 };
 
 Video.prototype.checkCaptions = function () {
-    if (this.source.textTracks.length > 0) {
+    var tracks = this.source.textTracks;
+    if (tracks.length > 0) {
         this.buttonCC.style.display = "block";
         for (var i = 0; i < this.source.textTracks.length; i++) {
-            this.source.textTracks[i].mode = 'hidden';
+            for (var a = 0; a < tracks[i].cues.length; a++) {
+                tracks[i].cues[a].line = -4;
+            }
+            tracks[i].mode = 'hidden';
         }
     }
 };

@@ -6,6 +6,10 @@ video {
   width: 100%;
 }
 
+video::line {
+  line:50%;
+}
+
 #rba_video
 #video_container {
   position: relative;
