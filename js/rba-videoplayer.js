@@ -30,7 +30,7 @@ var Video = function () {
     this.ccTracks = null;
     this.buttonFullScreen = document.getElementById("buttons_fullscreen");
     var captionsContainer = document.getElementById("video_captions");
-    this.captions = captionsContainer.getElementsByTagName("p");
+    this.captions = captionsContainer.getElementsByTagName("span");
     this.init();
 };
 
@@ -168,11 +168,7 @@ Video.prototype.updateVideoStatus = function () {
 
 Video.prototype.checkVideoEnd = function () {
     if (this.source.ended) {
-        //self.resetVideo();
-
-        //Set progbar length to 100%
         this.progressBar.setAttribute("style", "Width: 100%");
-        //Toggle play button
         this.buttonPlayIcon.src = "assets/icons/play-icon.png";
     }
 };
