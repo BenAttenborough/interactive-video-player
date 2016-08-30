@@ -20,6 +20,7 @@ var Video = function () {
     this.buttonGainIcon = document.getElementById("icon_gain");
     this.gainControl = document.getElementById("gain_control");
     this.gainBar = document.getElementById("gain_control_bar");
+    this.gainBarLevel = document.getElementById("gain_control_bar_inner");
     this.buttonSpeed = document.getElementById("buttons_speed");
     this.buttonSpeedIcon = document.getElementById("icon_speed");
     var captionsContainer = document.getElementById("video_captions");
@@ -52,10 +53,10 @@ Video.prototype.setVolume = function () {
     var mouseLocation = event.offsetY;
     var containerHeight = this.gainBar.offsetHeight;
     var position = mouseLocation / containerHeight;
+    var percentVolume = Math.round(position * 100) + "%";
+    this.gainBarLevel.setAttribute("style", "height: " + percentVolume);
     position = 1 - position;
-    console.log(position);
     this.source.volume = position;
-    //this.source.currentTime = position * this.source.duration;
 };
 
 Video.prototype.showGainControl = function () {
@@ -173,7 +174,7 @@ Video.prototype.updateCaptions = function () {
         for (var i = 0; i < this.captions.length; i++) {
             var startTime = convertTimeString(this.captions[i].dataset.timeStart);
             var endTime = convertTimeString(this.captions[i].dataset.timeEnd);
-            if (time >= startTime && time < endTime ) {
+            if (time >= startTime && time < endTime) {
                 this.captions[i].className = "caption-highlighted";
                 this.captions[i] = "caption-highlighted";
             } else {
