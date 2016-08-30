@@ -34,6 +34,7 @@ Video.prototype.setButtonEvents = function () {
     this.addSelectListener(this.buttonPlay, "click", this.playPauseVideo);
     this.addSelectListener(this.buttonMute, "click", this.muteVideo);
     this.addSelectListener(this.buttonSpeed, "click", this.speedVideo);
+    this.bindCaptions();
 };
 
 Video.prototype.setTimingEvents = function () {
@@ -146,12 +147,23 @@ Video.prototype.updateCaptions = function () {
         for (var i = 0; i < this.captions.length; i++) {
             var startTime = convertTimeString(this.captions[i].dataset.timeStart);
             var endTime = convertTimeString(this.captions[i].dataset.timeEnd);
-            if (time >= startTime && time <= endTime ) {
+            if (time >= startTime && time < endTime ) {
                 this.captions[i].className = "caption-highlighted";
                 this.captions[i] = "caption-highlighted";
             } else {
                 this.captions[i].className = "";
             }
+        }
+    }
+};
+
+Video.prototype.bindCaptions = function () {
+    var self = this;
+    if (this.captions.length > 0) {
+        for (var i = 0; i < this.captions.length; i++) {
+            this.captions[i].addEventListener("click", function (event) {
+                self.source.currentTime = convertTimeString(this.dataset.timeStart);
+            });
         }
     }
 };
