@@ -128,9 +128,12 @@ Video.prototype.niceTime = function (time) {
 };
 
 Video.prototype.setDurration = function () {
-    console.log("Setting clock");
     this.startTime.innerText = this.niceTime(this.source.currentTime);
-    this.endTime.innerText = this.niceTime(this.source.duration);
+    if (!isNaN(this.source.duration)) {
+        this.endTime.innerText = this.niceTime(this.source.duration);
+    } else {
+        this.endTime.innerText = "???";
+    }
 };
 
 function convertTimeString(time) {
@@ -173,6 +176,7 @@ Video.prototype.bindCaptions = function () {
 Video.prototype.init = function () {
     console.log("Video player started");
     this.source.controls = false;
+    this.setDurration();
     this.setButtonEvents();
     this.setTimingEvents();
 };
