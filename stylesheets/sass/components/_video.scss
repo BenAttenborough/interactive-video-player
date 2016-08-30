@@ -51,7 +51,7 @@ video {
 
 #progressBar_prog {
   width: 0;
-  background-color: orange;
+  background-color: $progress-bar;
 }
 
 #controls_container {
@@ -85,6 +85,10 @@ video {
   width: 200px;
 }
 
+.caption-highlighted {
+  color: $progress-bar;
+  font-weight: bold;
+}
 
 //.clearfix::after {
 //  content: " ";

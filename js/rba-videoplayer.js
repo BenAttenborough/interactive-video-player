@@ -18,7 +18,8 @@ var Video = function () {
     this.buttonMuteIcon = document.getElementById("icon_mute");
     this.buttonSpeed = document.getElementById("buttons_speed");
     this.buttonSpeedIcon = document.getElementById("icon_speed");
-
+    var captionsContainer = document.getElementById("video_captions");
+    this.captions = captionsContainer.getElementsByTagName("p");
 
 
     this.init();
@@ -92,6 +93,7 @@ Video.prototype.updateVideoStatus = function () {
     this.updateProgressBar();
     this.updateBuffBar();
     this.updateTime();
+    this.updateCaptions();
 };
 
 Video.prototype.updateProgressBar = function () {
@@ -126,6 +128,32 @@ Video.prototype.setDurration = function () {
     console.log("Setting clock");
     this.startTime.innerText = this.niceTime(this.source.currentTime);
     this.endTime.innerText = this.niceTime(this.source.duration);
+};
+
+function convertTimeString(time) {
+    var result;
+    var hours = parseInt(time.substr(0, 2));
+    var minutes = parseInt(time.substr(3, 2));
+    var seconds = parseInt(time.substr(6, 2));
+    var milliseconds = parseInt(time.substr(9, 3));
+    result = (hours * 3600) + (minutes * 60) + seconds + (milliseconds * 0.001);
+    return result;
+}
+
+Video.prototype.updateCaptions = function () {
+    var time = this.source.currentTime;
+    if (this.captions.length > 0) {
+        for (var i = 0; i < this.captions.length; i++) {
+            var startTime = convertTimeString(this.captions[i].dataset.timeStart);
+            var endTime = convertTimeString(this.captions[i].dataset.timeEnd);
+            if (time >= startTime && time <= endTime ) {
+                this.captions[i].className = "caption-highlighted";
+                this.captions[i] = "caption-highlighted";
+            } else {
+                this.captions[i].className = "";
+            }
+        }
+    }
 };
 
 Video.prototype.init = function () {
