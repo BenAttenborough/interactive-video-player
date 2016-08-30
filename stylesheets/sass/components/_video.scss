@@ -12,6 +12,13 @@ video {
 }
 
 #rba_video
+#video_container:hover #controls_container {
+  @media screen and (min-width: $desktop) {
+    display: block;
+  }
+}
+
+#rba_video
 #video_interface {
   position: absolute;
   height: auto;
@@ -31,7 +38,7 @@ video {
 #progressBar_container {
   height: 10px;
   width: 100%;
-  padding: 10px 0 0;
+  padding: 10px 0;
 }
 
 #rba_video #progressBar_buff_container,
@@ -66,9 +73,10 @@ video {
 #rba_video #controls_container {
   width: 100%;
   height: 10px;
-  margin: 0.5em 0;
+  margin-bottom: 0.5em;
+  //margin: 0.5em 0;
   @media screen and (min-width: $tablet) {
-    margin: 10px 0 0;
+    margin: 0;
     height: 20px;
   }
   @media screen and (min-width: $desktop) {
