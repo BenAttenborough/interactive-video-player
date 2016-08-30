@@ -12,17 +12,22 @@ video {
 
 #video_interface {
   position: absolute;
-  height: 70px;
+  height: 40px;
   width: 100%;
-  margin-top: -73px;
+  padding: 0 5px;
+  margin-top: -44px;
   background-color: $interface-color;
   background-color: rgba($interface-color, $interface-opacity);
+  @media screen and (min-width: $tablet) {
+    height: 50px;
+    margin-top: -54px;
+  }
 }
 
 #progressBar_container {
-  height: 20px;
+  height: 10px;
   width: 100%;
-  padding: 17px 0 0;
+  padding: 10px 0 0;
 }
 
 #progressBar_buff_container,
@@ -56,8 +61,12 @@ video {
 
 #controls_container {
   width: 100%;
-  height: 50px;
-  padding: 1em;
+  height: 10px;
+  margin: 0.5em 0;
+  @media screen and (min-width: $tablet) {
+    margin: 10px 0;
+    height: 20px;
+  }
 }
 
 .button,
@@ -67,12 +76,18 @@ video {
 }
 
 .button {
-  width: 20px;
-  margin: 0 0.5em;
+  margin: 0 5px;
 }
 
 .button img {
   height: 100%;
+}
+
+#buttons_play img {
+  width:10px;
+  @media screen and (min-width: $tablet) {
+    width: 17px;
+  }
 }
 
 .btn_right {
@@ -82,7 +97,31 @@ video {
 .clock {
   color: #FFF;
   font-weight: bold;
-  width: 200px;
+  width: 100px;
+  font-size: 0.7em;
+  margin-top: 3px;
+  margin-left: 2px;
+  @media screen and (min-width: $tablet) {
+    margin-top: 2px;
+    font-size: 1em;
+  }
+}
+
+#buttons_time {
+  display: none;
+  @media screen and (min-width: $sm-phone) {
+    display: block;
+  }
+}
+
+#buttons_fullscreen,
+#buttons_speed,
+#buttons_cc,
+#buttons_gain {
+  display: none;
+  @media screen and (min-width: $med-phone) {
+    display: block;
+  }
 }
 
 .caption-highlighted {
