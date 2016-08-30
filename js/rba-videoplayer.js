@@ -56,10 +56,16 @@ Video.prototype.setTimingEvents = function () {
 };
 
 Video.prototype.showCaptions = function () {
+    var OnImg = 'assets/icons/CC.png';
+    var OffImg = 'assets/icons/noCC.png';
+    //this.toggleButton(this.source.muted, this.buttonMuteIcon, volOnImg, volOffImg);
+
     if (this.source.textTracks[0].mode == 'hidden') {
         this.source.textTracks[0].mode = 'showing';
+        this.buttonCCIcon.src = OffImg;
     } else {
         this.source.textTracks[0].mode = 'hidden';
+        this.buttonCCIcon.src = OnImg;
     }
 };
 
