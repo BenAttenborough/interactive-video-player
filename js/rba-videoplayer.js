@@ -94,7 +94,7 @@ Video.prototype.goFullScreen = function () {
     }
 };
 
-Video.prototype.setVolume = function () {
+Video.prototype.setVolume = function (event) {
     var mouseLocation = event.offsetY;
     var containerHeight = this.gainBar.offsetHeight;
     var position = mouseLocation / containerHeight;
