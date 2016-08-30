@@ -24,6 +24,10 @@ var Video = function () {
     this.gainBarLevel = document.getElementById("gain_control_bar_inner");
     this.buttonSpeed = document.getElementById("buttons_speed");
     this.buttonSpeedIcon = document.getElementById("icon_speed");
+    this.buttonCC = document.getElementById("buttons_cc");
+    this.buttonCCIcon = document.getElementById("icon_cc");
+    this.ccContainer = document.getElementById("cc_control");
+    this.ccTracks = null;
     this.buttonFullScreen = document.getElementById("buttons_fullscreen");
     var captionsContainer = document.getElementById("video_captions");
     this.captions = captionsContainer.getElementsByTagName("p");
@@ -40,6 +44,7 @@ Video.prototype.setButtonEvents = function () {
     this.addSelectListener(this.buttonMute, "click", this.muteVideo);
     this.addSelectListener(this.buttonGain, "click", this.showGainControl);
     this.addSelectListener(this.buttonSpeed, "click", this.speedVideo);
+    this.addSelectListener(this.buttonCC, "click", this.showCaptions);
     this.addSelectListener(this.gainBar, "click", this.setVolume);
     this.addSelectListener(this.buttonFullScreen, "click", this.goFullScreen);
     this.bindCaptions();
@@ -48,6 +53,14 @@ Video.prototype.setButtonEvents = function () {
 Video.prototype.setTimingEvents = function () {
     this.addSelectListener(this.source, "timeupdate", this.updateVideoStatus);
     this.addSelectListener(this.source, "durationchange", this.setDurration);
+};
+
+Video.prototype.showCaptions = function () {
+    if (this.source.textTracks[0].mode == 'hidden') {
+        this.source.textTracks[0].mode = 'showing';
+    } else {
+        this.source.textTracks[0].mode = 'hidden';
+    }
 };
 
 Video.prototype.isFullScreen = function () {
@@ -220,12 +233,52 @@ Video.prototype.bindCaptions = function () {
     }
 };
 
+Video.prototype.buildCCBox = function () {
+    var captionNode = document.createElement("div");
+    captionNode.className = "caption_container";
+
+    for (var i = 0; i < this.source.textTracks.length; i++) {
+        
+    }
+};
+
+Video.prototype.assignCCListener = function () {
+    this.ccTracks = document.getElementsByClassName("cc_track");
+
+    for (var i = 0; i < this.ccTracks.length; i++) {
+        this.ccTracks[i].addEventListener("click", function (event) {
+            for (var i = 0; i < self.ccTracks.length; i++) {
+                self.source.textTracks[i].mode = 'hidden';
+                self.ccTracks[i].setAttribute("style", "font-weight: 100");
+            }
+            self.source.textTracks[this.dataset.capNo].mode = "showing";
+            self.ccTracks[this.dataset.capNo].setAttribute("style", "font-weight: bold");
+        })
+    }
+};
+
+Video.prototype.checkCaptions = function () {
+    self = this;
+    if (this.source.textTracks.length > 0) {
+        this.buttonCC.style.display = "block";
+        this.buildCCBox();
+
+        //this.ccContainer.innerHTML += "<p data-no-cc='true' class='cc_track'>No caption</p>";
+        //for (var i = 0; i < this.source.textTracks.length; i++) {
+        //    this.ccContainer.innerHTML += "<p data-cap-no='" + i + "' class='cc_track'>" + this.source.textTracks[i].label + "</p>";
+        //    this.source.textTracks[i].mode = 'hidden';
+        //}
+        //this.assignCCListener();
+    }
+};
+
 Video.prototype.init = function () {
     console.log("Video player started");
     this.source.controls = false;
     this.setDurration();
     this.setButtonEvents();
     this.setTimingEvents();
+    this.checkCaptions();
 };
 
 Video.prototype.updateTime = function () {

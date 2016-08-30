@@ -26,7 +26,8 @@
                 <video id="video_source" controls>
                     <source src="assets/video/video.mp4" type="video/mp4">
                     <source src="assets/video/video.ogg" type="video/ogg">
-                    <track label="Closed Captions" kind="captions" srclang="de" src="german.vtt" default>
+                    <track label="Closed captions" kind="captions" srclang="en" src="captions.vtt" default>
+                    <track label="German" kind="captions" srclang="de" src="german.vtt" default>
                 </video>
                 <div id="video_interface">
                     <div id="progressBar_container">
@@ -60,9 +61,23 @@
                         <div id="buttons_mute" class="button btn_right">
                             <img src="assets/icons/volume-on-icon.png" alt="Mute button" id="icon_mute">
                         </div>
-                        <div id="buttons_cc" class="button btn_right">
-                            <img src="assets/icons/closed_caption.png" alt="Closed captions button" id="icon_cc">
+
+
+
+                        <div id="cc_container">
+                            <div id="cc_control">
+
+                            </div>
+                            <div id="buttons_cc" class="button btn_right">
+                                <img src="assets/icons/closed_caption.png" alt="Closed captions button" id="icon_cc">
+                            </div>
                         </div>
+
+
+
+                        <!--<div id="buttons_cc" class="button btn_right">-->
+                            <!--<img src="assets/icons/closed_caption.png" alt="Closed captions button" id="icon_cc">-->
+                        <!--</div>-->
                         <div id="buttons_speed" class="button btn_right">
                             <img src="assets/icons/full_motion.png" alt="Closed captions button" id="icon_speed">
                         </div>
