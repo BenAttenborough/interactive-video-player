@@ -18,7 +18,6 @@ var Video = function () {
     this.buttonMute = document.getElementById("buttons_mute");
     this.buttonMuteIcon = document.getElementById("icon_mute");
     this.buttonGain = document.getElementById("buttons_gain");
-    this.buttonGainIcon = document.getElementById("icon_gain");
     this.gainControl = document.getElementById("gain_control");
     this.gainBar = document.getElementById("gain_control_bar");
     this.gainBarLevel = document.getElementById("gain_control_bar_inner");
@@ -26,8 +25,6 @@ var Video = function () {
     this.buttonSpeedIcon = document.getElementById("icon_speed");
     this.buttonCC = document.getElementById("buttons_cc");
     this.buttonCCIcon = document.getElementById("icon_cc");
-    this.ccContainer = document.getElementById("cc_control");
-    this.ccTracks = null;
     this.buttonFullScreen = document.getElementById("buttons_fullscreen");
     var captionsContainer = document.getElementById("video_captions");
     this.captions = captionsContainer.getElementsByTagName("span");
@@ -58,8 +55,6 @@ Video.prototype.setTimingEvents = function () {
 Video.prototype.showCaptions = function () {
     var OnImg = 'assets/icons/CC.png';
     var OffImg = 'assets/icons/noCC.png';
-    //this.toggleButton(this.source.muted, this.buttonMuteIcon, volOnImg, volOffImg);
-
     if (this.source.textTracks[0].mode == 'hidden') {
         this.source.textTracks[0].mode = 'showing';
         this.buttonCCIcon.src = OffImg;
@@ -73,7 +68,7 @@ Video.prototype.isFullScreen = function () {
     return !!(document.fullScreen || document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || document.fullscreenElement);
 };
 
-Video.prototype.setFullscreenData = function(state) {
+Video.prototype.setFullscreenData = function (state) {
     this.videoContainer.setAttribute('data-fullscreen', !!state);
 };
 
@@ -257,7 +252,6 @@ Video.prototype.checkCaptions = function () {
 };
 
 Video.prototype.init = function () {
-    console.log("Video player started");
     this.source.controls = false;
     this.setDurration();
     this.setButtonEvents();
