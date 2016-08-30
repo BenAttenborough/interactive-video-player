@@ -18,6 +18,8 @@ var Video = function () {
     this.buttonMuteIcon = document.getElementById("icon_mute");
     this.buttonGain = document.getElementById("buttons_gain");
     this.buttonGainIcon = document.getElementById("icon_gain");
+    this.gainControl = document.getElementById("gain_control");
+    this.gainBar = document.getElementById("gain_control_bar");
     this.buttonSpeed = document.getElementById("buttons_speed");
     this.buttonSpeedIcon = document.getElementById("icon_speed");
     var captionsContainer = document.getElementById("video_captions");
@@ -35,7 +37,9 @@ Video.prototype.setButtonEvents = function () {
     this.addSelectListener(this.progressContainer, "click", this.skipToLocationListener);
     this.addSelectListener(this.buttonPlay, "click", this.playPauseVideo);
     this.addSelectListener(this.buttonMute, "click", this.muteVideo);
+    this.addSelectListener(this.buttonGain, "click", this.showGainControl);
     this.addSelectListener(this.buttonSpeed, "click", this.speedVideo);
+    this.addSelectListener(this.gainBar, "click", this.setVolume);
     this.bindCaptions();
 };
 
@@ -44,11 +48,28 @@ Video.prototype.setTimingEvents = function () {
     this.addSelectListener(this.source, "durationchange", this.setDurration);
 };
 
+Video.prototype.setVolume = function () {
+    var mouseLocation = event.offsetY;
+    var containerHeight = this.gainBar.offsetHeight;
+    var position = mouseLocation / containerHeight;
+    position = 1 - position;
+    console.log(position);
+    this.source.volume = position;
+    //this.source.currentTime = position * this.source.duration;
+};
+
+Video.prototype.showGainControl = function () {
+    if (this.gainControl.style.display === "block") {
+        this.gainControl.style.display = "none";
+    } else {
+        this.gainControl.style.display = "block";
+    }
+};
+
 Video.prototype.speedVideo = function () {
     var fullMotionImg = 'assets/icons/full_motion.png';
     var slowMotionImg = 'assets/icons/slow_motion.png';
     this.source.muted = !this.source.muted;
-    //this.toggleButton(this.source.muted, this.buttonMuteIcon, fullMotionImg, slowMotionImg);
     if (this.source.playbackRate == 1) {
         this.source.playbackRate = 0.5;
         this.buttonSpeedIcon.src = slowMotionImg;
