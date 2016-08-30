@@ -2,218 +2,179 @@
   box-sizing: border-box;
 }
 
-//.clearfix::after {
-//  content: " ";
-//  display: table;
-//  clear: both;
-//}
-
 video {
   width: 100%;
 }
 
-.videoWindow {
+#rba_video
+#video_container {
   position: relative;
-  background-color: black;
+  background-color: rgba(white, 0);
 }
 
-.video,
-.video-caption {
-  position: relative;
-  margin: 1em 20px;
-}
-
-.video .video__interface .buttons {
-  @media screen and (min-width: $desktop) {
-    display: none;
-  }
-}
-
-.video:hover .video__interface .buttons {
+#rba_video
+#video_container:hover #controls_container {
   @media screen and (min-width: $desktop) {
     display: block;
   }
 }
 
-.video__interface {
-  margin: 0;
+#rba_video
+#video_interface {
   position: absolute;
-  bottom: 3px;
+  height: auto;
   width: 100%;
-  height: 60px;
-  @media screen and (min-width: $desktop) {
-    height: 25px;
-  }
-  background-color: rgba(0,0,0,$interface-opacity);
-  //background-color: red;
-  padding: 0 10px;
-}
-
-.video:hover .video__interface {
-  height: 60px;
-}
-
-.progContainer {
-  width: 100%;
-  height: 20px;
-  //background-color: red;
+  //margin-bottom: 5px;
+  padding: 0 5px 5px;
+  bottom: 4px;
+  background-color: $interface-color;
+  background-color: rgba($interface-color, $interface-opacity);
   @media screen and (min-width: $tablet) {
-    height: 25px;
+    //height: 50px;
+    margin-top: -4px;
   }
 }
 
-.progContainer__inner {
-  height: 11px;
-  padding-top: 8px;
-  @media screen and (min-width: $tablet) {
-    height: 15px;
-    padding-top: 12px;
-  }
-}
-
-.progContainer__inner_empty {
-  height: 100%;
-  background-color: $progress-empty;
-  position: relative;
-}
-
-.progContainer__buffered {
-  height: 100%;
+#rba_video
+#progressBar_container {
+  height: 10px;
   width: 100%;
-  //background-color: red;
-  position: relative;
+  padding: 10px 0;
 }
 
-.progContainer__buffered_bar{
-  width: 0;
-  height: 100%;
-  background-color: lighten($progress-empty, 75%);
-  position: absolute;
-}
-
-.progContainer__progress {
-  height: 100%;
+#rba_video #progressBar_buff_container,
+#rba_video #progressBar_prog_container {
+  height: $progress-bar-height;
   width: 100%;
-  //background-color: aquamarine;
-  position: relative;
-  margin-top: -3px;
 }
 
-.progContainer__progress_bar {
+#rba_video #progressBar_buff_container {
+  background-color: black;
+}
+
+#rba_video #progressBar_prog_container {
+  margin-top: -$progress-bar-height;
+}
+
+#rba_video #progressBar_buff,
+#rba_video #progressBar_prog {
+  height: $progress-bar-height;
+}
+
+#rba_video #progressBar_buff {
   width: 0;
-  height: 100%;
+  background-color: #444;
+}
+
+#rba_video #progressBar_prog {
+  width: 0;
   background-color: $progress-bar;
-  position: absolute;
 }
 
-.buttons {
-  height: 20px;
-  margin-bottom: 15px;
+#rba_video #controls_container {
+  width: 100%;
+  height: 10px;
+  margin-bottom: 0.5em;
+  //margin: 0.5em 0;
+  @media screen and (min-width: $tablet) {
+    margin: 0;
+    height: 20px;
+  }
+  @media screen and (min-width: $desktop) {
+    display: none;
+  }
 }
 
-.buttons__play,
-.buttons__mute,
-.buttons__fullscreen,
-.buttons__timeContainer,
-.buttons__speed,
-.buttons__captions {
-  display: inline;
+#rba_video .button,
+#rba_video .clock {
+  height: 100%;
+  float: left;
+}
+
+#rba_video .button {
   margin: 0 5px;
 }
 
-.buttons__play,
-.buttons__timeContainer {
-  margin: 0 10px;
+#rba_video .button img {
+  height: 100%;
 }
 
-.buttons__timeContainer{
-  position: relative;
-  top: -5px;
+#rba_video #buttons_play img {
+  width:10px;
+  @media screen and (min-width: $tablet) {
+    width: 17px;
+  }
 }
 
-.buttons__fullscreen,
-.buttons__mute,
-.buttons__captions,
-.buttons__speed {
+#rba_video .btn_right {
   float: right;
 }
 
-.buttons__mute,
-.buttons__captions {
-  position: relative;
-  height: 150px;
-  width: 20px;
-  top: -120px;
+#rba_video .clock {
+  color: #FFF;
+  font-weight: bold;
+  width: 100px;
+  font-size: 0.7em;
+  margin-top: 3px;
+  margin-left: 2px;
+  @media screen and (min-width: $tablet) {
+    margin-top: 2px;
+    font-size: 1em;
+  }
 }
 
-//Will need to move captions out to style differently
-.buttons__volume,
-.buttons__captions_select {
-  position: absolute;
+#rba_video #buttons_time {
+  display: none;
+  @media screen and (min-width: $sm-phone) {
+    display: block;
+  }
+}
+
+#rba_video #buttons_cc {
   display: none;
 }
 
-.buttons__volume {
+#rba_video #buttons_fullscreen,
+#rba_video #buttons_speed,
+#rba_video #buttons_gain {
+  display: none;
+  @media screen and (min-width: $med-phone) {
+    display: block;
+  }
+}
+
+#rba_video #gain_container,
+#rba_video #cc_container {
+  position: relative;
+  height: 100%;
+  float: right;
+}
+
+#rba_video #gain_control {
+  position: absolute;
   height: 100px;
   width: 20px;
-  background-color: rgba(50,50,50,0.5);
+  background-color: $interface-color;
+  background-color: rgba($interface-color, $interface-opacity);
+  top: -120px;
+  left: 5px;
   padding: 5px;
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  border-radius: 5px 5px 0 0;
+  display: none;
 }
 
-.buttons__captions_select {
-  height: 100px;
-  width: 50px;
-  background-color: red;
-  display: block;
-}
-
-.buttons__mute img,
-.buttons__captions img {
-  height: 20px;
-  position: absolute;
-  top: 120px;
-}
-
-.buttons__captions img {
-  height: 27px;
-  margin-top: -3px;
-  margin-left: -3px;
-}
-
-.buttons__fullscreen img {
-  height: 17px;
-  margin-top: 2px;
-}
-
-.buttons__speed img {
-  height: 20px;
-}
-
-.volume__inner{
+#rba_video #gain_control_bar {
   height: 100%;
+  width: 100%;
   background-color: $progress-bar;
 }
 
-.volume__inner_empty {
-  background-color: #333;
-  height: 0%;
+#rba_video #gain_control_bar_inner {
+  width: 100%;
+  height: 0;
+  background-color: black;
 }
 
-.buttons__play img,
-.buttons__timeContainer img {
-  height: 100%;
-}
-
-.currentTime,
-.endTime {
-  color: #FFF;
-  font-weight: bold;
-}
-
-.caption-highlighted {
-  color: #ff9900;
+#rba_video .caption-highlighted {
+  color: $progress-bar;
   font-weight: bold;
 }

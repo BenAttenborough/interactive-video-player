@@ -1,5 +1,7 @@
 // Layouts
 
+$sm-phone: 200px;
+$med-phone: 280px;
 $tablet: 600px;
 $desktop: 1200px;
 
@@ -7,4 +9,9 @@ $desktop: 1200px;
 
 $progress-empty: rgba(255,255,255,0.1);
 $progress-bar: #ff9900;
+$interface-color: black;
 $interface-opacity: 0.2;
+
+// Elements
+
+$progress-bar-height: 3px;
