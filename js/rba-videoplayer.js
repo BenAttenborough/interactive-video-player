@@ -7,6 +7,7 @@ var RBA_Videoplayer = RBA_Videoplayer || {};
 
 var Video = function () {
     this.source = document.getElementById("video_source");
+    this.videoContainer = document.getElementById("video_container");
     this.progressContainer = document.getElementById("progressBar_container");
     this.progressBar = document.getElementById("progressBar_prog");
     this.buffBar = document.getElementById("progressBar_buff");
@@ -23,6 +24,7 @@ var Video = function () {
     this.gainBarLevel = document.getElementById("gain_control_bar_inner");
     this.buttonSpeed = document.getElementById("buttons_speed");
     this.buttonSpeedIcon = document.getElementById("icon_speed");
+    this.buttonFullScreen = document.getElementById("buttons_fullscreen");
     var captionsContainer = document.getElementById("video_captions");
     this.captions = captionsContainer.getElementsByTagName("p");
     this.init();
@@ -39,12 +41,38 @@ Video.prototype.setButtonEvents = function () {
     this.addSelectListener(this.buttonGain, "click", this.showGainControl);
     this.addSelectListener(this.buttonSpeed, "click", this.speedVideo);
     this.addSelectListener(this.gainBar, "click", this.setVolume);
+    this.addSelectListener(this.buttonFullScreen, "click", this.goFullScreen);
     this.bindCaptions();
 };
 
 Video.prototype.setTimingEvents = function () {
     this.addSelectListener(this.source, "timeupdate", this.updateVideoStatus);
     this.addSelectListener(this.source, "durationchange", this.setDurration);
+};
+
+Video.prototype.isFullScreen = function () {
+    return !!(document.fullScreen || document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || document.fullscreenElement);
+};
+
+Video.prototype.setFullscreenData = function(state) {
+    this.videoContainer.setAttribute('data-fullscreen', !!state);
+};
+
+Video.prototype.goFullScreen = function () {
+    if (this.isFullScreen()) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+        else if (document.webkitCancelFullScreen) document.webkitCancelFullScreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+        this.setFullscreenData(false);
+    }
+    else {
+        if (this.videoContainer.requestFullscreen) this.videoContainer.requestFullscreen();
+        else if (this.videoContainer.mozRequestFullScreen) this.videoContainer.mozRequestFullScreen();
+        else if (this.videoContainer.webkitRequestFullScreen) this.videoContainer.webkitRequestFullScreen();
+        else if (this.videoContainer.msRequestFullscreen) this.videoContainer.msRequestFullscreen();
+        this.setFullscreenData(true);
+    }
 };
 
 Video.prototype.setVolume = function () {
