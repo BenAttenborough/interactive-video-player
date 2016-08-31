@@ -28,6 +28,7 @@ var Video = function () {
     this.buttonFullScreen = document.getElementById("buttons_fullscreen");
     var captionsContainer = document.getElementById("video_captions");
     this.captions = captionsContainer.getElementsByTagName("span");
+    this.showCC = false;
     this.init();
 };
 
@@ -56,9 +57,11 @@ Video.prototype.showCaptions = function () {
     var OnImg = 'assets/icons/CC.png';
     var OffImg = 'assets/icons/noCC.png';
     if (this.source.textTracks[0].mode == 'hidden') {
+        this.showCC = true;
         this.source.textTracks[0].mode = 'showing';
         this.buttonCCIcon.src = OffImg;
     } else {
+        this.showCC = false;
         this.source.textTracks[0].mode = 'hidden';
         this.buttonCCIcon.src = OnImg;
     }
@@ -146,6 +149,14 @@ Video.prototype.playPauseVideo = function () {
     if (this.source.paused || this.source.ended) {
         this.source.play();
         this.buttonPlayIcon.src = "assets/icons/pause-icon.png";
+
+        // Note: Safari fix. When video play Safari appears to reset the captions vtt
+        // to "showing". So this method prevents that if captions are turned off
+        if (this.showCC === false) {
+            for (var i = 0; i < this.source.textTracks.length; i++) {
+                this.source.textTracks[i].mode = 'hidden';
+            }
+        }
     }
     else {
         this.source.pause();
@@ -243,6 +254,7 @@ Video.prototype.bindCaptions = function () {
 };
 
 Video.prototype.checkCaptions = function () {
+    this.preventCCByDefault();
     var tracks = this.source.textTracks;
     if (tracks.length > 0) {
         this.buttonCC.style.display = "block";
@@ -250,8 +262,13 @@ Video.prototype.checkCaptions = function () {
             for (var a = 0; a < tracks[i].cues.length; a++) {
                 tracks[i].cues[a].line = -4;
             }
-            tracks[i].mode = 'hidden';
         }
+    }
+};
+
+Video.prototype.preventCCByDefault = function () {
+    for (var i = 0; i < this.source.textTracks.length; i++) {
+        this.source.textTracks[i].mode = 'hidden';
     }
 };
 
