@@ -93,6 +93,10 @@ Video.prototype.goFullScreen = function () {
 };
 
 Video.prototype.setVolume = function (event) {
+    // If user hits the gain it automatically unmutes the volume
+    this.source.muted = true;
+    this.muteVideo();
+
     var mouseLocation = event.offsetY;
     var containerHeight = this.gainBar.offsetHeight;
     var position = mouseLocation / containerHeight;
