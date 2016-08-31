@@ -49,7 +49,7 @@ Video.prototype.setButtonEvents = function () {
 
 Video.prototype.setTimingEvents = function () {
     this.addSelectListener(this.source, "timeupdate", this.updateVideoStatus);
-    this.addSelectListener(this.source, "durationchange", this.setDurration);
+    this.addSelectListener(this.source, "durationchange", this.setDuration);
 };
 
 Video.prototype.showCaptions = function () {
@@ -196,7 +196,7 @@ Video.prototype.niceTime = function (time) {
     return niceTime;
 };
 
-Video.prototype.setDurration = function () {
+Video.prototype.setDuration = function () {
     this.startTime.innerText = this.niceTime(this.source.currentTime);
     if (!isNaN(this.source.duration)) {
         this.endTime.innerText = this.niceTime(this.source.duration);
@@ -257,7 +257,7 @@ Video.prototype.checkCaptions = function () {
 
 Video.prototype.init = function () {
     this.source.controls = false;
-    this.setDurration();
+    this.setDuration();
     this.setButtonEvents();
     this.setTimingEvents();
     this.checkCaptions();
