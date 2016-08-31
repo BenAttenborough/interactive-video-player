@@ -127,6 +127,13 @@ Video.prototype.muteVideo = function () {
     var volOffImg = 'assets/icons/volume-off-icon.png';
     this.source.muted = !this.source.muted;
     this.toggleButton(this.source.muted, this.buttonMuteIcon, volOnImg, volOffImg);
+    console.log(this.source.muted);
+    if (this.source.muted) {
+        this.gainBarLevel.setAttribute("style", "height: 100%");
+    } else {
+        var percentVolume = Math.round(this.source.volume * 100) + "%";
+        this.gainBarLevel.setAttribute("style", "height: " + percentVolume);
+    }
 };
 
 Video.prototype.toggleButton = function (button, element, onIcon, offIcon) {
