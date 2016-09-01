@@ -39,7 +39,7 @@ Video.prototype.addSelectListener = function (element, type, func) {
 Video.prototype.setButtonEvents = function () {
     this.addSelectListener(this.progressContainer, "click", this.skipToLocationListener);
     this.addSelectListener(this.buttonPlay, "click", this.playPauseVideo);
-    this.addSelectListener(this.buttonMute, "click", this.muteVideo);
+    this.addSelectListener(this.buttonMute, "click", this.muteUnmuteVideo);
     this.addSelectListener(this.buttonGain, "click", this.showGainControl);
     this.addSelectListener(this.buttonSpeed, "click", this.speedVideo);
     this.addSelectListener(this.buttonCC, "click", this.showCaptions);
@@ -94,9 +94,7 @@ Video.prototype.goFullScreen = function () {
 
 Video.prototype.setVolume = function (event) {
     // If user hits the gain it automatically unmutes the volume
-    this.source.muted = true;
-    this.muteVideo();
-
+    this.unmuteVideo();
     var mouseLocation = event.offsetY;
     var containerHeight = this.gainBar.offsetHeight;
     var position = mouseLocation / containerHeight;
@@ -127,15 +125,25 @@ Video.prototype.speedVideo = function () {
 };
 
 Video.prototype.muteVideo = function () {
-    var volOnImg = 'assets/icons/volume-on-icon.png';
-    var volOffImg = 'assets/icons/volume-off-icon.png';
-    this.source.muted = !this.source.muted;
-    this.toggleButton(this.source.muted, this.buttonMuteIcon, volOnImg, volOffImg);
+    var volOnImg = 'assets/icons/volume-off-icon.png';
+    this.source.muted = true;
+    this.buttonMuteIcon.src = volOnImg;
+    this.gainBarLevel.setAttribute("style", "height: 100%");
+};
+
+Video.prototype.unmuteVideo = function () {
+    var volOffImg = 'assets/icons/volume-on-icon.png';
+    this.source.muted = false;
+    this.buttonMuteIcon.src = volOffImg;
+    var percentVolume = Math.round((1 - this.source.volume) * 100) + "%";
+    this.gainBarLevel.setAttribute("style", "height: " + percentVolume);
+};
+
+Video.prototype.muteUnmuteVideo = function () {
     if (this.source.muted) {
-        this.gainBarLevel.setAttribute("style", "height: 100%");
+        this.unmuteVideo();
     } else {
-        var percentVolume = Math.round((1 - this.source.volume) * 100) + "%";
-        this.gainBarLevel.setAttribute("style", "height: " + percentVolume);
+        this.muteVideo();
     }
 };
 
