@@ -1,9 +1,11 @@
 /**
  * Created by ben on 29/08/2016.
+ *
+ * Checked on Chrome (Mac), Firefox (Mac) and Safari (Mac)
  */
 
 // global namespace
-var RBA_Videoplayer = RBA_Videoplayer || {};
+var RBA_APP = RBA_APP || {};
 
 var Video = function () {
     this.source = document.getElementById("video_source");
@@ -144,18 +146,6 @@ Video.prototype.muteUnmuteVideo = function () {
         this.unmuteVideo();
     } else {
         this.muteVideo();
-    }
-};
-
-Video.prototype.toggleButton = function (button, element, onIcon, offIcon) {
-    var onImg = onIcon;
-    var offImg = offIcon;
-    var button = button;
-    button = !button;
-    if (button) {
-        element.src = onImg;
-    } else {
-        element.src = offImg;
     }
 };
 
@@ -302,4 +292,4 @@ Video.prototype.updateTime = function () {
     this.startTime.innerText = this.niceTime(this.source.currentTime);
 };
 
-RBA_Videoplayer.video = new Video();
+RBA_APP.video = new Video();
